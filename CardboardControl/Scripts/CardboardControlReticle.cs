@@ -59,7 +59,7 @@ public class CardboardControlReticle : MonoBehaviour {
   }
 
   void Start() {
-    reticle = Camera.main.transform.Find("CardboardReticle").gameObject;
+    reticle = Camera.main.transform.Find("GvrReticle").gameObject;
     if (startHidden) {
       alphaFade.target = 0f;
       alphaFade.source = 0f;
@@ -75,17 +75,17 @@ public class CardboardControlReticle : MonoBehaviour {
     Camera.main.gameObject.GetComponent<PhysicsRaycaster>().eventMask = layerMask;
   }
 
-  private void SetPositionOn(GameObject head) {
-    Vector3 newPosition = head.transform.position;
-    newPosition += head.transform.forward*20f;
-    reticle.transform.position = newPosition;
-  }
+  //private void SetPositionOn(GameObject head) {
+  //  Vector3 newPosition = head.transform.position;
+  //  newPosition += head.transform.forward*20f;
+  //  reticle.transform.position = newPosition;
+  //}
 
-  private void SetRotationOn(GameObject head) {
-    Vector3 oldRotation = reticle.transform.localEulerAngles;
-    reticle.transform.LookAt(head.transform);
-    reticle.transform.localEulerAngles -= oldRotation;
-  }
+  //private void SetRotationOn(GameObject head) {
+  //  Vector3 oldRotation = reticle.transform.localEulerAngles;
+  //  reticle.transform.LookAt(head.transform);
+  //  reticle.transform.localEulerAngles -= oldRotation;
+  //}
 
   public void Highlight(Color color) {
     colorFade.Interrupt();

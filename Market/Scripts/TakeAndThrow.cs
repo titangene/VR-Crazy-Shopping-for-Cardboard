@@ -3,20 +3,21 @@ using System.Collections;
 
 public class TakeAndThrow : MonoBehaviour, IGvrGazeResponder {
 
-    private Vector3 startingPosition;
     public Transform Head;
-    public GvrViewer CB;
+    public GvrViewer GvrMain;
     Rigidbody RB;
     public bool holding = false;
     [Range(1.0f, 10.0f)]
     public float speed = 8.0f;
+
+    private Vector3 startingPosition;
 
     void Start() {
         startingPosition = transform.localPosition;
         // 一開始物體會變成紅色
         SetGazedAt(false);
         // 找到頭部視角鏡頭
-        Head = CB.transform.FindChild("Head");
+        Head = GvrMain.transform.FindChild("Head");
         // 找到當前物體的鋼體
         RB = GetComponent<Rigidbody>();
     }
@@ -28,14 +29,11 @@ public class TakeAndThrow : MonoBehaviour, IGvrGazeResponder {
         }
     }
 
-    void Update() {
-
-    }
-
     #region IGvrGazeResponder implementation
 
     /// Called when the user is looking on a GameObject with this script,
     /// as long as it is set to an appropriate layer (see GvrGaze).
+    /// 準心看到購物車手把
     public void OnGazeEnter() {
         // 準心對準物體會變成綠色
         SetGazedAt(true);
@@ -43,12 +41,14 @@ public class TakeAndThrow : MonoBehaviour, IGvrGazeResponder {
 
     /// Called when the user stops looking on the GameObject, after OnGazeEnter
     /// was already called.
+    /// 準心離開購物車手把
     public void OnGazeExit() {
         // 準心沒有對準物體會變成紅色
         SetGazedAt(false);
     }
 
     /// Called when the viewer's trigger is used, between OnGazeEnter and OnGazeExit.
+    /// 在按下 Gvr 按鈕 與 放開 Gvr 按鈕 之間觸發
     public void OnGazeTrigger() {
         TeleportRandomly();
     }
@@ -96,7 +96,7 @@ public class TakeAndThrow : MonoBehaviour, IGvrGazeResponder {
     public void GetObject() {
 
         if (holding == false) {                                 // 按一下 Cardboard 按鈕
-            transform.parent = Head;                            // 物體會跟著頭部方向移動
+            transform.parent = Head;                            // 將物體放在 Head 物件內(子類別)
             holding = true;
             RB.useGravity = false;                              // 關閉物體的重力
             RB.constraints = RigidbodyConstraints.FreezeAll;    // 鎖定物理效果影響物體的旋轉和移動

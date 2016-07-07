@@ -18,6 +18,7 @@ public class TriggerClick : MonoBehaviour {
         // When the trigger goes down
         // 按下 Gvr 按鈕時
         cardboard.trigger.OnDown += CardboardDown;
+
         // When the trigger comes back up
         // 放開 Gvr 按鈕時
         cardboard.trigger.OnUp += CardboardUp;
@@ -58,21 +59,12 @@ public class TriggerClick : MonoBehaviour {
     // 在設定時間內按下並且快速放開 Gvr 按鈕間，會判定為點擊事件觸發
     private void CardboardClick(object sender) {
         ChangeObjectColor("SphereClick");
-        // 找到 Counter 的文字物件
-        TextMesh textMesh = GameObject.Find("SphereClick/Counter").GetComponent<TextMesh>();
+        // 找到 SphereClick 內的 Counter 的文字物件
+        TextMesh Counter = GameObject.Find("SphereClick/Counter").GetComponent<TextMesh>();
         // 預設是 0，如果偵測是點擊事件就會加 1
-        int increment = int.Parse(textMesh.text) + 1;
+        int increment = int.Parse(Counter.text) + 1;
         // 將加 1 的數字設定至 Counter 文字物件上
-        textMesh.text = increment.ToString();
-
-        // With the cardboard object, we can grab information from various controls
-        // If the raycast doesn't find anything then the focused object will be null
-        // 如果目光沒盯住物體就是nothing
-        string name = cardboard.gaze.IsHeld() ? cardboard.gaze.Object().name : "nothing";
-        // 目光盯了幾秒
-        float count = cardboard.gaze.SecondsHeld();
-        // Debug.Log("We've focused on " + name + " for " + count + " seconds.");
-        Debug.Log("你正在看 " + name + " 物體已經 " + count + " 秒了");
+        Counter.text = increment.ToString();
 
         // If you need more raycast data from cardboard.gaze, the RaycastHit is exposed as gaze.Hit()
     }
@@ -84,17 +76,20 @@ public class TriggerClick : MonoBehaviour {
         CardboardControlGaze gaze = sender as CardboardControlGaze;
         // We can access to the object we're looking at
         // gaze.IsHeld will make sure the gaze.Object() isn't null
+        // 目光盯住的物體時 gaze.IsHeld() = true，目光沒有盯住的物體時 = false
         if (gaze.IsHeld() && gaze.Object().name.Contains("Cube")) {
             ChangeObjectColor(gaze.Object().name);
             // 碰到 HighlightCube 這個方塊準心(cardboard.reticle)會變成紅色
             if (gaze.Object().name == "HighlightCube") {
                 // Highlighting can help identify which objects can be interacted with
                 // The reticle is hidden by default but we already toggled that in the Inspector
-                cardboard.reticle.Highlight(Color.red);
+                // 準心(cardboard.reticle)會變成紅色
+                //cardboard.reticle.Highlight(Color.red);
             }
         }
         // We also can access to the last object we looked at
         // gaze.WasHeld() will make sure the gaze.PreviousObject() isn't null
+        // 存取上一個目光盯住的物體在 gaze.WasHeld()
         if (gaze.WasHeld() && gaze.PreviousObject().name.Contains("Cube")) {
             // 重設上一個目光盯住的方塊顏色(白)
             ResetObjectColor(gaze.PreviousObject().name);
@@ -117,7 +112,7 @@ public class TriggerClick : MonoBehaviour {
         CardboardControlGaze gaze = sender as CardboardControlGaze;
         if (gaze.IsHeld() && gaze.Object().name.Contains("Cube")) {
             // Be sure to hide the cursor when it's not needed
-            cardboard.reticle.Hide();
+            //cardboard.reticle.Hide();
         }
     }
 
@@ -163,21 +158,39 @@ public class TriggerClick : MonoBehaviour {
     * During our game we can utilize data from the CardboardControl API
     */
     void Update() {
+        // 找到 SphereDown 內的 Counter 的文字物件
         TextMesh textMesh = GameObject.Find("SphereDown/Counter").GetComponent<TextMesh>();
-
         // trigger.IsHeld() is true when the trigger has gone down but not back up yet
+        // 按下 Gvr 按鈕時 trigger.IsHeld() = true，放開 Gvr 按鈕時 = false
         if (cardboard.trigger.IsHeld()) {
+            // 顯示SphereDown 內的 Counter 的文字物件
             textMesh.GetComponent<Renderer>().enabled = true;
             // trigger.SecondsHeld() is the number of seconds we've held the trigger down
             textMesh.text = cardboard.trigger.SecondsHeld().ToString("#.##");
         } else {
+            // 閃爍SphereDown 內的 Counter 的文字物件
             textMesh.GetComponent<Renderer>().enabled = Time.time % 1 < 0.5;
         }
+
+        /*
+         * 原本在 CardboardClick(object sender) 下面
+         */
+        // With the cardboard object, we can grab information from various controls
+        // If the raycast doesn't find anything then the focused object will be null
+        // 如果目光沒盯住物體就是nothing
+        string name = cardboard.gaze.IsHeld() ? cardboard.gaze.Object().name : "nothing";
+        // 找到 SphereClick 內的 TimeCounter 的文字物件
+        TextMesh TimeCounter = GameObject.Find("SphereClick/TimeCounter").GetComponent<TextMesh>();
+        // 目光盯了幾秒
+        float count = cardboard.gaze.SecondsHeld();
+        // 將 目光盯了幾秒 的數字設定至 TimeCounter 文字物件上
+        TimeCounter.text = name + "：" + count.ToString("#.###");
     }
 
     /*
     * Be sure to unsubscribe before this object is destroyed
     * so the garbage collector can clean everything up
+    * 當掛載該 Script 的物件被銷毀時，使垃圾回收器可以清理一切 ??? 看不懂
     */
     void OnDestroy() {
         cardboard.trigger.OnDown -= CardboardDown;
