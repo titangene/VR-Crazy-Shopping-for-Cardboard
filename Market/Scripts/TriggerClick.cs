@@ -45,14 +45,14 @@ public class TriggerClick : MonoBehaviour {
     // 按下 Gvr 按鈕時
     private void CardboardDown(object sender) {
         // Debug.Log("Trigger went down");
-        Debug.Log("偵測到按下 Gvr 按鈕");
+        //Debug.Log("偵測到按下 Gvr 按鈕");
         ChangeObjectColor("SphereDown");
     }
 
     // 放開 Gvr 按鈕時
     private void CardboardUp(object sender) {
         // Debug.Log("Trigger came up");
-        Debug.Log("偵測到放開 Gvr 按鈕");
+        //Debug.Log("偵測到放開 Gvr 按鈕");
         ChangeObjectColor("SphereUp");
     }
 
