@@ -130,6 +130,7 @@ public class CardboardControlTrigger : MonoBehaviour {
 
     private void CheckForClick() {
         bool withinClickThreshold = SecondsHeld() <= clickSpeedThreshold;
+        
         clickStartTime = 0f;
         if (withinClickThreshold && cardboard.EventReady("OnClick"))
             ReportClick();
@@ -143,6 +144,11 @@ public class CardboardControlTrigger : MonoBehaviour {
 
     public float SecondsHeld() {
         return Time.time - clickStartTime;
+    }
+
+    // ¬O§_«ö¦í Gvr «ö¶s
+    public bool TiggerHold() {
+        return SecondsHeld() > clickSpeedThreshold;
     }
 
     public bool IsHeld() {
