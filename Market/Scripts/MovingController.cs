@@ -10,8 +10,6 @@ public class MovingController : MonoBehaviour {
 
     // 找到 Head 物件
     public Transform Head;
-    // 找到 Camera 物件
-    public Transform MainCamera;
     // 找到 GvrViewer
     public GvrViewer GvrMain;
     // 找到購物車物件
@@ -19,7 +17,7 @@ public class MovingController : MonoBehaviour {
     // 向前移動速度
     public float speed = 5.0f;
     // 是否按住 Gvr 按鈕
-    public bool GvrTrigger = false;
+    public bool HoldTrigger = false;
     // 準心是否對準購物車手把
     public bool GazeCart = false;
     // 找到 class CardboardControl
@@ -32,12 +30,16 @@ public class MovingController : MonoBehaviour {
     private float TriggerTime = 0.0f;
     // 是否向前移動
     private bool MoveForward = false;
-    // 用來計算購物車與人物角色的距離
-    private Vector3 Offset;
+    // 計算購物車與人物角色的距離
+    private Vector3 Cart_Player_Distance;
+    // 紀錄購物車與人物角色的距離
+    private float Cart_Player;
+    // 紀錄購物車 X 座標
+    private float Cart_X;
+    // 紀錄購物車 Y 座標
+    private float Cart_Z;
 
     void Start() {
-        // 找到 Camera 物件
-        MainCamera = Camera.main.transform;
         // 找到購物車物件
         Cart = GameObject.Find("Cart").transform;
         // 找到 Head 物件
@@ -50,8 +52,6 @@ public class MovingController : MonoBehaviour {
         cardboard.trigger.OnUp += StopMove;
         // 改變目光(gaze)看的東西
         cardboard.gaze.OnChange += CardboardGazeChange;
-        // 計算購物車與人物角色的距離
-        Offset = Cart.transform.position - transform.position;
     }
 
     // 放開 Gvr 按鈕時，玩家和購物車同時停止向前移動
@@ -63,15 +63,15 @@ public class MovingController : MonoBehaviour {
     // 檢查是否按住 Gvr 按鈕
     private void CheckTrigger() {
         if (cardboard.trigger.TiggerHold() == true) {
-            Debug.Log("有按住 Gvr 按鈕");
+            //Debug.Log("有按住 Gvr 按鈕");
             // 將 按住 Gvr 按鈕 狀態改成 true
-            GvrTrigger = true;
+            HoldTrigger = true;
             // 檢查準心是否對準購物車手把
             CheckGaze();
         } else {
-            Debug.Log("沒有按住 Gvr 按鈕");
+            //Debug.Log("沒有按住 Gvr 按鈕");
             // 將 按住 Gvr 按鈕 狀態改成 false
-            GvrTrigger = false;
+            HoldTrigger = false;
             // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
             MoveForward = false;
         }
@@ -80,26 +80,34 @@ public class MovingController : MonoBehaviour {
     // 檢查準心是否對準購物車手把
     private void CheckGaze() {
         // 是否按住 Gvr 按鈕
-        if (GvrTrigger) {
+        if (HoldTrigger) {
             // 準心對準購物車手把時 gaze.IsHeld() = true，沒有準心對準時 = false
             if (gaze.IsHeld() && gaze.Object().name == "Handle") {
+                Debug.Log("Moving");
                 // 將 向前移動 狀態改成 true，玩家和購物車同時向前移動
                 MoveForward = true;
-                // 將購物車放在 Head 物件內(子類別)
-                Cart.parent = Head;
-                //Cart.position = Head.transform.position;
-
-                //Cart.position = transform.position + Offset;
             }
         }
     }
 
     // 玩家和購物車同時停止向前移動
     private void StopMove(object sender) {
+        Debug.Log("Stop");
         // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
         MoveForward = false;
-        // 解除購物車會跟著頭部方向移動的鎖定
-        Cart.parent = null;
+    }
+
+    // 玩家和購物車同時向前移動
+    private void Move() {
+        // 準心對準購物車的手把並按住按鈕即可往前移動，放開按鈕可停止移動
+        // 玩家同時能透過移動頭部方向來改變移動方位
+        
+        // 找到向前的方向
+        Vector3 forward = Camera.main.transform.forward;
+        // 讓角色往前
+        controller.SimpleMove(forward * speed);
+
+        
     }
 
     void Update() {
@@ -107,30 +115,32 @@ public class MovingController : MonoBehaviour {
         if (cardboard.trigger.IsHeld()) {
             // 檢查是否按住 Gvr 按鈕
             CheckTrigger();
+        } else {
+            // 將 按住 Gvr 按鈕 狀態改成 false
+            HoldTrigger = false;
         }
-        // 準心對準購物車的手把並按住按鈕即可往前移動，放開按鈕可停止移動
-        // 玩家同時能透過移動頭部方向來改變移動方位
+
+        // 向前移動 狀態 = true，玩家和購物車同時向前移動
         if (MoveForward) {
-            // 找到向前的方向
-            Vector3 forward = Camera.main.transform.forward;
-            // 讓角色往前
-            controller.SimpleMove(forward * speed);
-            // 修改購物車只能在地面移動
-            Cart.position = new Vector3(Cart.position.x, 0f, Cart.position.z);
-
-            //Cart.rotation = Quaternion.Euler(0, 0, 0);
-
-            //MainCamera.eulerAngles = new Vector3(MainCamera.eulerAngles.x, MainCamera.eulerAngles.y, MainCamera.eulerAngles.z);
-
-            //獲取當前的鏡頭的Y軸旋轉度  
-            float angle = MainCamera.eulerAngles.y;
-
-            //計算x軸的距離差:  
-            float deltaX = Offset.x * Mathf.Sin(angle * Mathf.PI / 180);
-            float deltaZ = Offset.z * Mathf.Cos(angle * Mathf.PI / 180);
-
-            //每一幀都改變攝像機的高度
-            //Cart.position = new Vector3(transform.position.x + deltaX, 0, transform.position.z + deltaZ);
+            // 玩家和購物車同時向前移動
+            Move();
         }
+
+        // 更新購物車與人物角色的距離
+        Cart_Player_Distance = Cart.position - transform.position;
+        // 紀錄購物車與人物角色的距離 (r 圓型半徑)   畢氏定理 C = sqrt(A^2 + B^2)
+        Cart_Player = Mathf.Sqrt(Mathf.Pow(Cart_Player_Distance.x, 2) + Mathf.Pow(Cart_Player_Distance.z, 2));
+        // 攝影機 Y 軸旋轉角度 (最高只能 90 度，用於theta)
+        float Camera_AngleY = Head.transform.eulerAngles.y;
+        // Mathf.Deg2Rad 度轉弧度 = (PI * 2) / 360
+        float theta = Camera_AngleY * Mathf.Deg2Rad;
+        // 紀錄購物車 X 座標：x = r * sin(thita)
+        Cart_X = Cart_Player * Mathf.Sin(theta);
+        // 紀錄購物車 Z 座標：z = r * cos(thita)
+        Cart_Z = Cart_Player * Mathf.Cos(theta);
+        // 購物車會跟著玩家的視角移動位置
+        Cart.position = new Vector3(Cart_X, 0f, Cart_Z);
+        // 購物車會跟著玩家的視角旋轉角度
+        Cart.rotation = Quaternion.Euler(0, Camera_AngleY, 0);
     }
 }
