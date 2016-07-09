@@ -20,6 +20,7 @@ public class MovingController : MonoBehaviour {
     public bool HoldTrigger = false;
     // 準心是否對準購物車手把
     public bool GazeCart = false;
+
     // 找到 class CardboardControl
     private static CardboardControl cardboard;
     // 目光盯住的物體
@@ -31,9 +32,10 @@ public class MovingController : MonoBehaviour {
     // 是否向前移動
     private bool MoveForward = false;
     // 計算購物車與人物角色的距離
-    private Vector3 Cart_Player_Distance;
+    //private Vector3 Cart_Player_Distance;
     // 紀錄購物車與人物角色的距離
-    private float Cart_Player;
+    //private float Cart_Player;
+    private float Cart_Player = 1.5f;
     // 紀錄購物車 X 座標
     private float Cart_X;
     // 紀錄購物車 Y 座標
@@ -113,12 +115,12 @@ public class MovingController : MonoBehaviour {
     // 購物車跟著玩家移動
     private void CartMove() {
         // 更新購物車與人物角色的距離
-        Cart_Player_Distance = Cart.position - transform.position;
+        //Cart_Player_Distance = Cart.position - transform.position;
         // 紀錄購物車與人物角色的距離 (r 圓型半徑)   畢氏定理 C = sqrt(A^2 + B^2)
-        Cart_Player = Mathf.Sqrt(Mathf.Pow(Cart_Player_Distance.x, 2) + Mathf.Pow(Cart_Player_Distance.z, 2));
-        if (Cart_Player != 1.5f) {
-            Cart_Player = 1.5f;
-        }
+        //Cart_Player = Mathf.Sqrt(Mathf.Pow(Cart_Player_Distance.x, 2) + Mathf.Pow(Cart_Player_Distance.z, 2));
+        //if (Cart_Player != 1.5f) {
+        //    Cart_Player = 1.5f;
+        //}
         // 攝影機 Y 軸旋轉角度 (最高只能 90 度，用於theta)
         float Camera_AngleY = Head.transform.eulerAngles.y;
         // Mathf.Deg2Rad 度轉弧度 = (PI * 2) / 360
