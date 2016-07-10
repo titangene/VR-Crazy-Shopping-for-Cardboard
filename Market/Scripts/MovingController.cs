@@ -22,8 +22,10 @@ public class MovingController : MonoBehaviour {
 
     // 找到 class CardboardControl
     private static CardboardControl cardboard;
-    // 目光盯住的物體
+    // 準心對準的物體
     private static CardboardControlGaze gaze;
+    // 準心對準的物體名稱
+    private string GazeObjectName;
     // 角色
     private CharacterController controller;
     // 按住 Gvr 按鈕時間
@@ -51,14 +53,27 @@ public class MovingController : MonoBehaviour {
         cardboard = GameObject.Find("CardboardControlManager").GetComponent<CardboardControl>();
         // 放開 Gvr 按鈕時，玩家和購物車同時停止向前移動
         cardboard.trigger.OnUp += StopMove;
-        // 改變目光(gaze)看的東西
+        // 準心改變對準的物體時
         cardboard.gaze.OnChange += CardboardGazeChange;
+        // 準心持續對準某個物體時
+        cardboard.gaze.OnStare += CardboardStare;
     }
 
-    // 放開 Gvr 按鈕時，玩家和購物車同時停止向前移動
+    // 準心改變對準的物體時
     private void CardboardGazeChange(object sender) {
-        // 目光盯住的物體
+        // 準心對準的物體
         gaze = sender as CardboardControlGaze;
+        // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
+        GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
+        //Debug.Log(GazeObjectName);
+    }
+
+    // 準心持續對準某個物體時
+    private void CardboardStare(object sender) {
+        gaze = sender as CardboardControlGaze;
+        // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
+        GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
+        //Debug.Log(GazeObjectName);
     }
 
     // 檢查是否按住 Gvr 按鈕
@@ -83,7 +98,7 @@ public class MovingController : MonoBehaviour {
         // 是否按住 Gvr 按鈕
         if (HoldTrigger) {
             // 準心對準購物車手把時 gaze.IsHeld() = true，沒有準心對準時 = false
-            if (gaze.IsHeld() && gaze.Object().name == "Handle") {
+            if (gaze.IsHeld() && GazeObjectName == "Handle") {
                 //Debug.Log("Moving");
                 // 準心對準購物車手把 狀態改成 true
                 GazeCart = true;
