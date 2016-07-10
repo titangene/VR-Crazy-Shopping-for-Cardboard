@@ -19,6 +19,8 @@ public class MovingController : MonoBehaviour {
     public bool HoldTrigger = false;
     // 準心是否對準購物車手把
     public bool GazeCart = false;
+    // 是否向前移動
+    public bool MoveForward = false;
 
     // 找到 class CardboardControl
     private static CardboardControl cardboard;
@@ -30,8 +32,6 @@ public class MovingController : MonoBehaviour {
     private CharacterController controller;
     // 按住 Gvr 按鈕時間
     private float TriggerTime = 0.0f;
-    // 是否向前移動
-    private bool MoveForward = false;
     // 計算購物車與人物角色的距離
     //private Vector3 Cart_Player_Distance;
     // 紀錄購物車與人物角色的距離
@@ -39,7 +39,7 @@ public class MovingController : MonoBehaviour {
     private float Cart_Player = 1.5f;
     // 紀錄購物車 X 座標
     private float Cart_X;
-    // 紀錄購物車 Y 座標
+    // 紀錄購物車 Z 座標
     private float Cart_Z;
 
     void Start() {
@@ -51,8 +51,9 @@ public class MovingController : MonoBehaviour {
         controller = GetComponent<CharacterController>();
         // 找到 CardboardControlManager 中的 CardboardControl.cs Script
         cardboard = GameObject.Find("CardboardControlManager").GetComponent<CardboardControl>();
+
         // 放開 Gvr 按鈕時，玩家和購物車同時停止向前移動
-        cardboard.trigger.OnUp += StopMove;
+        cardboard.trigger.OnUp += PlayerCartStopMove;
         // 準心改變對準的物體時
         cardboard.gaze.OnChange += CardboardGazeChange;
         // 準心持續對準某個物體時
@@ -76,6 +77,27 @@ public class MovingController : MonoBehaviour {
         //Debug.Log(GazeObjectName);
     }
 
+    void Update() {
+        // 是否按下 Gvr 按鈕
+        if (cardboard.trigger.IsHeld()) {
+            // 檢查是否按住 Gvr 按鈕
+            CheckTrigger();
+        } else {
+            // 準心對準購物車手把 狀態改成 false
+            GazeCart = false;
+            // 將 按住 Gvr 按鈕 狀態改成 false
+            HoldTrigger = false;
+        }
+
+        // 向前移動 狀態 = true，玩家和購物車同時向前移動
+        if (MoveForward) {
+            // 玩家向前移動
+            PlayerMove();
+            // 購物車跟著玩家移動
+            CartMove();
+        }
+    }
+
     // 檢查是否按住 Gvr 按鈕
     private void CheckTrigger() {
         if (cardboard.trigger.TiggerHold() == true) {
@@ -97,7 +119,8 @@ public class MovingController : MonoBehaviour {
     private void CheckGaze() {
         // 是否按住 Gvr 按鈕
         if (HoldTrigger) {
-            // 準心對準購物車手把時 gaze.IsHeld() = true，沒有準心對準時 = false
+            // 準心對準購物車手把時 gaze.IsHeld() = true，準心沒有對準時 = false
+            // 購物車手把物件名稱為 Handle
             if (gaze.IsHeld() && GazeObjectName == "Handle") {
                 //Debug.Log("Moving");
                 // 準心對準購物車手把 狀態改成 true
@@ -109,7 +132,7 @@ public class MovingController : MonoBehaviour {
     }
 
     // 玩家和購物車同時停止向前移動
-    private void StopMove(object sender) {
+    private void PlayerCartStopMove(object sender) {
         //Debug.Log("Stop");
         // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
         MoveForward = false;
@@ -144,26 +167,5 @@ public class MovingController : MonoBehaviour {
         Cart.position = new Vector3(Cart_X + transform.position.x, 0f, Cart_Z + transform.position.z);
         // 購物車會跟著玩家的視角旋轉角度
         Cart.rotation = Quaternion.Euler(0, Camera_AngleY, 0);
-    }
-
-    void Update() {
-        // 是否按下 Gvr 按鈕
-        if (cardboard.trigger.IsHeld()) {
-            // 檢查是否按住 Gvr 按鈕
-            CheckTrigger();
-        } else {
-            // 準心對準購物車手把 狀態改成 false
-            GazeCart = false;
-            // 將 按住 Gvr 按鈕 狀態改成 false
-            HoldTrigger = false;
-        }
-
-        // 向前移動 狀態 = true，玩家和購物車同時向前移動
-        if (MoveForward) {
-            // 玩家向前移動
-            PlayerMove();
-            // 購物車跟著玩家移動
-            CartMove();
-        }
     }
 }
