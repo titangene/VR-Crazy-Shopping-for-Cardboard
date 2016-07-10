@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/* 讓人物角色以第一人稱視角向前移動，並且購物車會同時移動
+ * (購物車與人物角色的距離不變)
+ * 準心對準購物車的手把並按住 Gvr 按鈕即可往前移動，放開按鈕可停止移動
+ * 玩家同時能透過移動頭部方向來改變移動方位
+ */
 public class MovingController : MonoBehaviour {
-    // For a full explanation of the API, look at ExampleCharacterController.cs
-    // This example will assume knowledge of the API to code a moving first-person character
-    // 讓第一人稱視角的角色向前移動
-    // 準心對準購物車的手把並按住按鈕即可往前移動，放開按鈕可停止移動
-    // 玩家同時能透過移動頭部方向來改變移動方位
-
     // 找到 Head 物件
     public Transform Head;
     // 找到 GvrViewer
@@ -15,7 +14,7 @@ public class MovingController : MonoBehaviour {
     // 找到購物車物件
     public Transform Cart;
     // 向前移動速度
-    public float speed = 5.0f;
+    public float speed = 6.0f;
     // 是否按住 Gvr 按鈕
     public bool HoldTrigger = false;
     // 準心是否對準購物車手把
@@ -103,9 +102,6 @@ public class MovingController : MonoBehaviour {
 
     // 玩家向前移動
     private void PlayerMove() {
-        // 準心對準購物車的手把並按住按鈕即可往前移動，放開按鈕可停止移動
-        // 玩家同時能透過移動頭部方向來改變移動方位
-        
         // 找到向前的方向
         Vector3 forward = Camera.main.transform.forward;
         // 讓角色往前
