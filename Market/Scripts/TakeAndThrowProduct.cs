@@ -76,7 +76,7 @@ public class TakeAndThrowProduct : MonoBehaviour {
         gaze = sender as CardboardControlGaze;
         // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
         GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
-        Debug.Log(GazeObjectName);
+        //Debug.Log(GazeObjectName);
     }
 
     // 準心持續對準某個物體時
@@ -84,11 +84,11 @@ public class TakeAndThrowProduct : MonoBehaviour {
         gaze = sender as CardboardControlGaze;
         // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
         GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
-        Debug.Log(GazeObjectName);
+        //Debug.Log(GazeObjectName);
     }
 
     void Update () {
-        //ProductMove();
+        TakeProduct();
         //Debug.Log(Product_Y);
     }
 
@@ -97,33 +97,48 @@ public class TakeAndThrowProduct : MonoBehaviour {
         // 找到商品物件
         //Product = GameObject.Find(GazeObjectName).transform;
         Product = GameObject.Find("ProObj0007").transform;
-        // 攝影機 X 軸旋轉角度
+        // 找到當前物體的鋼體
+        RB = Product.GetComponent<Rigidbody>();
+        // 關閉物體的重力
+        RB.useGravity = false;
+        // 用右手定則，大拇指往 X 軸指，Y 軸與 Z 軸朝其他手指的指向旋轉 phi 角值
+        // 攝影機 X 軸旋轉角度 (Y 與 Z 旋轉的 phi 角)
         float Camera_AngleX = Head.transform.eulerAngles.x;
         // Debug
+        /*
         if (Camera_AngleX > 270.0f) {
             Camera_AngleX = 90 - (Camera_AngleX - 270);
         }
-        // 攝影機 Y 軸旋轉角度
+        */
+        // 用右手定則，大拇指往 Y 軸指，X 軸與 Z 軸朝其他手指的指向旋轉 theta 角值
+        // 攝影機 Y 軸旋轉角度 (X 與 Z 旋轉的 theta 角)
         float Camera_AngleY = Head.transform.eulerAngles.y;
         // Mathf.Deg2Rad 度轉弧度 = (PI * 2) / 360
         // 計算 X_Z 弧度
-        float thetaXZ = Camera_AngleY * Mathf.Deg2Rad;
+        float ThetaXZ = Camera_AngleY * Mathf.Deg2Rad;
         // 計算 Y_Z 弧度 (正負轉換)
-        float thetaYZ = Camera_AngleX * - Mathf.Deg2Rad;
+        float PhiYZ = Camera_AngleX * - Mathf.Deg2Rad;
         // 紀錄購物車 X 座標：x = r * sin(thita)
-        Product_X = Product_Player * Mathf.Sin(thetaXZ);
+        Product_X = Mathf.Sin(PhiYZ) * Mathf.Cos(ThetaXZ);
         // 紀錄購物車 Y 座標：y = r * sin(thita)
-        Product_Y = Product_Player * Mathf.Cos(thetaYZ);
+        Product_Y = Mathf.Cos(PhiYZ);
         // 紀錄購物車 Z 座標：z = r * cos(thita)
-        Product_Z = Product_Player * Mathf.Cos(thetaXZ);
+        Product_Z = Mathf.Sin(PhiYZ) * Mathf.Sin(ThetaXZ);
         // 購物車會跟著玩家的視角移動位置
         Product.position = new Vector3(Product_X + transform.position.x,
-                                       Product_Y,
+                                       Product_Y + 1.6f,
                                        Product_Z + transform.position.z);
         // 購物車會跟著玩家的視角旋轉角度
         Product.rotation = Quaternion.Euler(0, Camera_AngleY, 0);
 
-        Debug.Log(Camera_AngleX + ", " + Product_Y);
+        //Debug.Log(Product_X + ", " + Product_Y + ", " + Product_Z);
+
+        //Debug.Log(Mathf.Abs(360 - Camera_AngleX) + ", " + Camera_AngleY);
+
+        Debug.Log(Head.transform.eulerAngles.y + ", " + Head.transform.rotation.y);
+
+        //Debug.Log(Camera_AngleX + ", " + Mathf.Sin(thetaYZ));
+        //Debug.Log(Camera_AngleX + ", " + Product_Y);
     }
 
     // 將商品丟出
