@@ -164,7 +164,8 @@ public class MovingController : MonoBehaviour {
         // 紀錄購物車 Z 座標：z = r * cos(thita)
         Cart_Z = Cart_Player * Mathf.Cos(theta);
         // 購物車會跟著玩家的視角移動位置
-        Cart.position = new Vector3(Cart_X + transform.position.x, 0f, Cart_Z + transform.position.z);
+        Cart.position = new Vector3(Cart_X + GvrMain.transform.position.x, 0f, 
+                                    Cart_Z + GvrMain.transform.position.z);
         // 購物車會跟著玩家的視角旋轉角度
         Cart.rotation = Quaternion.Euler(0, Camera_AngleY, 0);
     }

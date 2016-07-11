@@ -9,10 +9,12 @@ public class TakeAndThrowProduct : MonoBehaviour {
     public GvrViewer GvrMain;
     // 找到商品物件
     public Transform Product;
+    // 往準心方向丟出物體的速度
+    public float speed = 8.0f;
     // 是否拿取商品
     public bool Taking = false;
 
-    // 找到 class CardboardControl
+    // 找到 class CardboardControls
     private static CardboardControl cardboard;
     // 準心對準的物體
     private static CardboardControlGaze gaze;
@@ -47,29 +49,6 @@ public class TakeAndThrowProduct : MonoBehaviour {
         cardboard.gaze.OnStare += CardboardStare;
     }
 
-    // 在設定時間內按下並且快速放開 Gvr 按鈕間，會判定為點擊事件觸發
-    private void CardboardClick(object sender) {
-        // 準心對準商品時 gaze.IsHeld() = true，準心沒有對準時 = false
-        // 商品物件名稱為 ProObjxxxx (xxxx 為邊號，EX：ProObj0001)
-        if (gaze.IsHeld() && GazeObjectName.Contains("ProObj")) {
-            // 按第一次 Gvr 按鈕，商品會跟著玩家頭部方向移動
-            if (Taking == false) {
-                Debug.Log("Taking");
-                // 將 是否拿取商品 狀態改成 true
-                Taking = true;
-                // 商品跟著玩家頭部方向移動
-                TakeProduct();
-            // 按第二次 Gvr 按鈕，將商品丟出
-            } else if (Taking == true) {
-                Debug.Log("Throw");
-                // 將 是否拿取商品 狀態改成 false
-                Taking = false;
-                // 將商品丟出
-                ThrowProduct();
-            }
-        }
-    }
-
     // 準心改變對準的物體時
     private void CardboardGazeChange(object sender) {
         // 準心對準的物體
@@ -87,92 +66,81 @@ public class TakeAndThrowProduct : MonoBehaviour {
         //Debug.Log(GazeObjectName);
     }
 
+    // 在設定時間內按下並且快速放開 Gvr 按鈕間，會判定為點擊事件觸發
+    private void CardboardClick(object sender) {
+        // 準心對準商品時 gaze.IsHeld() = true，準心沒有對準時 = false
+        // 商品物件名稱為 ProObjxxxx (xxxx 為邊號，EX：ProObj0001)
+        if (gaze.IsHeld() && GazeObjectName.Contains("ProObj")) {
+            // 按第一次 Gvr 按鈕，商品會跟著玩家頭部方向移動
+            if (Taking == false) {
+                //Debug.Log("Taking");
+                // 找到商品物件
+                Product = GameObject.Find(GazeObjectName).transform;
+                //Product = GameObject.Find("ProObj0007").transform;
+                // 將 是否拿取商品 狀態改成 true
+                Taking = true;
+
+                // 按第二次 Gvr 按鈕，將商品丟出
+            } else if (Taking == true) {
+                //Debug.Log("Throw");
+                // 將 是否拿取商品 狀態改成 false
+                Taking = false;
+                // 將商品丟出
+                ThrowProduct();
+            }
+        }
+    }
+
     void Update () {
-        TakeProduct();
-        //Debug.Log(Product_Y);
+        // 是否按一下 Gvr 按鈕拿取商品
+        if (Taking == true) {
+            // 商品跟著玩家頭部方向移動
+            TakeProduct();
+        }
     }
 
     // 商品跟著玩家頭部方向移動
     private void TakeProduct() {
-        // 找到商品物件
-        //Product = GameObject.Find(GazeObjectName).transform;
-        Product = GameObject.Find("ProObj0007").transform;
-        // 找到當前物體的鋼體
-        RB = Product.GetComponent<Rigidbody>();
-        // 關閉物體的重力
-        RB.useGravity = false;
-        // 用右手定則，大拇指往 X 軸指，Y 軸與 Z 軸朝其他手指的指向旋轉 phi 角值
-        // 攝影機 X 軸旋轉角度 (Y 與 Z 旋轉的 phi 角)
-        float Camera_AngleX = Head.transform.eulerAngles.x;
-        // Debug
-        /*
-        if (Camera_AngleX > 270.0f) {
-            Camera_AngleX = 90 - (Camera_AngleX - 270);
-        }
-        */
-        // 用右手定則，大拇指往 Y 軸指，X 軸與 Z 軸朝其他手指的指向旋轉 theta 角值
-        // 攝影機 Y 軸旋轉角度 (X 與 Z 旋轉的 theta 角)
-        float Camera_AngleY = Head.transform.eulerAngles.y;
-        // Mathf.Deg2Rad 度轉弧度 = (PI * 2) / 360
-        // 計算 X_Z 弧度
-        float ThetaXZ = Camera_AngleY * Mathf.Deg2Rad;
-        // 計算 Y_Z 弧度 (正負轉換)
-        float PhiYZ = Camera_AngleX * - Mathf.Deg2Rad;
-        // 紀錄購物車 X 座標：x = r * sin(thita)
-        Product_X = Mathf.Sin(PhiYZ) * Mathf.Cos(ThetaXZ);
-        // 紀錄購物車 Y 座標：y = r * sin(thita)
-        Product_Y = Mathf.Cos(PhiYZ);
-        // 紀錄購物車 Z 座標：z = r * cos(thita)
-        Product_Z = Mathf.Sin(PhiYZ) * Mathf.Sin(ThetaXZ);
-        // 購物車會跟著玩家的視角移動位置
-        Product.position = new Vector3(Product_X + transform.position.x,
-                                       Product_Y + 1.6f,
-                                       Product_Z + transform.position.z);
-        // 購物車會跟著玩家的視角旋轉角度
-        Product.rotation = Quaternion.Euler(0, Camera_AngleY, 0);
-
-        //Debug.Log(Product_X + ", " + Product_Y + ", " + Product_Z);
-
-        //Debug.Log(Mathf.Abs(360 - Camera_AngleX) + ", " + Camera_AngleY);
-
-        Debug.Log(Head.transform.eulerAngles.y + ", " + Head.transform.rotation.y);
-
-        //Debug.Log(Camera_AngleX + ", " + Mathf.Sin(thetaYZ));
-        //Debug.Log(Camera_AngleX + ", " + Product_Y);
-    }
-
-    // 將商品丟出
-    private void ThrowProduct() {
-
-    }
-
-
-    // 商品跟著玩家頭部方向移動
-    private void TakeProduct1() {
-        Product = GameObject.Find(GazeObjectName).transform;
-        //if (!take) {
-        //Product.position = new Vector3(0, 1.6f, 1.3f);
-        //take = true;
-        //}
-        // 將物體放在 Head 物件內(子類別)
-        Product.parent = Head;
         // 找到當前物體的鋼體
         RB = Product.GetComponent<Rigidbody>();
         // 關閉物體的重力
         RB.useGravity = false;
         // 鎖定物理效果影響物體的旋轉和移動
         RB.constraints = RigidbodyConstraints.FreezeAll;
+        // 用右手定則，大拇指往 X 軸指，Y 軸與 Z 軸朝其他手指的指向旋轉 phi 角值
+        // 攝影機 X 軸旋轉角度 (Y 與 Z 旋轉的 phi 角)
+        float Camera_AngleX = Head.transform.eulerAngles.x;
+        // 用右手定則，大拇指往 Y 軸指，X 軸與 Z 軸朝其他手指的指向旋轉 theta 角值
+        // 攝影機 Y 軸旋轉角度 (X 與 Z 旋轉的 theta 角)
+        float Camera_AngleY = Head.transform.eulerAngles.y;
+        // Mathf.Deg2Rad 度轉弧度 = (PI * 2) / 360
+        // 計算 X_Z 弧度
+        float Theta = Camera_AngleY * Mathf.Deg2Rad;
+        // 計算 Y_Z 弧度 (正負轉換)
+        float Phi = Camera_AngleX * - Mathf.Deg2Rad;
+        // 紀錄商品 X 座標：x = r * cos(Phi) * cos(Theta)
+        Product_X = Product_Player * Mathf.Cos(Phi) * Mathf.Cos(Theta);
+        // 紀錄商品 Y 座標：y = r * sin(Phi)
+        Product_Y = Product_Player * Mathf.Sin(Phi);
+        // 紀錄商品 Z 座標：z = r * cos(Phi) * sin(Theta)
+        Product_Z = Product_Player * Mathf.Cos(Phi) * Mathf.Sin(Theta);
+        // 商品會跟著玩家的視角移動位置
+        Product.position = new Vector3(Product_Z + GvrMain.transform.position.x,
+                                       Product_Y + GvrMain.transform.position.y,
+                                       Product_X + GvrMain.transform.position.z);
+        // 商品會跟著玩家的視角旋轉角度
+        //Product.rotation = Quaternion.Euler(Camera_AngleX, Camera_AngleY, 0);
+        // 商品會以每 FPS 固定的角度自轉
+        Product.Rotate(new Vector3(30, 30, 30) * Time.deltaTime);
     }
 
     // 將商品丟出
-    private void ThrowProduct1() {
-        // 將物體放在 Head 物件內(子類別)
-        Product.parent = null;
-        // 找到當前物體的鋼體
-        RB = Product.GetComponent<Rigidbody>();
+    private void ThrowProduct() {
         // 開啟物體的重力
         RB.useGravity = true;
-        // 解除物理效果影響物體旋轉和移動的鎖定
+        // 解除物理效果影響物體旋轉和移動的鎖定                           
         RB.constraints = RigidbodyConstraints.None;
+        // 往準心方向丟出物體
+        RB.velocity = Head.forward * speed;
     }
 }
