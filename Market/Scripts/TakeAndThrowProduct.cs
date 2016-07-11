@@ -30,8 +30,8 @@ public class TakeAndThrowProduct : MonoBehaviour {
     private float Product_Y;
     // 紀錄商品 Z 座標
     private float Product_Z;
-
-    Rigidbody RB;
+    // 某物體的剛體
+    private Rigidbody RB;
 
     void Start () {
         // 找到 Head 物件
