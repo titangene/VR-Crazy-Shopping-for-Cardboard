@@ -14,9 +14,9 @@ public class TakeAndThrowProduct : MonoBehaviour {
     // 是否拿取商品
     public bool Taking = false;
 
-    // 找到 class CardboardControls
+    // 找到 CardboardControl
     private static CardboardControl cardboard;
-    // 準心對準的物體
+    // 準心對準的物體物件
     private static CardboardControlGaze gaze;
     // 準心對準的物體名稱
     private string GazeObjectName;
@@ -60,6 +60,7 @@ public class TakeAndThrowProduct : MonoBehaviour {
 
     // 準心持續對準某個物體時
     private void CardboardStare(object sender) {
+        // 準心對準的物體
         gaze = sender as CardboardControlGaze;
         // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
         GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
@@ -76,7 +77,6 @@ public class TakeAndThrowProduct : MonoBehaviour {
                 //Debug.Log("Taking");
                 // 找到商品物件
                 Product = GameObject.Find(GazeObjectName).transform;
-                //Product = GameObject.Find("ProObj0007").transform;
                 // 將 是否拿取商品 狀態改成 true
                 Taking = true;
 
@@ -118,19 +118,19 @@ public class TakeAndThrowProduct : MonoBehaviour {
         float Theta = Camera_AngleY * Mathf.Deg2Rad;
         // 計算 Y_Z 弧度 (正負轉換)
         float Phi = Camera_AngleX * - Mathf.Deg2Rad;
-        // 紀錄商品 X 座標：x = r * cos(Phi) * cos(Theta)
-        Product_X = Product_Player * Mathf.Cos(Phi) * Mathf.Cos(Theta);
+        // 紀錄商品 X 座標：x = r * cos(Phi) * sin(Theta)
+        Product_X = Product_Player * Mathf.Cos(Phi) * Mathf.Sin(Theta);
         // 紀錄商品 Y 座標：y = r * sin(Phi)
         Product_Y = Product_Player * Mathf.Sin(Phi);
-        // 紀錄商品 Z 座標：z = r * cos(Phi) * sin(Theta)
-        Product_Z = Product_Player * Mathf.Cos(Phi) * Mathf.Sin(Theta);
+        // 紀錄商品 Z 座標：z = r * cos(Phi) * cos(Theta)
+        Product_Z = Product_Player * Mathf.Cos(Phi) * Mathf.Cos(Theta);
         // 商品會跟著玩家的視角移動位置
-        Product.position = new Vector3(Product_Z + GvrMain.transform.position.x,
+        Product.position = new Vector3(Product_X + GvrMain.transform.position.x,
                                        Product_Y + GvrMain.transform.position.y,
-                                       Product_X + GvrMain.transform.position.z);
+                                       Product_Z + GvrMain.transform.position.z);
         // 商品會跟著玩家的視角旋轉角度
         //Product.rotation = Quaternion.Euler(Camera_AngleX, Camera_AngleY, 0);
-        // 商品會以每 FPS 固定的角度自轉
+        // 商品會以每 FPS 固定角度自轉
         Product.Rotate(new Vector3(30, 30, 30) * Time.deltaTime);
     }
 
