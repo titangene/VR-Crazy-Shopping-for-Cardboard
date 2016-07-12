@@ -7,8 +7,10 @@ public class PickUpAndThrow : MonoBehaviour {
     public Transform Head;
     // 找到 GvrViewer
     public GvrViewer GvrMain;
-    // 往準心方向丟出物體的速度
-    public float ThrowSpeed = 8.0f;
+    // 往準心方向丟出物體的速度 (往上)
+    public float ThrowUPSpeed = 8.0f;
+    // 往準心方向丟出物體的速度 (往前)
+    public float ThrowForwardSpeed = 8.0f;
     // 商品自轉的速度
     public float RotateSpeed = 1.5f;
     // 商品與人物角色的距離要在此範圍內才可以拿取商品
@@ -35,7 +37,7 @@ public class PickUpAndThrow : MonoBehaviour {
     // 紀錄商品與人物角色的距離
     private float Product_Player;
     // 拿取商品時，固定商品與人物角色為此距離
-    private float Product_Player_Setting = 1.3f;
+    private float Product_Player_Setting = 1.2f;
     // 紀錄商品 X 座標
     private float Product_X;
     // 紀錄商品 Y 座標
@@ -206,7 +208,16 @@ public class PickUpAndThrow : MonoBehaviour {
         RB.useGravity = true;
         // 解除物理效果影響物體旋轉和移動的鎖定                           
         RB.constraints = RigidbodyConstraints.None;
-        // 往準心方向丟出物體
-        RB.velocity = Head.forward * ThrowSpeed;
+
+        // 往準心方向丟出物體 (往上)
+        //RB.velocity = Head.up * ThrowUPSpeed;
+        // 往準心方向丟出物體 (往前)
+        //RB.velocity = Head.forward * ThrowForwardSpeed;
+
+        // 施加力量給商品
+        // 給予往上的力量
+        //RB.AddForce(Vector3.up * ThrowUPSpeed);
+        // 給予往前的力量
+        //RB.AddForce(Vector3.forward * ThrowForwardSpeed);
     }
 }
