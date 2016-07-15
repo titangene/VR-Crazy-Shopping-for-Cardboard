@@ -13,6 +13,8 @@ public class MovingController : MonoBehaviour {
     public GvrViewer GvrMain;
     // 找到購物車物件
     public Transform Cart;
+    // 購物車與人物角色的距離
+    public float Cart_Player = 1.2f;
     // 向前移動速度
     public float speed = 6.0f;
     // 是否按住 Gvr 按鈕
@@ -36,7 +38,6 @@ public class MovingController : MonoBehaviour {
     //private Vector3 Cart_Player_Distance;
     // 紀錄購物車與人物角色的距離
     //private float Cart_Player;
-    private float Cart_Player = 1.5f;
     // 紀錄購物車 X 座標
     private float Cart_X;
     // 紀錄購物車 Z 座標

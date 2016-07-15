@@ -216,8 +216,8 @@ public class PickUpAndThrow : MonoBehaviour {
 
         // 施加力量給商品
         // 給予往上的力量
-        //RB.AddForce(Vector3.up * ThrowUPSpeed);
+        RB.AddForce(Vector3.up * ThrowUPSpeed);
         // 給予往前的力量
-        //RB.AddForce(Vector3.forward * ThrowForwardSpeed);
+        RB.AddForce(Vector3.forward * ThrowForwardSpeed);
     }
 }
