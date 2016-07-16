@@ -13,6 +13,8 @@ public class MovingController : MonoBehaviour {
     public GvrViewer GvrMain;
     // 找到購物車物件
     public Transform Cart;
+    // 找到 Cart/InCartProduct 子物件 (拿來放所有放在購物車內的商品)
+    public Transform InCartProduct;
     // 購物車與人物角色的距離
     public float Cart_Player = 1.2f;
     // 向前移動速度
@@ -42,10 +44,14 @@ public class MovingController : MonoBehaviour {
     private float Cart_X;
     // 紀錄購物車 Z 座標
     private float Cart_Z;
+    // 購物車物體的剛體
+    private Rigidbody Cart_rbody;
 
     void Start() {
         // 找到購物車物件
         Cart = GameObject.Find("Cart").transform;
+        // 找到購物車物體的鋼體
+        Cart_rbody = Cart.GetComponent<Rigidbody>();
         // 找到 Head 物件
         Head = GvrMain.transform.FindChild("Head");
         // 找到 CharacterController
@@ -123,6 +129,11 @@ public class MovingController : MonoBehaviour {
             // 準心對準購物車手把時 gaze.IsHeld() = true，準心沒有對準時 = false
             // 購物車手把物件名稱為 Handle
             if (gaze.IsHeld() && GazeObjectName == "Handle") {
+
+                // 在購物車移動之前，將購物車內的所有商品放入 Cart/InCartProduct 子物件內
+                // 防止購物車移動時，商品全部穿透掉光
+
+
                 //Debug.Log("Moving");
                 // 準心對準購物車手把 狀態改成 true
                 GazeCart = true;
@@ -164,10 +175,28 @@ public class MovingController : MonoBehaviour {
         Cart_X = Cart_Player * Mathf.Sin(theta);
         // 紀錄購物車 Z 座標：z = r * cos(thita)
         Cart_Z = Cart_Player * Mathf.Cos(theta);
+
+
+
+        Vector3 CartMove = new Vector3(Cart_X, 0f, Cart_Z);
+
+        //Cart_rbody.AddForce(CartMove);
+
+
         // 購物車會跟著玩家的視角移動位置
-        Cart.position = new Vector3(Cart_X + GvrMain.transform.position.x, 0f, 
-                                    Cart_Z + GvrMain.transform.position.z);
+        //Cart.position = new Vector3(Cart_X + GvrMain.transform.position.x, 0f, 
+        //                            Cart_Z + GvrMain.transform.position.z);
+
+        Cart.Translate(new Vector3(0.000001f, 0f, 0.000001f));
+        // 購物車利用剛體移動
+        //Cart_rbody.AddForce(Cart.forward);
+
+        // 購物車移動到的位置
+        //Cart.position = new Vector3(Cart.position.x, 0f, Cart.position.z);
+
         // 購物車會跟著玩家的視角旋轉角度
         Cart.rotation = Quaternion.Euler(0, Camera_AngleY, 0);
+
+        //Debug.Log(Cart.forward);
     }
 }
