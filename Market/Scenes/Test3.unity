@@ -1031,7 +1031,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477642, guid: 53a15010166bf5e43b44974559b09986, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -450
+      value: -504.73
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 53a15010166bf5e43b44974559b09986, type: 2}
@@ -1488,7 +1488,6 @@ GameObject:
   - 33: {fileID: 561769699}
   - 136: {fileID: 561769698}
   - 23: {fileID: 561769697}
-  - 65: {fileID: 561769700}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1504,7 +1503,7 @@ Transform:
   m_GameObject: {fileID: 561769695}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.8, z: 0.6}
+  m_LocalScale: {x: 0.4, y: 0.8, z: 0.4}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 2048861580}
@@ -1545,8 +1544,8 @@ CapsuleCollider:
   m_GameObject: {fileID: 561769695}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.3
+  m_Enabled: 1
+  m_Radius: 0.2
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -1558,18 +1557,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 561769695}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &561769700
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 561769695}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &567437150
 Prefab:
   m_ObjectHideFlags: 0
@@ -1866,6 +1853,34 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c31879d02bb75944db67fe8ac207e0df, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &738371478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 738371479}
+  m_Layer: 0
+  m_Name: PickupObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &738371479
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 738371478}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1726538694}
+  m_RootOrder: 1
 --- !u!1 &752367714
 GameObject:
   m_ObjectHideFlags: 0
@@ -4358,6 +4373,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 436829404}
+  - {fileID: 738371479}
   m_Father: {fileID: 273375595}
   m_RootOrder: 0
 --- !u!4 &1735039971 stripped
@@ -5273,8 +5289,7 @@ GameObject:
   - 143: {fileID: 2048861584}
   - 114: {fileID: 2048861583}
   - 114: {fileID: 2048861582}
-  - 114: {fileID: 2048861581}
-  - 114: {fileID: 2048861585}
+  - 114: {fileID: 2048861586}
   m_Layer: 0
   m_Name: VRMain
   m_TagString: Untagged
@@ -5297,26 +5312,6 @@ Transform:
   - {fileID: 561769696}
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!114 &2048861581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11403116, guid: 5bf09cbe0daeb444eb5d20cc09ea3bf2,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2048861579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f31604eacd61de4d856a6180e015dc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Head: {fileID: 1726538694}
-  GvrMain: {fileID: 1942173246}
-  ThrowUPSpeed: 40
-  ThrowForwardSpeed: 70
-  RotateSpeed: 1.5
-  PickUpRange: 3.2
-  PickUpOverRange: 0
-  PickingUp: 0
 --- !u!114 &2048861582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5362,13 +5357,13 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.6
-  m_Radius: 0.3
+  m_Radius: 0.2
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2048861585
+--- !u!114 &2048861586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5376,11 +5371,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2048861579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3ce4e1e68d1d514a99c9cf17d2ec8ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bbd2e6e10dce7c418257a5aa8a437a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 1.5
-  smooth: 8
+  PickupPosition: {fileID: 738371479}
+  PickPower: 5
+  ThrowPower: 3
+  RayDistance: 2.8
+  PickingUp: 0
+  PickUpOverRange: 0
+  SecondClick: 0
 --- !u!1 &2054419731
 GameObject:
   m_ObjectHideFlags: 0
