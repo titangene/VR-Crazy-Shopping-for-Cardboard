@@ -45,11 +45,18 @@ public class CardboardControlTrigger : MonoBehaviour {
     // 每 FPS debug 次數，預設為 5 次 ??? 看不懂
     private int FRAMES_PER_DEBUG = 5;
 
+    // 紀錄開始按住的時間
+    private float LongClickTimeLog = 0f;
+    // 是否可以紀錄按住的時間
+    private bool CalcTime = true;
+    // 是否按住 Gvr 按鈕
+    private bool LongClick = false;
+
     private CardboardControl cardboard;
     public CardboardControlDelegate OnUp = delegate { };
     public CardboardControlDelegate OnDown = delegate { };
     public CardboardControlDelegate OnClick = delegate { };
-
+    public CardboardControlDelegate OnLongClick = delegate { };
 
     public void Start() {
         cardboard = gameObject.GetComponent<CardboardControl>();
@@ -64,6 +71,7 @@ public class CardboardControlTrigger : MonoBehaviour {
             CheckTouch();
         if (useMagnet)
             CheckMagnet();
+        CheckLongClick();
         CheckKey();
     }
 
@@ -72,14 +80,45 @@ public class CardboardControlTrigger : MonoBehaviour {
             PrintDebug();
     }
 
+    private void CheckLongClick() {
+        if (Input.GetKey(triggerKey)) {
+            //Debug.Log("按下按鍵 " + triggerKey);
+
+            // 按下按鍵時，紀錄開始按住的時間(只計算一次)
+            if (CalcTime) {
+                // 紀錄開始按住的時間
+                LongClickTimeLog = Time.realtimeSinceStartup;
+                // 將 是否可以紀錄按住的時間 狀態改成 false，防止按住按鍵時重新紀錄開始按住的時間
+                CalcTime = false;
+            }
+
+            // 偵測按住事件：按住超過設定秒數
+            if (Time.realtimeSinceStartup - LongClickTimeLog >= clickSpeedThreshold) {
+                //Debug.Log("按住按鍵 " + triggerKey);
+                // 將 是否按住 Gvr 按鈕 狀態改成 true
+                LongClick = true;
+            }
+
+        } else {
+            // 將 是否按住 Gvr 按鈕 狀態改成 false
+            LongClick = false;
+            // 將 是否可以紀錄按住的時間 狀態改成 true，讓按下按鍵時，能紀錄開始按住的時間
+            CalcTime = true;
+            // 將計算按住的時間重新歸零
+            LongClickTimeLog = 0;
+        }
+    }
+
     private bool KeyFor(string direction) {
         switch (direction) {
             case "down":
-            return Input.GetKeyDown(triggerKey);
+                return Input.GetKeyDown(triggerKey);
             case "up":
-            return Input.GetKeyUp(triggerKey);
+                return Input.GetKeyUp(triggerKey);
+            case "longclick":
+                return LongClick;
             default:
-            return false;
+                return false;
         }
     }
 
@@ -88,6 +127,8 @@ public class CardboardControlTrigger : MonoBehaviour {
             ReportDown();
         if (KeyFor("up") && cardboard.EventReady("OnUp"))
             ReportUp();
+        if (KeyFor("longclick") && cardboard.EventReady("OnLongClick"))
+            ReportLongClick();
     }
 
     private void CheckMagnet() {
@@ -95,6 +136,8 @@ public class CardboardControlTrigger : MonoBehaviour {
             ReportDown();
         if (magnet.IsUp() && cardboard.EventReady("OnUp"))
             ReportUp();
+        if (magnet.IsDown() && cardboard.EventReady("OnLongClick"))
+            ReportLongClick();
     }
 
     private void CheckTouch() {
@@ -102,6 +145,8 @@ public class CardboardControlTrigger : MonoBehaviour {
             ReportDown();
         if (touch.IsUp() && cardboard.EventReady("OnUp"))
             ReportUp();
+        if (magnet.IsDown() && cardboard.EventReady("OnLongClick"))
+            ReportLongClick();
     }
 
     private bool IsTouching() {
@@ -142,14 +187,18 @@ public class CardboardControlTrigger : MonoBehaviour {
             Handheld.Vibrate();
     }
 
+    private void ReportLongClick() {
+        OnLongClick(this);
+    }
+
     public float SecondsHeld() {
         return Time.time - clickStartTime;
     }
 
     // 是否按住 Gvr 按鈕
-    public bool TiggerHold() {
-        return SecondsHeld() > clickSpeedThreshold;
-    }
+    //public bool TiggerHold() {
+    //    return SecondsHeld() > clickSpeedThreshold;
+    //}
 
     public bool IsHeld() {
         return (currentTriggerState == TriggerState.Down);

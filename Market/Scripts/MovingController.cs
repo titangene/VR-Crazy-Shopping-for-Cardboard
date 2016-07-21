@@ -7,23 +7,31 @@ using System.Collections;
  * 玩家同時能透過移動頭部方向來改變移動方位
  */
 public class MovingController : MonoBehaviour {
-    // 找到 Head 物件
+    [Tooltip("找到 Head 物件")]
     public Transform Head;
-    // 找到 GvrViewer
+
+    [Tooltip("找到 GvrViewer")]
     public GvrViewer GvrMain;
-    // 找到購物車物件
+
+    [Tooltip("找到購物車物件")]
     public Transform Cart;
-    // 找到 Cart/InCartProduct 子物件 (拿來放所有放在購物車內的商品)
+
+    [Tooltip("找到 Cart/InCartProduct 子物件 (拿來放所有放在購物車內的商品)")]
     public Transform InCartProduct;
-    // 購物車與人物角色的距離
+
+    [Tooltip("購物車與人物角色的距離")]
     public float Cart_Player = 1.2f;
-    // 向前移動速度
+
+    [Tooltip("向前移動速度")]
     public float speed = 6.0f;
-    // 是否按住 Gvr 按鈕
+
+    [Tooltip("是否按住 Gvr 按鈕")]
     public bool HoldTrigger = false;
-    // 準心是否對準購物車手把
+
+    [Tooltip("準心是否對準購物車手把")]
     public bool GazeCart = false;
-    // 是否向前移動
+
+    [Tooltip("是否向前移動")]
     public bool MoveForward = false;
 
     // 找到 class CardboardControl
@@ -95,7 +103,6 @@ public class MovingController : MonoBehaviour {
             // 將 按住 Gvr 按鈕 狀態改成 false
             HoldTrigger = false;
         }
-
         // 向前移動 狀態 = true，玩家和購物車同時向前移動
         if (MoveForward) {
             // 玩家向前移動
@@ -105,9 +112,14 @@ public class MovingController : MonoBehaviour {
         }
     }
 
+    void FixedUpdate() {
+        
+    }
+
     // 檢查是否按住 Gvr 按鈕
     private void CheckTrigger() {
-        if (cardboard.trigger.TiggerHold() == true) {
+        //if (cardboard.trigger.TiggerHold()) {
+        if (true) {
             //Debug.Log("有按住 Gvr 按鈕");
             // 將 按住 Gvr 按鈕 狀態改成 true
             HoldTrigger = true;
@@ -184,10 +196,9 @@ public class MovingController : MonoBehaviour {
 
 
         // 購物車會跟著玩家的視角移動位置
-        //Cart.position = new Vector3(Cart_X + GvrMain.transform.position.x, 0f, 
-        //                            Cart_Z + GvrMain.transform.position.z);
+        Cart.position = new Vector3(Cart_X + GvrMain.transform.position.x, 0f, 
+                                    Cart_Z + GvrMain.transform.position.z);
 
-        Cart.Translate(new Vector3(0.000001f, 0f, 0.000001f));
         // 購物車利用剛體移動
         //Cart_rbody.AddForce(Cart.forward);
 

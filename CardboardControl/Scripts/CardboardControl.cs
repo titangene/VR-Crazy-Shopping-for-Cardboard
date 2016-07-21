@@ -26,6 +26,7 @@ public class CardboardControl : MonoBehaviour {
         {"OnUp", TIME_TO_CALIBRATE}, // trigger
         {"OnDown", TIME_TO_CALIBRATE},
         {"OnClick", TIME_TO_CALIBRATE},
+        {"OnLongClick", TIME_TO_CALIBRATE},
         {"OnChange", TIME_TO_CALIBRATE}, // gaze
         {"OnStare", TIME_TO_CALIBRATE},
         {"OnTilt", TIME_TO_CALIBRATE} // box
