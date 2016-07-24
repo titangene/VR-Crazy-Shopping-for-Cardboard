@@ -54,7 +54,7 @@ public class PickUpAndThrow : MonoBehaviour {
     }
 
     /// <summary>
-    /// gaze.IsHeld()：準心是否對準物件，hit.rigidbod：射線是否對準物體，
+    /// hit.rigidbod：射線是否對準物體，
     /// hit.transform.name.Contains("ProObj")：射線對準的物體名稱是否為 ProObjxxxx。
     /// 商品物件名稱為 ProObjxxxx (xxxx 為邊號，EX：ProObj0001)
     /// </summary>
@@ -163,6 +163,7 @@ public class PickUpAndThrow : MonoBehaviour {
 
     void Update() {
         // 畫出射線，可以知道射線的位置與方向
+        // Debug.DrawRay(射線原點, 射線軸向 * 射線距離);
         Debug.DrawRay(MainCamera.position, MainCamera.forward * RayDistance);
 
         // 是否按一下 Gvr 按鈕拿取商品
@@ -180,7 +181,7 @@ public class PickUpAndThrow : MonoBehaviour {
         if (hit.rigidbody) {
             // 商品會跟著玩家頭部方向移動
             hit.rigidbody.velocity = (PickupPosition.position -
-                    (hit.transform.position + hit.rigidbody.centerOfMass)) * PickPower;
+                    (hit.transform.position + hit.rigidbody.centerOfMass)) * Time.deltaTime * PickPower;
         }
     }
 
@@ -191,7 +192,7 @@ public class PickUpAndThrow : MonoBehaviour {
         // 準心是否對準物體 && 射線是否對準物體
         if (gaze.IsHeld() && hit.rigidbody) {
             // 丟出商品
-            hit.rigidbody.velocity = transform.forward * ThrowPower;
+            hit.rigidbody.velocity = MainCamera.forward * ThrowPower;
         }
     }
 }

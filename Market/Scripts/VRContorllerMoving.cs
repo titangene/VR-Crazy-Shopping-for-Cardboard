@@ -55,6 +55,8 @@ public class VRContorllerMoving : MonoBehaviour {
     // 是否可以產生射線
     private bool ProduceRay = true;
 
+    RaycastHit CartHit;
+
     void Start() {
         // 找到 MainCamera
         MainCamera = Camera.main.transform;
@@ -130,19 +132,27 @@ public class VRContorllerMoving : MonoBehaviour {
             GazeCart = false;
             // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
             MoveForward = false;
+
+            CartRbody.velocity = new Vector3(0, 0, 0);
+            CartRbody.angularVelocity = new Vector3(0, 0, 0);
         }
     }
 
     void Update() {
-        Debug.DrawRay(MainCamera.position, MainCamera.forward * RayDistance);
+        //Debug.DrawRay(MainCamera.position, MainCamera.forward * RayDistance);
+        Debug.DrawRay(transform.position, InCartProduct.forward * RayDistance);
 
         // 向前移動 狀態 = true，玩家和購物車同時向前移動
         if (MoveForward) {
             // 玩家向前移動
-            //PlayerMove();
+            PlayerMove();
             // 購物車跟著玩家移動
             CartMove();
         }
+        PlayerMove();
+        CartRbody = Cart.GetComponent<Rigidbody>();
+        CartRbody.velocity = new Vector3(0, 0, 0);
+        CartRbody.angularVelocity = new Vector3(0, 0, 0);
     }
 
     /// <summary>
@@ -171,6 +181,10 @@ public class VRContorllerMoving : MonoBehaviour {
         // 紀錄購物車 Z 座標：z = r * cos(thita)
         float Cart_Z = 1.2f * Mathf.Cos(theta);
 
+        Vector3 MoveSpeed = new Vector3(Cart_X, 0f, Cart_Z);
+        Vector3 EulerAngleVelocity = new Vector3(0, Camera_AngleY, 0);
+        Quaternion DeltaRotation = Quaternion.Euler(EulerAngleVelocity * Time.deltaTime);
+
         //if (HitObjectRbody) {
         //    CartRbody = Cart.GetComponent<Rigidbody>();
         //    CartRbody.velocity = new Vector3(Cart_X + GvrMain.transform.position.x, 0f,
@@ -179,15 +193,23 @@ public class VRContorllerMoving : MonoBehaviour {
         //Debug.Log(hit.transform.name);
 
         Debug.Log(hit.rigidbody);
-
+        Debug.Log(Cart_X + ", " + Cart_Z);
 
         if (hit.rigidbody) {
             CartRbody = Cart.GetComponent<Rigidbody>();
 
-            CartRbody.constraints = RigidbodyConstraints.FreezeAll;
+            //CartRbody.constraints = RigidbodyConstraints.FreezeAll;
+            
+            Physics.Raycast(transform.position, Head.forward, out CartHit, RayDistance);
 
             CartRbody.velocity = (PickupPosition.position -
-                    (hit.transform.position + CartRbody.centerOfMass));
+            (hit.transform.position + CartRbody.centerOfMass));
+
+            //CartRbody.velocity = Move * speed / 1.4f;
+            //CartRbody.angularVelocity = new Vector3(0, 0, 0);
+
+            //CartRbody.MovePosition(CartRbody.position + MoveSpeed * Time.deltaTime * 3f);
+            //CartRbody.MoveRotation(CartRbody.rotation * DeltaRotation);
         }
     }
 }

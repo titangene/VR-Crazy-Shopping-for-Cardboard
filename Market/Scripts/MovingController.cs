@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /* 讓人物角色以第一人稱視角向前移動，並且購物車會同時移動
  * (購物車與人物角色的距離不變)
@@ -17,7 +18,7 @@ public class MovingController : MonoBehaviour {
     public Transform Cart;
 
     [Tooltip("找到 Cart/InCartProduct 子物件 (拿來放所有放在購物車內的商品)")]
-    public Transform InCartProduct;
+    public Transform InCartProductObj;
 
     [Tooltip("購物車與人物角色的距離")]
     public float Cart_Player = 1.2f;
@@ -67,42 +68,84 @@ public class MovingController : MonoBehaviour {
         // 找到 CardboardControlManager 中的 CardboardControl.cs Script
         cardboard = GameObject.Find("CardboardControlManager").GetComponent<CardboardControl>();
 
+        // 按住 Gvr 按鈕時
+        cardboard.trigger.OnLongClick += CardboardLongClick;
         // 放開 Gvr 按鈕時，玩家和購物車同時停止向前移動
-        cardboard.trigger.OnUp += PlayerCartStopMove;
+        cardboard.trigger.OnUp += CardboardUp;
         // 準心改變對準的物體時
         cardboard.gaze.OnChange += CardboardGazeChange;
         // 準心持續對準某個物體時
         cardboard.gaze.OnStare += CardboardStare;
     }
 
-    // 準心改變對準的物體時
+    /// <summary>
+    /// 準心改變對準的物體時
+    /// </summary>
     private void CardboardGazeChange(object sender) {
         // 準心對準的物體
         gaze = sender as CardboardControlGaze;
         // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
         GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
-        //Debug.Log(GazeObjectName);
     }
 
-    // 準心持續對準某個物體時
+    /// <summary>
+    /// 準心持續對準某個物體時
+    /// </summary>
     private void CardboardStare(object sender) {
         gaze = sender as CardboardControlGaze;
         // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
         GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
-        //Debug.Log(GazeObjectName);
+    }
+
+    /// <summary>
+    /// 按下 Gvr 按鈕時
+    /// </summary>
+    private void CardboardLongClick(object sender) {
+        // 將 按住 Gvr 按鈕 狀態改成 true
+        HoldTrigger = true;
+
+        Debug.Log("按住 Gvr 按鈕");
+
+        // 準心對準購物車手把時 gaze.IsHeld() = true，準心沒有對準時 = false
+        // 購物車手把物件名稱為 Handle
+        if (gaze.IsHeld() && GazeObjectName == "Handle") {
+
+            // 在購物車移動之前，將購物車內的所有商品放入 Cart/InCartProduct 子物件內
+            // 防止購物車移動時，商品全部穿透掉光
+            // 找出所有物件
+            GameObject[] ProductGameObjArray = FindObjectsOfType(typeof(GameObject)) as GameObject[];
+            foreach (GameObject GameObj in ProductGameObjArray) {
+                // 找出所有是 "InCartProduct" Layer 的商品物件
+                if (GameObj.layer == LayerMask.NameToLayer("InCartProduct")) {
+                    // 將 "InCartProduct" Layer 的商品物件放入 Cart/InCartProduct 子物件內
+                    GameObj.transform.parent = InCartProductObj;
+                }
+            }
+
+            Debug.Log("Moving");
+            // 準心對準購物車手把 狀態改成 true
+            GazeCart = true;
+            // 將 向前移動 狀態改成 true，玩家和購物車同時向前移動
+            MoveForward = true;
+        }
+    }
+
+    /// <summary>
+    /// 放開 Gvr 按鈕時，玩家和購物車同時停止向前移動
+    /// </summary>
+    private void CardboardUp(object sender) {
+        if (MoveForward) {
+            Debug.Log("Stop");
+            // 將 按住 Gvr 按鈕 狀態改成 false
+            HoldTrigger = false;
+            // 準心對準購物車手把 狀態改成 false
+            GazeCart = false;
+            // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
+            MoveForward = false;
+        }
     }
 
     void Update() {
-        // 是否按下 Gvr 按鈕
-        if (cardboard.trigger.IsHeld()) {
-            // 檢查是否按住 Gvr 按鈕
-            CheckTrigger();
-        } else {
-            // 準心對準購物車手把 狀態改成 false
-            GazeCart = false;
-            // 將 按住 Gvr 按鈕 狀態改成 false
-            HoldTrigger = false;
-        }
         // 向前移動 狀態 = true，玩家和購物車同時向前移動
         if (MoveForward) {
             // 玩家向前移動
@@ -112,57 +155,9 @@ public class MovingController : MonoBehaviour {
         }
     }
 
-    void FixedUpdate() {
-        
-    }
-
-    // 檢查是否按住 Gvr 按鈕
-    private void CheckTrigger() {
-        //if (cardboard.trigger.TiggerHold()) {
-        if (true) {
-            //Debug.Log("有按住 Gvr 按鈕");
-            // 將 按住 Gvr 按鈕 狀態改成 true
-            HoldTrigger = true;
-            // 檢查準心是否對準購物車手把
-            CheckGaze();
-        } else {
-            //Debug.Log("沒有按住 Gvr 按鈕");
-            // 將 按住 Gvr 按鈕 狀態改成 false
-            HoldTrigger = false;
-            // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
-            MoveForward = false;
-        }
-    }
-
-    // 檢查準心是否對準購物車手把
-    private void CheckGaze() {
-        // 是否按住 Gvr 按鈕
-        if (HoldTrigger) {
-            // 準心對準購物車手把時 gaze.IsHeld() = true，準心沒有對準時 = false
-            // 購物車手把物件名稱為 Handle
-            if (gaze.IsHeld() && GazeObjectName == "Handle") {
-
-                // 在購物車移動之前，將購物車內的所有商品放入 Cart/InCartProduct 子物件內
-                // 防止購物車移動時，商品全部穿透掉光
-
-
-                //Debug.Log("Moving");
-                // 準心對準購物車手把 狀態改成 true
-                GazeCart = true;
-                // 將 向前移動 狀態改成 true，玩家和購物車同時向前移動
-                MoveForward = true;
-            }
-        }
-    }
-
-    // 玩家和購物車同時停止向前移動
-    private void PlayerCartStopMove(object sender) {
-        //Debug.Log("Stop");
-        // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
-        MoveForward = false;
-    }
-
-    // 玩家向前移動
+    /// <summary>
+    /// 玩家向前移動
+    /// </summary>
     private void PlayerMove() {
         // 找到向前的方向
         Vector3 forward = Camera.main.transform.forward;
@@ -170,7 +165,9 @@ public class MovingController : MonoBehaviour {
         controller.SimpleMove(forward * speed);
     }
 
-    // 購物車跟著玩家移動
+    /// <summary>
+    /// 購物車跟著玩家移動
+    /// </summary>
     private void CartMove() {
         // 更新購物車與人物角色的距離
         //Cart_Player_Distance = Cart.position - transform.position;
@@ -188,15 +185,12 @@ public class MovingController : MonoBehaviour {
         // 紀錄購物車 Z 座標：z = r * cos(thita)
         Cart_Z = Cart_Player * Mathf.Cos(theta);
 
-
-
         Vector3 CartMove = new Vector3(Cart_X, 0f, Cart_Z);
 
         //Cart_rbody.AddForce(CartMove);
 
-
         // 購物車會跟著玩家的視角移動位置
-        Cart.position = new Vector3(Cart_X + GvrMain.transform.position.x, 0f, 
+        Cart.position = new Vector3(Cart_X + GvrMain.transform.position.x, 0f,
                                     Cart_Z + GvrMain.transform.position.z);
 
         // 購物車利用剛體移動
