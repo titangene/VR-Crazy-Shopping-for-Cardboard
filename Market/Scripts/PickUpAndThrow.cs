@@ -139,7 +139,7 @@ public class PickUpAndThrow : MonoBehaviour {
         // 按第一次 Gvr 按鈕，商品會跟著玩家頭部方向移動
         // 準心是否對準物體 && 射線是否對準物體 && 射線對準的物體名稱是否為 ProObjxxxx
         if (GazeCheck() && !SecondClick) {
-            Debug.Log("PickingUp");
+            Debug.Log("PickUp：" + hit.transform.name);
             // 將 是否拿取商品 狀態改成 true
             PickingUp = true;
             // 將 是否按第二次 Gvr 按鈕 狀態改成 true

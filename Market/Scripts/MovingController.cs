@@ -20,6 +20,9 @@ public class MovingController : MonoBehaviour {
     [Tooltip("找到 Cart/InCartProduct 子物件 (拿來放所有放在購物車內的商品)")]
     public Transform InCartProductObj;
 
+    [Tooltip("找出所有是 InCartProduct Layer 的商品物件")]
+    public string LayerName_InCartProduct = "InCartProduct";
+
     [Tooltip("購物車與人物角色的距離")]
     public float Cart_Player = 1.2f;
 
@@ -30,7 +33,7 @@ public class MovingController : MonoBehaviour {
     public bool HoldTrigger = false;
 
     [Tooltip("準心是否對準購物車手把")]
-    public bool GazeCart = false;
+    public bool GazeObjIsHandle = false;
 
     [Tooltip("是否向前移動")]
     public bool MoveForward = false;
@@ -43,6 +46,8 @@ public class MovingController : MonoBehaviour {
     private string GazeObjectName;
     // 角色
     private CharacterController controller;
+    // 找出 Layer
+    private FindLayer findLayer;
     // 按住 Gvr 按鈕時間
     private float TriggerTime = 0.0f;
     // 計算購物車與人物角色的距離
@@ -61,13 +66,17 @@ public class MovingController : MonoBehaviour {
         Cart = GameObject.Find("Cart").transform;
         // 找到購物車物體的鋼體
         Cart_rbody = Cart.GetComponent<Rigidbody>();
+        // 找到 Cart/InCartProduct 子物件 (拿來放所有放在購物車內的商品)
+        InCartProductObj = GameObject.Find("InCartProduct").transform;
         // 找到 Head 物件
         Head = GvrMain.transform.FindChild("Head");
         // 找到 CharacterController
         controller = GetComponent<CharacterController>();
+        // 找出 Layer
+        findLayer = GetComponent<FindLayer>();
         // 找到 CardboardControlManager 中的 CardboardControl.cs Script
         cardboard = GameObject.Find("CardboardControlManager").GetComponent<CardboardControl>();
-
+        
         // 按住 Gvr 按鈕時
         cardboard.trigger.OnLongClick += CardboardLongClick;
         // 放開 Gvr 按鈕時，玩家和購物車同時停止向前移動
@@ -86,6 +95,8 @@ public class MovingController : MonoBehaviour {
         gaze = sender as CardboardControlGaze;
         // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
         GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
+        // 準心是否對準購物車手把，購物車手把物件名稱為 Handle
+        GazeObjIsHandle = (GazeObjectName == "Handle");
     }
 
     /// <summary>
@@ -95,38 +106,28 @@ public class MovingController : MonoBehaviour {
         gaze = sender as CardboardControlGaze;
         // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
         GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
+        // 準心是否對準購物車手把，購物車手把物件名稱為 Handle
+        GazeObjIsHandle = (GazeObjectName == "Handle");
     }
 
     /// <summary>
     /// 按下 Gvr 按鈕時
     /// </summary>
     private void CardboardLongClick(object sender) {
+        //Debug.Log("按住 Gvr 按鈕");
         // 將 按住 Gvr 按鈕 狀態改成 true
         HoldTrigger = true;
 
-        Debug.Log("按住 Gvr 按鈕");
-
         // 準心對準購物車手把時 gaze.IsHeld() = true，準心沒有對準時 = false
-        // 購物車手把物件名稱為 Handle
-        if (gaze.IsHeld() && GazeObjectName == "Handle") {
+        if (gaze.IsHeld() && GazeObjIsHandle) {
+            //Debug.Log("Moving");
+            // 將 向前移動 狀態改成 true，玩家和購物車同時向前移動
+            MoveForward = true;
 
             // 在購物車移動之前，將購物車內的所有商品放入 Cart/InCartProduct 子物件內
             // 防止購物車移動時，商品全部穿透掉光
-            // 找出所有物件
-            GameObject[] ProductGameObjArray = FindObjectsOfType(typeof(GameObject)) as GameObject[];
-            foreach (GameObject GameObj in ProductGameObjArray) {
-                // 找出所有是 "InCartProduct" Layer 的商品物件
-                if (GameObj.layer == LayerMask.NameToLayer("InCartProduct")) {
-                    // 將 "InCartProduct" Layer 的商品物件放入 Cart/InCartProduct 子物件內
-                    GameObj.transform.parent = InCartProductObj;
-                }
-            }
-
-            Debug.Log("Moving");
-            // 準心對準購物車手把 狀態改成 true
-            GazeCart = true;
-            // 將 向前移動 狀態改成 true，玩家和購物車同時向前移動
-            MoveForward = true;
+            // 將所有是 "InCartProduct" Layer 的商品物件放入某子物件內
+            //findLayer.PlacedObjectParent(LayerName_InCartProduct, InCartProductObj);
         }
     }
 
@@ -135,17 +136,20 @@ public class MovingController : MonoBehaviour {
     /// </summary>
     private void CardboardUp(object sender) {
         if (MoveForward) {
-            Debug.Log("Stop");
+            //Debug.Log("Stop");
             // 將 按住 Gvr 按鈕 狀態改成 false
             HoldTrigger = false;
-            // 準心對準購物車手把 狀態改成 false
-            GazeCart = false;
             // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
             MoveForward = false;
         }
     }
 
     void Update() {
+        //findLayer.SetFindLayerName(LayerName_InCartProduct);
+        //findLayer.ObjectParent = InCartProductObj;
+        //GameObject.Find("Player").GetComponent<FindLayer>().PlacedObjectParent(LayerName_InCartProduct, InCartProductObj);
+
+        //findLayer.PlacedObjectParent();
         // 向前移動 狀態 = true，玩家和購物車同時向前移動
         if (MoveForward) {
             // 玩家向前移動
