@@ -25,19 +25,36 @@ public class PickUpAndThrow : MonoBehaviour {
     public bool SecondClick = false;
 
     private static CardboardControl cardboard;
+    /// <summary>
+    /// 準心對準的物件
+    /// </summary>
     private static CardboardControlGaze gaze;
-    // 準心對準的物體名稱
+    /// <summary>
+    /// 準心對準的物件名稱
+    /// </summary>
     private string GazeObjectName;
-    // 找到商品物件的 EventTrigger
+    /// <summary>
+    /// 準心對準的物件名稱是否為商品(產品編號：ProObjxxxx)
+    /// </summary>
+    private bool GazeObjIsProduct;
+    /// <summary>
+    /// 商品物件的 EventTrigger
+    /// </summary>
     private EventTrigger ProductGaze;
 
     private Transform MainCamera;
-    // 射線碰撞參數
-    private RaycastHit hit;
-    // 某物體的剛體
-    private Rigidbody Product_rbody;
-    // 找到商品物件
+    /// <summary>
+    /// 商品物件
+    /// </summary>
     private Transform Product;
+    /// <summary>
+    /// 射線碰撞參數
+    /// </summary>
+    private RaycastHit hit;
+    /// <summary>
+    /// 射線對準的物件名稱
+    /// </summary>
+    private string RayHitObjectName;
 
     void Start() {
         // 找到 MainCamera
@@ -47,18 +64,31 @@ public class PickUpAndThrow : MonoBehaviour {
 
         // 在設定時間內按下並且快速放開 Gvr 按鈕間，會判定為點擊事件觸發
         cardboard.trigger.OnClick += CardboardClick;
-        // 準心改變對準的物體時
+        // 準心改變對準的物件時
         cardboard.gaze.OnChange += CardboardGazeChange;
-        // 準心持續對準某個物體時
+        // 準心持續對準某個物件時
         cardboard.gaze.OnStare += CardboardStare;
     }
 
     /// <summary>
-    /// hit.rigidbod：射線是否對準物體，
-    /// hit.transform.name.Contains("ProObj")：射線對準的物體名稱是否為 ProObjxxxx。
-    /// 商品物件名稱為 ProObjxxxx (xxxx 為邊號，EX：ProObj0001)
+    /// 檢查準心是否對準商品
     /// </summary>
-    private bool GazeCheck() {
+    private void GazeCheck(object sender) {
+        // 準心對準的物件
+        gaze = sender as CardboardControlGaze;
+        // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
+        GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
+        // 準心對準的物件名稱是否為商品(產品編號：ProObjxxxx)
+        GazeObjIsProduct = GazeObjectName.Contains("ProObj");
+    }
+
+    /// <summary>
+    /// 射線是否對準商品物件。
+    /// hit.rigidbod：射線是否對準物件，
+    /// IsHitProducts：射線對準的物件名稱是否為商品(產品編號：ProObjxxxx，
+    /// xxxx 為邊號，EX：ProObj0001)
+    /// </summary>
+    private bool RayHitObjIsProduct() {
         return hit.rigidbody && hit.transform.name.Contains("ProObj");
     }
 
@@ -66,45 +96,67 @@ public class PickUpAndThrow : MonoBehaviour {
     /// 檢查商品與人物角色的距離是否在設定範圍內，
     /// 如果有可拿取商品(準心會放大)，沒有則無(準心不會放大)
     /// </summary>
-    private void PickUpCheck(object sender) {
-        // 準心對準的物體
-        gaze = sender as CardboardControlGaze;
-        // Debug 如果準心沒有對準任何東西，會設定對準目標名稱 = nothing
-        GazeObjectName = gaze.IsHeld() ? gaze.Object().name : "nothing";
-
-        // 準心是否對準物體 && 射線是否對準物體 && 射線對準的物體名稱是否為 ProObjxxxx
-        if (gaze.IsHeld() && GazeObjectName.Contains("ProObj")) {
+    private void PickUpCheck() {
+        // 準心是否對準物件 && 射線是否對準物件 && 準心對準的物件名稱是否為商品
+        if (gaze.IsHeld() && GazeObjIsProduct) {
+            RaycastHit Producthit;
+            // 物理射線 (射線原點, 射線軸向, 射線碰撞參數, 射線距離)
+            Physics.Raycast(MainCamera.position, MainCamera.forward, out Producthit, RayDistance);
             // 找到商品物件
             Product = GameObject.Find(GazeObjectName).transform;
             // 找到商品物件的 EventTrigger
             ProductGaze = Product.GetComponent<EventTrigger>();
-        }
 
-        // 準心是否對準物體 && 射線是否對準物體 && 射線對準的物體名稱是否為 ProObjxxxx
-        if (gaze.IsHeld() && GazeObjectName.Contains("ProObj")) {
             // 更新商品與人物角色的距離
-            Vector3 Product_Player_Distance = Product.position - transform.position;
+            Vector3 Product_Player = Product.position - MainCamera.position;
             // 紀錄商品與人物角色的距離
-            float Product_Player = Mathf.Sqrt(Mathf.Pow(Product_Player_Distance.x, 2) +
-                                   Mathf.Pow(Product_Player_Distance.z, 2));
-            //Debug.Log(Product_Player);
+            float Product_Player_Distance = Mathf.Sqrt(Mathf.Pow(Product_Player.x, 2) +
+                                            Mathf.Pow(Product_Player.z, 2));
+            // 商品與人物角色的距離是否超過設定範圍
+            bool Product_Player_IsOverRange = Product_Player_Distance > RayDistance;
+            //Debug.Log("有無超過設定範圍：" + Product_Player_IsOverRange);
 
-            // 如果商品與人物角色的距離在設定範圍內
-            // 準心對準商品時，準心會放大，而且可拿取商品
-            if (Product_Player > RayDistance) {
-            // 將 商品與人物角色的距離是否超過設定範圍 狀態改成 true
-            PickUpOverRange = true;
-            // 準心不會放大
-            ProductGaze.enabled = false;
-
-            // 如果商品與人物角色的距離超過設定範圍
-            // 準心對準商品時，準心不會放大，而且不可拿取商品
+            // 射線是否對準商品物件
+            if (Producthit.rigidbody) {
+                if (Producthit.transform.name.Contains("ProObj")) {
+                    Debug.Log("CanPickup");
+                    // 將 商品與人物角色的距離是否超過設定範圍 狀態改成 false
+                    PickUpOverRange = false;
+                    // 準心會放大
+                    ProductGaze.enabled = true;
+                } else {
+                    Debug.Log("CantPickup");
+                    // 將 商品與人物角色的距離是否超過設定範圍 狀態改成 true
+                    PickUpOverRange = true;
+                    // 準心不會放大
+                    ProductGaze.enabled = false;
+                }
             } else {
-                // 將 商品與人物角色的距離是否超過設定範圍 狀態改成 false
-                PickUpOverRange = false;
-                // 準心會放大
-                ProductGaze.enabled = true;
+                Debug.Log("CantPickup");
+                // 將 商品與人物角色的距離是否超過設定範圍 狀態改成 true
+                PickUpOverRange = true;
+                // 準心不會放大
+                ProductGaze.enabled = false;
             }
+
+            //// 如果商品與人物角色的距離在設定範圍內
+            //// 準心對準商品時，準心會放大，而且可拿取商品
+            //if (Product_Player_IsOverRange && !RayHitObjIsProduct()) {
+            //    Debug.Log("CantPickup");
+            //    // 將 商品與人物角色的距離是否超過設定範圍 狀態改成 true
+            //    PickUpOverRange = true;
+            //    // 準心不會放大
+            //    ProductGaze.enabled = false;
+                
+            //// 如果商品與人物角色的距離超過設定範圍
+            //// 準心對準商品時，準心不會放大，而且不可拿取商品
+            //} else if (!Product_Player_IsOverRange && RayHitObjIsProduct()) {
+            //    Debug.Log("CanPickup");
+            //    // 將 商品與人物角色的距離是否超過設定範圍 狀態改成 false
+            //    PickUpOverRange = false;
+            //    // 準心會放大
+            //    ProductGaze.enabled = true;
+            //}
 
         // 準心沒有對準商品
         } else {
@@ -114,19 +166,23 @@ public class PickUpAndThrow : MonoBehaviour {
     }
 
     /// <summary>
-    /// 準心改變對準的物體時
+    /// 準心改變對準的物件時
     /// </summary>
     private void CardboardGazeChange(object sender) {
+        // 檢查準心是否對準商品
+        GazeCheck(sender);
         // 檢查商品與人物角色的距離是否在設定範圍內
-        PickUpCheck(sender);
+        PickUpCheck();
     }
 
     /// <summary>
-    /// 準心持續對準某個物體時
+    /// 準心持續對準某個物件時
     /// </summary>
     private void CardboardStare(object sender) {
+        // 檢查準心是否對準商品
+        GazeCheck(sender);
         // 檢查商品與人物角色的距離是否在設定範圍內
-        PickUpCheck(sender);
+        PickUpCheck();
     }
 
     /// <summary>
@@ -137,8 +193,8 @@ public class PickUpAndThrow : MonoBehaviour {
         Physics.Raycast(MainCamera.position, MainCamera.forward, out hit, RayDistance);
 
         // 按第一次 Gvr 按鈕，商品會跟著玩家頭部方向移動
-        // 準心是否對準物體 && 射線是否對準物體 && 射線對準的物體名稱是否為 ProObjxxxx
-        if (GazeCheck() && !SecondClick) {
+        // 準心是否對準物件 && 射線是否對準物件 && 射線對準的物件名稱是否為 ProObjxxxx
+        if (RayHitObjIsProduct() && !SecondClick) {
             Debug.Log("PickUp：" + hit.transform.name);
             // 將 是否拿取商品 狀態改成 true
             PickingUp = true;
@@ -177,7 +233,7 @@ public class PickUpAndThrow : MonoBehaviour {
     /// 商品跟著玩家頭部方向移動
     /// </summary>
     private void PickUpProduct() {
-        // 準心是否對準物體 && 射線是否對準物體 && 射線對準的物體名稱是否為 ProObjxxxx
+        // 準心是否對準物件 && 射線是否對準物件 && 射線對準的物件名稱是否為 ProObjxxxx
         if (hit.rigidbody) {
             // 商品會跟著玩家頭部方向移動
             hit.rigidbody.velocity = (PickupPosition.position -
@@ -189,7 +245,7 @@ public class PickUpAndThrow : MonoBehaviour {
     /// 丟出商品
     /// </summary>
     private void ThrowProduct() {
-        // 準心是否對準物體 && 射線是否對準物體
+        // 準心是否對準物件 && 射線是否對準物件
         if (gaze.IsHeld() && hit.rigidbody) {
             // 丟出商品
             hit.rigidbody.velocity = MainCamera.forward * ThrowPower;

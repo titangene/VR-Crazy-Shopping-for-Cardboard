@@ -4185,6 +4185,7 @@ GameObject:
   - 65: {fileID: 1763713338}
   - 23: {fileID: 1763713337}
   - 114: {fileID: 1763713336}
+  - 114: {fileID: 1763713341}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -4263,6 +4264,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &1763713341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1763713335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d65476f7502d8d4e9f9dac16fd6023f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1819392902
 GameObject:
   m_ObjectHideFlags: 0
@@ -4988,11 +5000,13 @@ MonoBehaviour:
   Cart: {fileID: 81906923}
   InCartProductObj: {fileID: 655381666}
   LayerName_InCartProduct: InCartProduct
+  OnGroundProductObj: {fileID: 0}
+  LayerName_OnGroundProduct: OnGroundProduct
   Cart_Player: 1
   speed: 6
-  HoldTrigger: 0
+  IsHoldTrigger: 0
   GazeObjIsHandle: 0
-  MoveForward: 0
+  IsMovingForward: 0
 --- !u!114 &2048861582
 MonoBehaviour:
   m_ObjectHideFlags: 0

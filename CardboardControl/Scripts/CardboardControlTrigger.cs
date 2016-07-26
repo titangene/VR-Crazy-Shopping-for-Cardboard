@@ -26,6 +26,8 @@ public class CardboardControlTrigger : MonoBehaviour {
     public KeyCode triggerKey = KeyCode.Mouse0;
     // 列印 Debug 訊息
     public bool printDebugInfo = false;
+    // 是否按住 Gvr 按鈕
+    public bool IsLongClick = false;
 
     // 分析磁鐵資料
     private ParsedMagnetData magnet;
@@ -49,8 +51,6 @@ public class CardboardControlTrigger : MonoBehaviour {
     private float LongClickTimeLog = 0f;
     // 是否可以紀錄按住的時間
     private bool CalcTime = true;
-    // 是否按住 Gvr 按鈕
-    private bool LongClick = false;
 
     private CardboardControl cardboard;
     public CardboardControlDelegate OnUp = delegate { };
@@ -71,7 +71,7 @@ public class CardboardControlTrigger : MonoBehaviour {
             CheckTouch();
         if (useMagnet)
             CheckMagnet();
-        CheckLongClick();
+        CheckTriggerLongClick();
         CheckKey();
     }
 
@@ -80,7 +80,7 @@ public class CardboardControlTrigger : MonoBehaviour {
             PrintDebug();
     }
 
-    private void CheckLongClick() {
+    private void CheckTriggerLongClick() {
         if (Input.GetKey(triggerKey)) {
             //Debug.Log("按下按鍵 " + triggerKey);
 
@@ -96,12 +96,12 @@ public class CardboardControlTrigger : MonoBehaviour {
             if (Time.realtimeSinceStartup - LongClickTimeLog >= clickSpeedThreshold) {
                 //Debug.Log("按住按鍵 " + triggerKey);
                 // 將 是否按住 Gvr 按鈕 狀態改成 true
-                LongClick = true;
+                IsLongClick = true;
             }
 
         } else {
             // 將 是否按住 Gvr 按鈕 狀態改成 false
-            LongClick = false;
+            IsLongClick = false;
             // 將 是否可以紀錄按住的時間 狀態改成 true，讓按下按鍵時，能紀錄開始按住的時間
             CalcTime = true;
             // 將計算按住的時間重新歸零
@@ -116,7 +116,7 @@ public class CardboardControlTrigger : MonoBehaviour {
             case "up":
                 return Input.GetKeyUp(triggerKey);
             case "longclick":
-                return LongClick;
+                return IsLongClick;
             default:
                 return false;
         }

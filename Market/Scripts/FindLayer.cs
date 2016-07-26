@@ -18,13 +18,13 @@ public class FindLayer : MonoBehaviour {
     /// <summary>
     /// 找出所有物件
     /// </summary>
-    private GameObject[] AllGameObjArray;
+    GameObject[] AllGameObjArray;
 
     /// <summary>
     /// 將所有是某 Layer 的物件放入某子物件內
     /// </summary>
-    /// <param name="LayerName">要找出的 Layer 名稱</param>
-    /// <param name="ObjParent">要放入某子物件內</param>
+    /// <param name="FindLayerName">要找出的 Layer 名稱</param>
+    /// <param name="ObjectParent">要放入某子物件內</param>
     public void PlacedObjectParent(string FindLayerName, Transform ObjectParent) {
         // 找出所有物件
         AllGameObjArray = FindObjectsOfType(typeof(GameObject)) as GameObject[];
