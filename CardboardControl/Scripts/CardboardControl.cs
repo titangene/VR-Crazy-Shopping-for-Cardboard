@@ -28,6 +28,7 @@ public class CardboardControl : MonoBehaviour {
         {"OnClick", TIME_TO_CALIBRATE},
         {"OnLongClick", TIME_TO_CALIBRATE},
         {"OnChange", TIME_TO_CALIBRATE}, // gaze
+        {"OnUpdate", TIME_TO_CALIBRATE},
         {"OnStare", TIME_TO_CALIBRATE},
         {"OnTilt", TIME_TO_CALIBRATE} // box
     };
@@ -60,7 +61,7 @@ public class CardboardControl : MonoBehaviour {
     private bool CooldownEnabledFor(string name) {
         if (name == "OnTilt")
             return box.useEventCooldowns;
-        if (name == "OnChange" || name == "OnStare")
+        if (name == "OnChange" || name == "OnUpdate" || name == "OnStare")
             return gaze.useEventCooldowns;
         return trigger.useEventCooldowns;
     }

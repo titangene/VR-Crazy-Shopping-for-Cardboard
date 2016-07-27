@@ -4959,9 +4959,9 @@ GameObject:
   - 4: {fileID: 2048861580}
   - 143: {fileID: 2048861584}
   - 114: {fileID: 2048861583}
-  - 114: {fileID: 2048861586}
   - 114: {fileID: 2048861581}
   - 114: {fileID: 2048861582}
+  - 114: {fileID: 2048861585}
   m_Layer: 0
   m_Name: VRMain
   m_TagString: Untagged
@@ -4995,8 +4995,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccde27ccd78d3554d87629b552560712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Head: {fileID: 1726538694}
   GvrMain: {fileID: 1942173246}
+  Head: {fileID: 1726538694}
   Cart: {fileID: 81906923}
   InCartProductObj: {fileID: 655381666}
   LayerName_InCartProduct: InCartProduct
@@ -5048,7 +5048,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2048861586
+--- !u!114 &2048861585
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5056,15 +5056,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2048861579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bbd2e6e10dce7c418257a5aa8a437a8, type: 3}
+  m_Script: {fileID: 11500000, guid: fd400f45a87ab9f4693da21c3f2fa941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PickupPosition: {fileID: 738371479}
-  PickPower: 1000
+  PickPower: 10
   ThrowPower: 3
   RayDistance: 2.8
   PickingUp: 0
-  PickUpOverRange: 0
+  PickUpIsOverRange: 0
   SecondClick: 0
 --- !u!1 &2054419731
 GameObject:
