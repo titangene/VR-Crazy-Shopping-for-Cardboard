@@ -7,15 +7,31 @@ public class OnGroundProduct : MonoBehaviour {
     public string ProductTag = "Product";
 
     [Tooltip("掉在地面上的商品會設定為此 Layer")]
-    public string OnGround_Product = "OnGroundProduct";
+    public string LayerName_OnGroundProduct = "OnGroundProduct";
+
+    [Tooltip("OnGroundProductObj 子物件 (拿來放掉在地面上的所有商品)")]
+    public Transform OnGroundProductObj;
 
     /// <summary>
-    /// 商品掉在地面上時，會將商品的 Layer 設為 "OnGroundProduct"
+    /// 找出 Layer
+    /// </summary>
+    private FindLayer findLayer;
+
+    void Start() {
+        // 找出 Layer
+        findLayer = gameObject.GetComponent<FindLayer>();
+    }
+
+    /// <summary>
+    /// 商品掉在地面上時，會將商品的 Layer 設為 "OnGroundProduct"，
+    /// 並且將掉在地面上的所有商品放在 OnGroundProduct 子物件內
     /// </summary>
     void OnTriggerEnter(Collider other) {
         if (other.tag == ProductTag) {
             //Debug.Log("Enter: " + other.gameObject.name);
-            other.gameObject.layer = LayerMask.NameToLayer(OnGround_Product);
+            other.gameObject.layer = LayerMask.NameToLayer(LayerName_OnGroundProduct);
+            // 將所有是 "OnGroundProduct" Layer 的商品物件放入 OnGroundProduct 子物件內
+            findLayer.PlacedObjectParent(LayerName_OnGroundProduct, OnGroundProductObj);
         }
     }
 

@@ -9,11 +9,7 @@ using System.Collections.Generic;
  */
 public class MovingController : MonoBehaviour {
     public GvrViewer GvrMain;
-
-    [Tooltip("Head 物件")]
     public Transform Head;
-
-    [Tooltip("購物車物件")]
     public Transform Cart;
 
     [Tooltip("Cart/InCartProduct 子物件 (拿來放丟入購物車內的所有商品)")]
@@ -44,9 +40,6 @@ public class MovingController : MonoBehaviour {
     public bool IsMovingForward = false;
 
     private static CardboardControl cardboard;
-    /// <summary>
-    /// 準心對準的物件
-    /// </summary>
     private static CardboardControlGaze gaze;
     /// <summary>
     /// 準心對準的物件名稱
@@ -82,7 +75,7 @@ public class MovingController : MonoBehaviour {
         controller = GetComponent<CharacterController>();
         // 找出 Layer
         findLayer = gameObject.GetComponent<FindLayer>();
-        // 找到 CardboardControlManager 中的 CardboardControl.cs Script
+
         cardboard = GameObject.Find("CardboardControlManager").GetComponent<CardboardControl>();
         
         // 按住 Gvr 按鈕時
@@ -130,12 +123,9 @@ public class MovingController : MonoBehaviour {
             // 將 向前移動 狀態改成 true，玩家和購物車同時向前移動
             IsMovingForward = true;
 
-            // 在購物車移動之前，將購物車內的所有商品放入某子物件內
             // 防止購物車移動時，商品全部穿透掉光
             // 將所有是 "InCartProduct" Layer 的商品物件放入 Cart/InCartProduct 子物件內
             findLayer.PlacedObjectParent(LayerName_InCartProduct, InCartProductObj);
-
-
         }
     }
 
