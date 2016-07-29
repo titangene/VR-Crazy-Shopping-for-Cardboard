@@ -11,18 +11,13 @@ public class MovingController : MonoBehaviour {
     public GvrViewer GvrMain;
     public Transform Head;
     public Transform Cart;
+    public GameObject Range;
 
     [Tooltip("Cart/InCartProduct 子物件 (拿來放丟入購物車內的所有商品)")]
     public Transform InCartProductObj;
 
     [Tooltip("找出所有是 InCartProduct Layer 的商品物件")]
     public string LayerName_InCartProduct = "InCartProduct";
-
-    [Tooltip("OnGroundProductObj 子物件 (拿來放掉在地上的所有商品)")]
-    public Transform OnGroundProductObj;
-
-    [Tooltip("找出所有是 OnGroundProduct Layer 的商品物件")]
-    public string LayerName_OnGroundProduct = "OnGroundProduct";
 
     [Tooltip("購物車與人物角色的距離")]
     public float Cart_Player = 1.2f;
@@ -67,8 +62,6 @@ public class MovingController : MonoBehaviour {
         //Cart_rbody = Cart.GetComponent<Rigidbody>();
         // 找到 Cart/InCartProduct 子物件 (拿來放丟入購物車內的所有商品)
         InCartProductObj = GameObject.Find("InCartProduct").transform;
-        // 找到 OnGroundProductObj 子物件(拿來放掉在地上的所有商品)
-        OnGroundProductObj = GameObject.Find("OnGroundProduct").transform;
         // 找到 Head 物件
         Head = GvrMain.transform.FindChild("Head");
         // 找到 CharacterController
@@ -126,6 +119,8 @@ public class MovingController : MonoBehaviour {
             // 防止購物車移動時，商品全部穿透掉光
             // 將所有是 "InCartProduct" Layer 的商品物件放入 Cart/InCartProduct 子物件內
             findLayer.PlacedObjectParent(LayerName_InCartProduct, InCartProductObj);
+            // 將 Range 物件開啟
+            Range.SetActive(true);
         }
     }
 
@@ -137,6 +132,8 @@ public class MovingController : MonoBehaviour {
             //Debug.Log("Stop");
             // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
             IsMovingForward = false;
+            // 將 Range 物件關閉
+            Range.SetActive(false);
         }
     }
 

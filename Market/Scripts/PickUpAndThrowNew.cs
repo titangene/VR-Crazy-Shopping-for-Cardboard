@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.EventSystems;
 
 public class PickUpAndThrowNew : MonoBehaviour {
+    public GameObject Cart_Collider;
+
     [Tooltip("商品被拿取時的位置")]
     public Transform PickupPosition;
 
@@ -127,21 +129,25 @@ public class PickUpAndThrowNew : MonoBehaviour {
         // 按第一次 Gvr 按鈕，商品會跟著玩家頭部方向移動
         // 商品是否超過可拿取範圍 && 準心是否對準商品 (有限範圍) && 按第一次 Gvr 按鈕：拿取商品
         if (!PickUpIsOverRange && GazeObjIsProduct() && !SecondClick) {
-            Debug.Log("PickUp：" + hit.transform.name);
+            //Debug.Log("PickUp：" + hit.transform.name);
             // 將 是否拿取商品 狀態改成 true
             PickingUp = true;
             // 將 是否按第二次 Gvr 按鈕 狀態改成 true
             SecondClick = true;
+            // 將 Cart_Collider 物件開啟
+            Cart_Collider.SetActive(true);
 
         // 按第二次 Gvr 按鈕：丟出商品
         } else if (SecondClick) {
-            Debug.Log("Throw");
+            //Debug.Log("Throw");
             // 將 是否拿取商品 狀態改成 false
             PickingUp = false;
             // 將 是否按第二次 Gvr 按鈕 狀態改成 false
             SecondClick = false;
             // 丟出商品
             ThrowProduct();
+            // 將 Cart_Collider 物件關閉
+            Cart_Collider.SetActive(false);
         }
 
         // 商品與人物角色的距離超過設定範圍

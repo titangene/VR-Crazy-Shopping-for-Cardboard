@@ -21,7 +21,9 @@ public class FindLayer : MonoBehaviour {
     GameObject[] AllGameObjArray;
 
     /// <summary>
-    /// 將所有是某 Layer 的物件放入某子物件內
+    /// 將所有是某 Layer 的物件放入某子物件內。
+    /// <typeparamref name="string"/> <paramref name="FindLayerName"/>：要找出的 Layer 名稱，
+    /// <typeparamref name="Transform"/> <paramref name="ObjectParent"/>：要放入某子物件內
     /// </summary>
     /// <param name="FindLayerName">要找出的 Layer 名稱</param>
     /// <param name="ObjectParent">要放入某子物件內</param>
