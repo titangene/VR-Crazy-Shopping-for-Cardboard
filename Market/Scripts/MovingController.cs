@@ -45,7 +45,7 @@ public class MovingController : MonoBehaviour {
     /// </summary>
     private CharacterController controller;
     /// <summary>
-    /// 找出 Layer
+    /// 找出 Layer / Tag
     /// </summary>
     private Find find;
     // 計算購物車與人物角色的距離
@@ -66,7 +66,7 @@ public class MovingController : MonoBehaviour {
         Head = GvrMain.transform.FindChild("Head");
         // 找到 CharacterController
         controller = GetComponent<CharacterController>();
-        // 找出 Layer
+        // 找出 Layer / Tag
         find = gameObject.GetComponent<Find>();
 
         cardboard = GameObject.Find("CardboardControlManager").GetComponent<CardboardControl>();

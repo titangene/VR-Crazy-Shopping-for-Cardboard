@@ -8,6 +8,8 @@ public class PickUpAndThrowNew : MonoBehaviour {
     [Tooltip("商品被拿取時的位置")]
     public Transform PickupPosition;
 
+    public string ProductTagName = "Product";
+
     [Tooltip("拿取商品時的力")]
     public float PickPower = 10.0f;
 
@@ -46,10 +48,19 @@ public class PickUpAndThrowNew : MonoBehaviour {
     /// 射線碰撞參數(PickupRange)
     /// </summary>
     private RaycastHit hit;
+    /// <summary>
+    /// 找出 Layer / Tag
+    /// </summary>
+    private Find find;
 
     void Start() {
         MainCamera = Camera.main.transform;
         cardboard = GameObject.Find("CardboardControlManager").GetComponent<CardboardControl>();
+        // 找出 Layer / Tag
+        find = gameObject.GetComponent<Find>();
+        // 將所有是 "Product" 的物件(商品) 關閉 EventTrigger
+        // Debug 準心第一定對準商品會瞬間放大再縮小
+        find.EventTriggerSwitch(ProductTagName, false);
 
         // 自定準心觀看範圍
         cardboard.gaze.DistanceRange = RayDistance;
