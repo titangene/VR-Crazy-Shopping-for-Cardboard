@@ -15,11 +15,11 @@ public class OnGroundProduct : MonoBehaviour {
     /// <summary>
     /// 找出 Layer
     /// </summary>
-    private FindLayer findLayer;
+    private Find find;
 
     void Start() {
         // 找出 Layer
-        findLayer = gameObject.GetComponent<FindLayer>();
+        find = gameObject.GetComponent<Find>();
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public class OnGroundProduct : MonoBehaviour {
             //Debug.Log("Enter: " + other.gameObject.name);
             other.gameObject.layer = LayerMask.NameToLayer(LayerName_OnGroundProduct);
             // 將所有是 "OnGroundProduct" Layer 的商品物件放入 OnGroundProduct 子物件內
-            findLayer.PlacedObjectParent(LayerName_OnGroundProduct, OnGroundProductObj);
+            find.PlacedObjectParent(LayerName_OnGroundProduct, OnGroundProductObj);
         }
     }
 

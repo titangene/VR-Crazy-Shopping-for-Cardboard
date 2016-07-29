@@ -47,7 +47,7 @@ public class MovingController : MonoBehaviour {
     /// <summary>
     /// 找出 Layer
     /// </summary>
-    private FindLayer findLayer;
+    private Find find;
     // 計算購物車與人物角色的距離
     //private Vector3 Cart_Player_Distance;
     // 紀錄購物車與人物角色的距離
@@ -67,7 +67,7 @@ public class MovingController : MonoBehaviour {
         // 找到 CharacterController
         controller = GetComponent<CharacterController>();
         // 找出 Layer
-        findLayer = gameObject.GetComponent<FindLayer>();
+        find = gameObject.GetComponent<Find>();
 
         cardboard = GameObject.Find("CardboardControlManager").GetComponent<CardboardControl>();
         
@@ -118,7 +118,7 @@ public class MovingController : MonoBehaviour {
 
             // 防止購物車移動時，商品全部穿透掉光
             // 將所有是 "InCartProduct" Layer 的商品物件放入 Cart/InCartProduct 子物件內
-            findLayer.PlacedObjectParent(LayerName_InCartProduct, InCartProductObj);
+            find.PlacedObjectParent(LayerName_InCartProduct, InCartProductObj);
             // 將 Range 物件開啟
             Range.SetActive(true);
         }

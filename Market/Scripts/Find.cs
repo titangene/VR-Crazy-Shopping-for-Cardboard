@@ -3,8 +3,7 @@ using System.Collections;
 /// <summary>
 /// 找出 Layer
 /// </summary>
-public class FindLayer : MonoBehaviour {
-
+public class Find : MonoBehaviour {
     /// <summary>
     /// 要找出的 Layer 名稱
     /// </summary>
