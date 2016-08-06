@@ -29,8 +29,6 @@ public class CardboardControlTrigger : MonoBehaviour {
     // 是否按住 Gvr 按鈕
     public bool IsLongClick = false;
 
-    // 分析磁鐵資料
-    private ParsedMagnetData magnet;
     // 分析觸碰資料
     private ParsedTouchData touch;
     // enum 是列舉，預設第一個為 0，依序類推
@@ -60,17 +58,14 @@ public class CardboardControlTrigger : MonoBehaviour {
 
     public void Start() {
         cardboard = gameObject.GetComponent<CardboardControl>();
-        magnet = new ParsedMagnetData();
         touch = new ParsedTouchData();
     }
 
     public void Update() {
-        magnet.Update();
         touch.Update();
         if (useTouch)
             CheckTouch();
         if (useMagnet)
-            CheckMagnet();
         CheckTriggerLongClick();
         CheckKey();
     }
@@ -131,21 +126,12 @@ public class CardboardControlTrigger : MonoBehaviour {
             ReportLongClick();
     }
 
-    private void CheckMagnet() {
-        if (magnet.IsDown() && cardboard.EventReady("OnDown"))
-            ReportDown();
-        if (magnet.IsUp() && cardboard.EventReady("OnUp"))
-            ReportUp();
-        if (magnet.IsDown() && cardboard.EventReady("OnLongClick"))
-            ReportLongClick();
-    }
-
     private void CheckTouch() {
         if (touch.IsDown() && cardboard.EventReady("OnDown"))
             ReportDown();
         if (touch.IsUp() && cardboard.EventReady("OnUp"))
             ReportUp();
-        if (magnet.IsDown() && cardboard.EventReady("OnLongClick"))
+        if (touch.IsDown() && cardboard.EventReady("OnLongClick"))
             ReportLongClick();
     }
 
@@ -204,14 +190,9 @@ public class CardboardControlTrigger : MonoBehaviour {
         return (currentTriggerState == TriggerState.Down);
     }
 
-    public void ResetMagnetState() {
-        magnet.ResetState();
-    }
-
     private void PrintDebug() {
         debugThrottle++;
         if (debugThrottle >= FRAMES_PER_DEBUG) {
-            magnet.PrintDebug();
             touch.PrintDebug();
             debugThrottle = 0;
         }
