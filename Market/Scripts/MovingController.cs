@@ -187,7 +187,7 @@ public class MovingController : MonoBehaviour {
         }
     }
 
-    void FixedUpdate() {
+    void Update() {
         // 是否按住 Gvr 按鈕
         IsHoldTrigger = cardboard.trigger.IsLongClick;
         // 向前移動 狀態 = true，玩家和購物車同時向前移動
