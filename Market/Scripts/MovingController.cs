@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-/* 讓人物角色以第一人稱視角向前移動，並且購物車會同時移動
+/* 
+ * 讓人物角色以第一人稱視角向前移動，並且購物車會同時移動
  * (購物車與人物角色的距離不變)
  * 準心對準購物車的手把並按住 Gvr 按鈕即可往前移動，放開按鈕可停止移動
  * 玩家同時能透過移動頭部方向來改變移動方位
@@ -12,6 +13,7 @@ public class MovingController : MonoBehaviour {
     public Transform Head;
     public Transform Cart;
     public GameObject Range;
+    public Collider Basket_Collider;
 
     [Tooltip("Cart/InCartProduct 子物件 (拿來放丟入購物車內的所有商品)")]
     public Transform InCartProductObj;
@@ -48,18 +50,24 @@ public class MovingController : MonoBehaviour {
     /// 找出 Layer / Tag
     /// </summary>
     private Find find;
+
+    #region 計算購物車與人物角色的距離(暫時用不到)
+    /*
     // 計算購物車與人物角色的距離
-    //private Vector3 Cart_Player_Distance;
+    private Vector3 Cart_Player_Distance;
     // 紀錄購物車與人物角色的距離
-    //private float Cart_Player;
+    private float Cart_Player;
     // 購物車物件的剛體
-    //private Rigidbody Cart_rbody;
+    private Rigidbody Cart_rbody;
+    */
+    #endregion
 
     void Start() {
         // 找到購物車物件
         Cart = GameObject.Find("Cart").transform;
         // 找到購物車物件的鋼體
         //Cart_rbody = Cart.GetComponent<Rigidbody>();
+
         // 找到 Cart/InCartProduct 子物件 (拿來放丟入購物車內的所有商品)
         InCartProductObj = GameObject.Find("InCartProduct").transform;
         // 找到 Head 物件
@@ -70,11 +78,16 @@ public class MovingController : MonoBehaviour {
         find = gameObject.GetComponent<Find>();
 
         cardboard = GameObject.Find("CardboardControlManager").GetComponent<CardboardControl>();
-        
-        // 按住 Gvr 按鈕時
-        cardboard.trigger.OnLongClick += CardboardLongClick;
+
+        // 按下 Gvr 按鈕時，開啟Cast Basket Collider
+        cardboard.trigger.OnDown += CardboardDown;
         // 放開 Gvr 按鈕時，玩家和購物車同時停止向前移動
         cardboard.trigger.OnUp += CardboardUp;
+        // 在設定時間內按下並且快速放開 Gvr 按鈕間，會判定為點擊事件觸發
+        // 按一下 Gvr 按紐時
+        cardboard.trigger.OnClick += CardboardClick;
+        // 按住 Gvr 按鈕時
+        cardboard.trigger.OnLongClick += CardboardLongClick;
         // 準心改變對準的物件時
         cardboard.gaze.OnChange += CardboardGazeChange;
         // 準心持續對準某個物件時
@@ -82,7 +95,9 @@ public class MovingController : MonoBehaviour {
     }
 
     /// <summary>
-    /// 準心改變對準的物件時
+    /// 準心改變對準的物件時：
+    /// 1. 紀錄準心對準的物件名稱，
+    /// 2. 紀錄準心是否對準購物車手把
     /// </summary>
     private void CardboardGazeChange(object sender) {
         // 準心對準的物件
@@ -94,7 +109,9 @@ public class MovingController : MonoBehaviour {
     }
 
     /// <summary>
-    /// 準心持續對準某個物件時
+    /// 準心持續對準某個物件時：
+    /// 1. 紀錄準心對準的物件名稱，
+    /// 2. 紀錄準心是否對準購物車手把
     /// </summary>
     private void CardboardStare(object sender) {
         gaze = sender as CardboardControlGaze;
@@ -105,12 +122,40 @@ public class MovingController : MonoBehaviour {
     }
 
     /// <summary>
-    /// 按下 Gvr 按鈕時
+    /// 準心對準購物車手把時，按下 Gvr 按鈕：
+    /// 開啟 Cart Basket Collider
+    /// </summary>
+    private void CardboardDown(object sender) {
+        // 準心是否對準物件 && 準心是否對準購物車手把
+        if (gaze.IsHeld() && GazeObjIsHandle) {
+            // 開啟 Cart Basket Collider
+            Basket_Collider.enabled = true;
+        }
+    }
+
+    /// 在設定時間內按下並且快速放開 Gvr 按鈕間，會判定為點擊事件觸發
+    /// <summary>
+    /// 準心對準購物車手把時，按一下 Gvr 按鈕：
+    /// 關閉 Cart Basket Collider
+    /// </summary>
+    private void CardboardClick(object sender) {
+        // 準心是否對準物件 && 準心是否對準購物車手把
+        if (gaze.IsHeld() && GazeObjIsHandle) {
+            // 關閉 Cart Basket Collider
+            Basket_Collider.enabled = false;
+        }
+    }
+
+    /// <summary>
+    /// 準心對準購物車手把時，按住 Gvr 按鈕：
+    /// 1. 玩家和購物車可同時向前移動，
+    /// 2. 將購物車內的所有放入 Cart/InCartProduct 子物件內，
+    /// 3. 開啟 Range 物件
     /// </summary>
     private void CardboardLongClick(object sender) {
         //Debug.Log("按住 Gvr 按鈕");
 
-        // 準心對準購物車手把時 gaze.IsHeld() = true，準心沒有對準時 = false
+        // 準心是否對準物件 && 準心是否對準購物車手把
         if (gaze.IsHeld() && GazeObjIsHandle) {
             //Debug.Log("Moving");
             // 將 向前移動 狀態改成 true，玩家和購物車同時向前移動
@@ -125,7 +170,10 @@ public class MovingController : MonoBehaviour {
     }
 
     /// <summary>
-    /// 放開 Gvr 按鈕時，玩家和購物車同時停止向前移動
+    /// 放開 Gvr 按鈕時：
+    /// 1. 玩家和購物車同時停止向前移動，
+    /// 2. 關閉 Range 物件，
+    /// 3. 關閉 Cart Basket Collider
     /// </summary>
     private void CardboardUp(object sender) {
         if (IsMovingForward) {
@@ -134,10 +182,12 @@ public class MovingController : MonoBehaviour {
             IsMovingForward = false;
             // 將 Range 物件關閉
             Range.SetActive(false);
+            // 關閉 Cart Basket Collider
+            Basket_Collider.enabled = false;
         }
     }
 
-    void Update() {
+    void FixedUpdate() {
         // 是否按住 Gvr 按鈕
         IsHoldTrigger = cardboard.trigger.IsLongClick;
         // 向前移動 狀態 = true，玩家和購物車同時向前移動
@@ -164,13 +214,15 @@ public class MovingController : MonoBehaviour {
     /// </summary>
     private void CartMove() {
         #region 計算購物車與人物角色的距離(暫時用不到)
+        /*
         // 更新購物車與人物角色的距離
-        //Cart_Player_Distance = Cart.position - transform.position;
+        Cart_Player_Distance = Cart.position - transform.position;
         // 紀錄購物車與人物角色的距離 (r 圓型半徑)   畢氏定理 C = sqrt(A^2 + B^2)
-        //Cart_Player = Mathf.Sqrt(Mathf.Pow(Cart_Player_Distance.x, 2) + Mathf.Pow(Cart_Player_Distance.z, 2));
-        //if (Cart_Player != 1.5f) {
-        //    Cart_Player = 1.5f;
-        //}
+        Cart_Player = Mathf.Sqrt(Mathf.Pow(Cart_Player_Distance.x, 2) + Mathf.Pow(Cart_Player_Distance.z, 2));
+        if (Cart_Player != 1.5f) {
+            Cart_Player = 1.5f;
+        }
+        */
         #endregion
 
         // 攝影機 Y 軸旋轉角度 (最高只能 90 度，用於theta)
@@ -189,13 +241,15 @@ public class MovingController : MonoBehaviour {
         Cart.rotation = Quaternion.Euler(0, Camera_AngleY, 0);
 
         #region 剛體移動(暫時用不到)
-        //Vector3 CartMove = new Vector3(Cart_X, 0f, Cart_Z);
-        //Cart_rbody.AddForce(CartMove);
+        /*
+        Vector3 CartMove = new Vector3(Cart_X, 0f, Cart_Z);
+        Cart_rbody.AddForce(CartMove);
         // 購物車利用剛體移動
-        //Cart_rbody.AddForce(Cart.forward);
+        Cart_rbody.AddForce(Cart.forward);
         // 購物車移動到的位置
-        //Cart.position = new Vector3(Cart.position.x, 0f, Cart.position.z);
-        //Debug.Log(Cart.forward);
+        Cart.position = new Vector3(Cart.position.x, 0f, Cart.position.z);
+        Debug.Log(Cart.forward);
+        */
         #endregion
     }
 }
