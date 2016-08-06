@@ -122,7 +122,6 @@ public class TriggerClick : MonoBehaviour {
         // This occasionally happens when the device is inserted into the enclosure
         // or if the magnetometer readings are weak enough to cut in and out
         Debug.Log("Device tilted");
-        cardboard.trigger.ResetMagnetState();
         ResetSpheres();
     }
 
