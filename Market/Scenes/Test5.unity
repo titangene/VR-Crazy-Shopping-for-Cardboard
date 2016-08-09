@@ -346,7 +346,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 181977302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 0}
+  m_LocalPosition: {x: 0.9, y: 0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1792,7 +1792,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: c31879d02bb75944db67fe8ac207e0df, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c31879d02bb75944db67fe8ac207e0df, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1800,7 +1800,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c31879d02bb75944db67fe8ac207e0df, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c31879d02bb75944db67fe8ac207e0df, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5110,6 +5110,7 @@ GameObject:
   - 33: {fileID: 1883535444}
   - 64: {fileID: 1883535443}
   - 23: {fileID: 1883535442}
+  - 114: {fileID: 1883535446}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -5178,6 +5179,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &1883535446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1883535441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b65961016d5c3b429748f177dcee781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1887253339
 GameObject:
   m_ObjectHideFlags: 0
@@ -5597,7 +5609,7 @@ MonoBehaviour:
   Basket_Collider: {fileID: 1677683259}
   PickupPosition: {fileID: 738371479}
   ProductTagName: Product
-  PickPower: 10
+  PickPower: 15
   ThrowPower: 3
   RayDistance: 2.8
   PickingUp: 0
