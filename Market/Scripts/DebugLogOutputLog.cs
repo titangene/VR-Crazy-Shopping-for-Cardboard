@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 
-public class DebugLogOutput : MonoBehaviour {
+public class DebugLogOutputLog : MonoBehaviour {
     /// <summary>
     /// Log 訊息 的完整目錄
     /// </summary>
