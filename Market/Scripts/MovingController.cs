@@ -157,7 +157,7 @@ public class MovingController : MonoBehaviour {
 
         // 準心是否對準物件 && 準心是否對準購物車手把
         if (gaze.IsHeld() && GazeObjIsHandle) {
-            //Debug.Log("Moving");
+            Debug.Log("Moving");
             // 將 向前移動 狀態改成 true，玩家和購物車同時向前移動
             IsMovingForward = true;
 
@@ -177,7 +177,7 @@ public class MovingController : MonoBehaviour {
     /// </summary>
     private void CardboardUp(object sender) {
         if (IsMovingForward) {
-            //Debug.Log("Stop");
+            Debug.Log("MoveStop");
             // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
             IsMovingForward = false;
             // 將 Range 物件關閉

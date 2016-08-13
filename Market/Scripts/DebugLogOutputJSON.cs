@@ -1,41 +1,45 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using System.IO;
 using System.Text;
-using System.Collections.Generic;
 using LitJson;
-
-public class DebugLog {
-    public int id;
-    public DateTime time;
-    public string message;
-    public string stackTrace;
-}
 
 public class DebugLogOutputJSON : MonoBehaviour {
     /// <summary>
     /// Log 訊息 的完整目錄
     /// </summary>
-    string FullPath;
-    static List<string> WriteStr = new List<string>();
+    private string FullPath;
 
     /// <summary>
     /// 開始執行時間
     /// </summary>
-    string StartNowTime;
+    private string StartNowTime;
 
     /// <summary>
     /// 上一次執行時間
     /// </summary>
-    string PreviousTime;
+    private string PreviousTime;
 
     /// <summary>
     /// 開始裝態，用來寫入 --執行開始時間-- 作為區隔
     /// </summary>
-    bool IsStart;
+    private bool IsStart;
 
-    DebugLog debugLog = new DebugLog();
+    private JsonData json;
+
+    // 簡化觀看 JsonData 用的
+    private JsonData JsonDebug;
+    private JsonData JsonDebug_Log;
+    private JsonData JsonDebug_Log_Content;
+
+    private int DebugID = 0;
+    private int LogID = -1;
+    private int LogContentID = 0;
+
+    /// <summary>
+    /// DebugLog ID，每次執行都從 1 開始編號
+    /// </summary>
+    private int DebugLogID = 1;
 
     void Start() {
         // 目錄
@@ -47,25 +51,36 @@ public class DebugLogOutputJSON : MonoBehaviour {
         // 現在時間
         DateTime now = DateTime.Now;
         // 設定時間格式 (開始執行時間，用於 DebugOutput.log 檔案名稱)
-        string StartTimePathName = string.Format("{0:yyyy-MM-dd_H}", now);
+        string StartTimePathName = string.Format("{0:yyyy-MM-dd_HH}", now);
 
         // 設定 DebugOutput 的檔案位置
         // D:\YourProject\Assets\DebugLog\Year-Month-Day_Hour_DebugOutput.json
         FullPath = Path + StartTimePathName + "_DebugOutput.json";
 
-        // 設定時間格式 (用於寫入 --執行開始時間-- 作為區隔)
-        StartNowTime = string.Format("{0:yyyy/MM/dd H:mm:ss}", now);
+        // 設定時間格式 (用於寫入 執行開始時間)
+        StartNowTime = string.Format("{0:yyyy/MM/dd HH:mm:ss}", now);
 
-        // 每次刪除之前保存的 Log
-        /*
-        if (File.Exists(fullPath))
-            File.Delete(fullPath);
-        */
+        // 檔案是否存在
+        if (!File.Exists(FullPath)) {
+            // 新建 JsonData
+            json = new JsonData();
+            // 寫入 Log 訊息
+            json["debug"] = new JsonData();
+            json["debug"].SetJsonType(JsonType.Array);
+            //Debug.Log("新建 JsonData");
+
+        } else {
+            // 讀取 Json 檔
+            ReadJson(LoadJsonFile());
+            // 設定 DebugID
+            DebugID = json["debug"].Count;
+            //Debug.Log("讀取 Json File");
+        }
+
+        DeleteFile();
 
         // Log 的監聽，事件如果接收到 Log 訊息 會被觸發 (只會在 Main Thread 觸發)
         Application.logMessageReceived += HandleLog;
-        // 舊方法
-        //Application.RegisterLogCallback(HandleLog);
 
         // 將 開始 狀態 開啟
         IsStart = true;
@@ -75,36 +90,99 @@ public class DebugLogOutputJSON : MonoBehaviour {
     /// 建立目錄
     /// </summary>
     /// <param name="path">目錄</param>
-    private static void CreateDirectory(string path) {
+    private void CreateDirectory(string path) {
         if (!Directory.Exists(path)) {
             Directory.CreateDirectory(path);
         }
     }
 
-    void Update() {
-        // 因為寫入文件的操作必須在 Main Thread 中完成，所以在 Update 中寫入文件
-        if (WriteStr.Count > 0) {
-            string[] temp = WriteStr.ToArray();
-            foreach (string t in temp) {
-                using (StreamWriter writer = new StreamWriter(FullPath, true, Encoding.UTF8))
-                    writer.WriteLine(t);
-                WriteStr.Remove(t);
-            }
+    /// <summary>
+    /// 讀取 Json 檔
+    /// </summary>
+    /// <param name="jsonStr">搭配 LoadJsonFile() 使用：ReadJson(LoadJsonFile())</param>
+    private void ReadJson(string jsonStr) {
+        json = JsonMapper.ToObject(jsonStr);
+    }
+
+    /// <summary>
+    /// 讀入 Json 檔的內容
+    /// </summary>
+    private string LoadJsonFile() {
+        //用來儲存讀入的Json內容
+        StringBuilder sbJson = new StringBuilder();
+        using (StreamReader sr = new StreamReader(FullPath)) {
+            //一次性將資料全部讀入
+            sbJson.Append(sr.ReadToEnd());
+        }
+
+        return sbJson.ToString();
+    }
+
+    /// <summary>
+    /// 刪除 Json 檔
+    /// </summary>
+    /// <param name="filePath">檔案目錄</param>
+    private void DeleteFile() {
+        if (File.Exists(FullPath)) {
+            File.Delete(FullPath);
         }
     }
 
     /// <summary>
-    /// 寫入 時間、Log 訊息：
-    /// 1. 執行開始時間，
-    /// 2. Log 訊息 出現的時間，
-    /// 3. Log 訊息，
-    /// 4. Log 訊息 的詳細追蹤內容
+    /// 寫入 Json 資料 && 美化 Json
+    /// </summary>
+    private string WriteJsonAndPrettyPrint() {
+        JsonWriter jsonwriter = new JsonWriter();
+        // 美化 Json
+        jsonwriter.PrettyPrint = true;
+        // 縮排大小
+        jsonwriter.IndentValue = 2;
+        JsonMapper.ToJson(json, jsonwriter);
+
+        string str = jsonwriter.ToString();
+        return str;
+    }
+
+    /// <summary>
+    /// 將資料寫入 Json 檔
+    /// </summary>
+    private void OutputJsonFile() {
+        using (StreamWriter sw = new StreamWriter(FullPath, true, Encoding.UTF8)) {
+            sw.WriteLine(WriteJsonAndPrettyPrint());
+        }
+    }
+
+    /// <summary>
+    /// 結束執行時：紀錄結束執行時間、將資料寫入 Json 檔
+    /// </summary>
+    void OnDisable() {
+        int Log_Count = JsonDebug["log"].Count + 1;
+        int LogContent_Count = DebugLogID;
+        Debug.Log("執行結束！DebugID:" + DebugID + ", Log_Count:" + Log_Count + ", LogContent_Count:" + LogContent_Count);
+
+        // 現在時間
+        DateTime now = DateTime.Now;
+        // 設定時間格式 (接收到 Log 訊息 時間)
+        string NowTime = string.Format("{0:yyyy/MM/dd HH:mm:ss}", now);
+        JsonDebug["endtime"] = NowTime;
+
+        // 將資料寫入 Json 檔
+        OutputJsonFile();
+    }
+    
+    /*
+    void OnApplicationQuit() {
+        Debug.Log("OnApplicationQuit");
+    }
+    */
+
+    /// <summary>
+    /// 寫入 Log 訊息：執行開始時間、訊息出現的時間、訊息、詳細追蹤內容
     /// </summary>
     private void HandleLog(string condition, string stackTrace, LogType type) {
-        // 每次執行開始時，要寫入 --執行開始時間-- 作為區隔
+        // 每次執行開始時，要寫入 Log 訊息：執行開始時間、訊息
         if (IsStart) {
-            WriteStr.Add("");
-            WriteStr.Add("---------------------------- " + StartNowTime + " ----------------------------");
+            JsonAdd_Debug(condition, stackTrace, type);
             // 將 開始 狀態 關閉
             IsStart = false;
         }
@@ -112,23 +190,66 @@ public class DebugLogOutputJSON : MonoBehaviour {
         // 現在時間
         DateTime now = DateTime.Now;
         // 設定時間格式 (接收到 Log 訊息 時間)
-        string NowTime = string.Format("[ {0:yyyy/MM/dd H:mm:ss} ]", now);
+        string NowTime = string.Format("{0:yyyy/MM/dd HH:mm:ss}", now);
 
         // 第一次接收到 Log 訊息 或 在同一時間接收到 Log 訊息 時，才會紀錄現在時間
-        if (PreviousTime == null || (PreviousTime != null && NowTime != PreviousTime))
-            WriteStr.Add(NowTime);
+        if (PreviousTime == null || NowTime != PreviousTime) {
+            // 寫入 Log 訊息：出現的時間、訊息詳細內容
+            JsonAdd_Debug_Log(NowTime, condition, stackTrace, type);
+        }
 
-        // 接收到 Error 或 Exception 類型的 Log 訊息時，加強註明
-        if (type == LogType.Error || type == LogType.Exception)
-            WriteStr.Add("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        // 寫入 Log 訊息
-        WriteStr.Add(condition);
-
-        // 寫入 Log 訊息 的詳細追蹤內容
-        WriteStr.Add(stackTrace);
+        // 寫入 Log 訊息詳細內容：ID、型態、內容、詳細追蹤內容
+        JsonAdd_Debug_Log_Content(condition, stackTrace, type);
 
         // 紀錄現在時間，用來檢察下一次 Log 訊息 的時間是否跟這次一樣
         PreviousTime = NowTime;
+    }
+
+    /// <summary>
+    /// 寫入 Log 訊息：執行開始時間、Log 訊息
+    /// </summary>
+    private void JsonAdd_Debug(string condition, string stackTrace, LogType type) {
+        json["debug"].Add(new JsonData());
+        JsonDebug = json["debug"][DebugID];
+
+        //JsonDebug["DebugID"] = DebugID;
+        JsonDebug["runtime"] = StartNowTime;
+        JsonDebug["endtime"] = "";
+        JsonDebug["log"] = new JsonData();
+        JsonDebug["log"].SetJsonType(JsonType.Array);
+    }
+
+    /// <summary>
+    /// 寫入 Log 訊息：Log 訊息出現的時間、Log 訊息詳細內容
+    /// </summary>
+    private void JsonAdd_Debug_Log(string NowTime, string condition, string stackTrace, LogType type) {
+        JsonDebug["log"].Add(new JsonData());
+        LogID++;
+        JsonDebug_Log = JsonDebug["log"][LogID];
+
+        //JsonDebug_Log["LogID"] = LogID;
+        JsonDebug_Log["time"] = NowTime;
+        JsonDebug_Log["content"] = new JsonData();
+        JsonDebug_Log["content"].SetJsonType(JsonType.Array);
+
+        LogContentID = 0;
+    }
+
+    /// <summary>
+    /// 寫入 Log 訊息詳細內容：ID、型態、內容、詳細追蹤內容
+    /// </summary>
+    private void JsonAdd_Debug_Log_Content(string condition, string stackTrace, LogType type) {
+        JsonDebug_Log["content"].Add(new JsonData());
+        JsonDebug_Log_Content = JsonDebug_Log["content"][LogContentID];
+
+        //JsonDebug_Log_Content["LogContentID"] = LogContentID;
+        JsonDebug_Log_Content["id"] = DebugLogID;
+        JsonDebug_Log_Content["logtype"] = type.ToString();
+        JsonDebug_Log_Content["message"] = condition;
+        JsonDebug_Log_Content["stackTrace"] = stackTrace;
+
+        LogContentID++;
+        // 設定下一個訊息 ID
+        DebugLogID++;
     }
 }

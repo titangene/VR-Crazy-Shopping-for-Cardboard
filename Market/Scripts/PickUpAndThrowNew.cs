@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.EventSystems;
-using System.Linq;
 
 public class PickUpAndThrowNew : MonoBehaviour {
     public GameObject Cart_Collider;
@@ -13,7 +11,7 @@ public class PickUpAndThrowNew : MonoBehaviour {
     public string ProductTagName = "Product";
 
     [Tooltip("拿取商品時的力")]
-    public float PickPower = 10.0f;
+    public float PickPower = 15.0f;
 
     [Tooltip("丟出商品時的力")]
     public float ThrowPower = 3.0f;
@@ -133,7 +131,7 @@ public class PickUpAndThrowNew : MonoBehaviour {
         // 按第一次 Gvr 按鈕，商品會跟著玩家頭部方向移動
         // 商品是否超過可拿取範圍 && 準心是否對準商品 (有限範圍) && 按第一次 Gvr 按鈕：拿取商品
         if (!PickUpIsOverRange && GazeObjIsProduct() && !SecondClick) {
-            //Debug.Log("PickUp：" + hit.transform.name);
+            Debug.Log("PickUp：" + hit.transform.name);
             // 將 是否拿取商品 狀態改成 true
             PickingUp = true;
             // 將 是否按第二次 Gvr 按鈕 狀態改成 true
@@ -143,7 +141,7 @@ public class PickUpAndThrowNew : MonoBehaviour {
 
             // 按第二次 Gvr 按鈕：丟出商品
         } else if (SecondClick) {
-            //Debug.Log("Throw");
+            Debug.Log("Throw");
             // 將 是否拿取商品 狀態改成 false
             PickingUp = false;
             // 將 是否按第二次 Gvr 按鈕 狀態改成 false

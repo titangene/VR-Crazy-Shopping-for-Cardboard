@@ -1,0 +1,321 @@
+﻿
+{
+  "debug" : [
+    {
+      "runtime" : "2016/08/13 19:14:32",
+      "endtime" : "2016/08/13 19:15:05",
+      "log"     : [
+        {
+          "time" : "2016/08/13 19:14:34",
+          "content" : [
+            {
+              "id" : 1,
+              "logtype" : "Log",
+              "message" : "PickUp：ProObj0003",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:134)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 2,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:14:35",
+          "content" : [
+            {
+              "id" : 3,
+              "logtype" : "Log",
+              "message" : "Throw",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:144)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 4,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:14:37",
+          "content" : [
+            {
+              "id" : 5,
+              "logtype" : "Log",
+              "message" : "Moving",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nMovingController:CardboardLongClick(Object) (at Assets/Market/Scripts/MovingController.cs:160)\nCardboardControlTrigger:ReportLongClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:177)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:126)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:14:40",
+          "content" : [
+            {
+              "id" : 6,
+              "logtype" : "Log",
+              "message" : "MoveStop",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nMovingController:CardboardUp(Object) (at Assets/Market/Scripts/MovingController.cs:180)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:155)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:14:43",
+          "content" : [
+            {
+              "id" : 7,
+              "logtype" : "Log",
+              "message" : "PickUp：ProObj0006",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:134)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 8,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:14:45",
+          "content" : [
+            {
+              "id" : 9,
+              "logtype" : "Log",
+              "message" : "Throw",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:144)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 10,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:14:47",
+          "content" : [
+            {
+              "id" : 11,
+              "logtype" : "Log",
+              "message" : "PickUp：ProObj0005",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:134)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 12,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:14:48",
+          "content" : [
+            {
+              "id" : 13,
+              "logtype" : "Log",
+              "message" : "Throw",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:144)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 14,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:14:49",
+          "content" : [
+            {
+              "id" : 15,
+              "logtype" : "Log",
+              "message" : "商品超過可拿取範圍",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:157)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 16,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:15:05",
+          "content" : [
+            {
+              "id" : 17,
+              "logtype" : "Log",
+              "message" : "執行結束！DebugID:0, Log_Count:10, LogContent_Count:17",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nDebugLogOutputJSON:OnDisable() (at Assets/Market/Scripts/DebugLogOutputJSON.cs:161)\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runtime" : "2016/08/13 19:15:47",
+      "endtime" : "2016/08/13 19:16:09",
+      "log"     : [
+        {
+          "time" : "2016/08/13 19:15:51",
+          "content" : [
+            {
+              "id" : 1,
+              "logtype" : "Log",
+              "message" : "PickUp：ProObj0003",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:134)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 2,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:15:52",
+          "content" : [
+            {
+              "id" : 3,
+              "logtype" : "Log",
+              "message" : "Throw",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:144)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 4,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:15:54",
+          "content" : [
+            {
+              "id" : 5,
+              "logtype" : "Log",
+              "message" : "PickUp：ProObj0002",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:134)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 6,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:15:55",
+          "content" : [
+            {
+              "id" : 7,
+              "logtype" : "Log",
+              "message" : "Throw",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:144)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 8,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:15:57",
+          "content" : [
+            {
+              "id" : 9,
+              "logtype" : "Log",
+              "message" : "PickUp：ProObj0006",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:134)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 10,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:15:59",
+          "content" : [
+            {
+              "id" : 11,
+              "logtype" : "Log",
+              "message" : "Throw",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:144)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 12,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:16:00",
+          "content" : [
+            {
+              "id" : 13,
+              "logtype" : "Log",
+              "message" : "商品超過可拿取範圍",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nPickUpAndThrowNew:CardboardClick(Object) (at Assets/Market/Scripts/PickUpAndThrowNew.cs:157)\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:171)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            },
+            {
+              "id" : 14,
+              "logtype" : "Log",
+              "message" : "iPhoneUtils.Vibrate()",
+              "stackTrace" : "UnityEngine.Handheld:Vibrate()\nCardboardControlTrigger:ReportClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:173)\nCardboardControlTrigger:CheckForClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:167)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:158)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:16:03",
+          "content" : [
+            {
+              "id" : 15,
+              "logtype" : "Log",
+              "message" : "Moving",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nMovingController:CardboardLongClick(Object) (at Assets/Market/Scripts/MovingController.cs:160)\nCardboardControlTrigger:ReportLongClick() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:177)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:126)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:16:06",
+          "content" : [
+            {
+              "id" : 16,
+              "logtype" : "Log",
+              "message" : "MoveStop",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nMovingController:CardboardUp(Object) (at Assets/Market/Scripts/MovingController.cs:180)\nCardboardControlTrigger:ReportUp() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:155)\nCardboardControlTrigger:CheckKey() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:124)\nCardboardControlTrigger:Update() (at Assets/CardboardControl/Scripts/CardboardControlTrigger.cs:70)\n"
+            }
+          ]
+        },
+        {
+          "time" : "2016/08/13 19:16:09",
+          "content" : [
+            {
+              "id" : 17,
+              "logtype" : "Log",
+              "message" : "執行結束！DebugID:1, Log_Count:10, LogContent_Count:17",
+              "stackTrace" : "UnityEngine.Debug:Log(Object)\nDebugLogOutputJSON:OnDisable() (at Assets/Market/Scripts/DebugLogOutputJSON.cs:161)\n"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
