@@ -4,6 +4,10 @@ using System.IO;
 using System.Text;
 using LitJson;
 
+/// <summary>
+/// 將執行階段的所有 Debug Log 訊息 Output 成 Json 檔，
+/// 會在每個小時分別產生 Json 檔
+/// </summary>
 public class DebugLogOutputJSON : MonoBehaviour {
     /// <summary>
     /// Log 訊息 的完整目錄
@@ -28,10 +32,14 @@ public class DebugLogOutputJSON : MonoBehaviour {
     private JsonData json;
 
     // 簡化觀看 JsonData 用的
+    // json["debug"][DebugID]
     private JsonData JsonDebug;
+    // JsonDebug["log"][LogID]
     private JsonData JsonDebug_Log;
+    // JsonDebug_Log["content"][LogContentID]
     private JsonData JsonDebug_Log_Content;
 
+    // Json 內的編號 ( json["debug"][DebugID]["log"][LogID]["content"][LogContentID] )
     private int DebugID = 0;
     private int LogID = -1;
     private int LogContentID = 0;
@@ -39,7 +47,7 @@ public class DebugLogOutputJSON : MonoBehaviour {
     /// <summary>
     /// DebugLog ID，每次執行都從 1 開始編號
     /// </summary>
-    private int DebugLogID = 1;
+    private int DebugLogID = 0;
 
     void Start() {
         // 目錄
@@ -156,8 +164,18 @@ public class DebugLogOutputJSON : MonoBehaviour {
     /// 結束執行時：紀錄結束執行時間、將資料寫入 Json 檔
     /// </summary>
     void OnDisable() {
-        int Log_Count = JsonDebug["log"].Count + 1;
+        int Log_Count;
+
+        // 有 Log 訊息時才會計算 Log 訊息總數，沒有則設為 1 (列印訊息數量本身也是 Log 訊息)
+        if (DebugLogID > 0) {
+            Log_Count = JsonDebug["log"].Count + 1;
+        } else {
+            DebugLogID++;
+            Log_Count = DebugLogID;
+        }
+
         int LogContent_Count = DebugLogID;
+
         Debug.Log("執行結束！DebugID:" + DebugID + ", Log_Count:" + Log_Count + ", LogContent_Count:" + LogContent_Count);
 
         // 現在時間
@@ -242,6 +260,9 @@ public class DebugLogOutputJSON : MonoBehaviour {
         JsonDebug_Log["content"].Add(new JsonData());
         JsonDebug_Log_Content = JsonDebug_Log["content"][LogContentID];
 
+        // 設定下一個訊息 ID
+        DebugLogID++;
+
         //JsonDebug_Log_Content["LogContentID"] = LogContentID;
         JsonDebug_Log_Content["id"] = DebugLogID;
         JsonDebug_Log_Content["logtype"] = type.ToString();
@@ -249,7 +270,5 @@ public class DebugLogOutputJSON : MonoBehaviour {
         JsonDebug_Log_Content["stackTrace"] = stackTrace;
 
         LogContentID++;
-        // 設定下一個訊息 ID
-        DebugLogID++;
     }
 }
