@@ -23,7 +23,7 @@ public class CardboardControlGaze : MonoBehaviour {
     private float gazeStartTime = 0f;
     private GvrHead head;
     private RaycastHit hit;
-    private bool isHeld;
+    private bool isHeld = false;
     private bool stared = false;
 
     // 目前準心對準的物件(有範圍限制)
