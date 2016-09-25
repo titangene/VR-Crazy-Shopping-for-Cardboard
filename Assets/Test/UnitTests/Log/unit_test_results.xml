@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="Unity Tests" total="0" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2016-09-17" time="13:44:32">
+  <environment nunit-version="2.6.4-Unity" clr-version="2.0.50727.1433" os-version="Microsoft Windows NT 6.1.7601.0" platform="Win32NT" cwd="K:\Unity\Market Google VR v0.9.0_20160914" machine-name="ASUS-PC" user="ASUS" user-domain="ASUS-PC" unity-version="5.4.0f3" unity-platform="WindowsEditor" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite name="Market Google VR v0.9.0_20160914" type="Assembly" executed="True" result="Success" success="True" time="0.000">
+    <results>
+    </results>
+  </test-suite>
+</test-results>
