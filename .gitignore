@@ -1,15 +1,13 @@
-# =============== #
-# Unity generated #
-# =============== #
+# Unity generated
+APK/
+Builds/
 Temp/
 Library/
 ProjectSettings/
-
-# ===================================== #
-# Visual Studio / MonoDevelop generated #
-# ===================================== #
-ExportedObj/
 obj/
+
+# Visual Studio / MonoDevelop generated
+ExportedObj/
 *.svd
 *.userprefs
 *.csproj
@@ -20,9 +18,7 @@ obj/
 *.unityproj
 *.booproj
 
-# ============ #
-# OS generated #
-# ============ #
+# OS generated
 .DS_Store
 .DS_Store?
 ._*
@@ -30,6 +26,5 @@ obj/
 .Trashes
 ehthumbs.db
 Thumbs.db
-
 
 *.meta
