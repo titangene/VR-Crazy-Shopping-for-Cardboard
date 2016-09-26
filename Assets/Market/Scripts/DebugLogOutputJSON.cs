@@ -129,7 +129,6 @@ public class DebugLogOutputJSON : MonoBehaviour {
     /// <summary>
     /// 刪除 Json 檔
     /// </summary>
-    /// <param name="filePath">檔案目錄</param>
     private void DeleteFile() {
         if (File.Exists(FullPath)) {
             File.Delete(FullPath);
