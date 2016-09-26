@@ -145,16 +145,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000012120917072, guid: a66bc221fdca3aa489bcb48ccc1949e6,
     type: 2}
   m_PrefabInternal: {fileID: 1595086952}
---- !u!64 &187241406 stripped
-MeshCollider:
-  m_PrefabParentObject: {fileID: 64000011719397898, guid: 955902c5707cb9343878f6a168157849,
-    type: 2}
-  m_PrefabInternal: {fileID: 454925735}
---- !u!4 &299830128 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000011256245870, guid: 955902c5707cb9343878f6a168157849,
-    type: 2}
-  m_PrefabInternal: {fileID: 454925735}
 --- !u!1001 &362410293
 Prefab:
   m_ObjectHideFlags: 0
@@ -286,31 +276,11 @@ Prefab:
       propertyPath: Cart_Collider
       value: 
       objectReference: {fileID: 712511118}
-    - target: {fileID: 114000011948223622, guid: 40fd7e9f31753d441821b2c50381aff9,
-        type: 2}
-      propertyPath: Basket_Collider
-      value: 
-      objectReference: {fileID: 187241406}
-    - target: {fileID: 114000011053107428, guid: 40fd7e9f31753d441821b2c50381aff9,
-        type: 2}
-      propertyPath: Cart
-      value: 
-      objectReference: {fileID: 299830128}
     - target: {fileID: 114000011053107428, guid: 40fd7e9f31753d441821b2c50381aff9,
         type: 2}
       propertyPath: Range
       value: 
       objectReference: {fileID: 181977302}
-    - target: {fileID: 114000011053107428, guid: 40fd7e9f31753d441821b2c50381aff9,
-        type: 2}
-      propertyPath: Basket_Collider
-      value: 
-      objectReference: {fileID: 187241406}
-    - target: {fileID: 114000011053107428, guid: 40fd7e9f31753d441821b2c50381aff9,
-        type: 2}
-      propertyPath: InCartProductObj
-      value: 
-      objectReference: {fileID: 1447995668}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40fd7e9f31753d441821b2c50381aff9, type: 2}
   m_IsPrefabParent: 0
@@ -707,11 +677,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4000013366178298, guid: 4c5a82fdc7a6efd4e9c9b5b4479f013d,
     type: 2}
   m_PrefabInternal: {fileID: 1056039596}
---- !u!4 &1447995668 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000012940456710, guid: 955902c5707cb9343878f6a168157849,
-    type: 2}
-  m_PrefabInternal: {fileID: 454925735}
 --- !u!1 &1453227796
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,11 +3,6 @@ using UnityEngine.EventSystems;
 
 public class PickUpAndThrow : MonoBehaviour {
     public GameObject Cart_Collider;
-    public Collider Basket_Collider;
-
-    [Tooltip("商品被拿取時的位置")]
-    public Transform PickupPosition;
-
     public string ProductTagName = "Product";
 
     [Tooltip("拿取商品時的力")]
@@ -30,6 +25,11 @@ public class PickUpAndThrow : MonoBehaviour {
 
     private static CardboardControl cardboard;
     private static CardboardControlGaze gaze;
+
+    /// <summary>
+    /// 商品被拿取時的位置
+    /// </summary>
+    private Transform PickupPosition;
     /// <summary>
     /// 準心對準的物件名稱
     /// </summary>
@@ -50,6 +50,7 @@ public class PickUpAndThrow : MonoBehaviour {
     private RaycastHit hit;
 
     void Start() {
+        PickupPosition = GameObject.Find("PickupObject").transform;
         MainCamera = Camera.main.transform;
         cardboard = GameObject.Find("CardboardControlManager").GetComponent<CardboardControl>();
 

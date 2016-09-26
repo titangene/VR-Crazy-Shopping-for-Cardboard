@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 /* 
  * 讓人物角色以第一人稱視角向前移動，並且購物車會同時移動
@@ -9,14 +7,8 @@ using System.Collections.Generic;
  * 玩家同時能透過移動頭部方向來改變移動方位
  */
 public class MovingController : MonoBehaviour {
-    public GvrViewer GvrMain;
-    public Transform Head;
-    public Transform Cart;
+    public GvrViewer GvrViewerMain;
     public GameObject Range;
-    public Collider Basket_Collider;
-
-    [Tooltip("Cart/InCartProduct 子物件 (拿來放丟入購物車內的所有商品)")]
-    public Transform InCartProductObj;
 
     [Tooltip("找出所有是 InCartProduct Layer 的商品物件")]
     public string LayerName_InCartProduct = "InCartProduct";
@@ -38,6 +30,14 @@ public class MovingController : MonoBehaviour {
 
     private static CardboardControl cardboard;
     private static CardboardControlGaze gaze;
+
+    private Transform Cart;
+    private Collider Basket_Collider;
+
+    /// <summary>
+    /// Cart/InCartProduct 子物件 (拿來放丟入購物車內的所有商品)
+    /// </summary>
+    private Transform InCartProductObj;
     /// <summary>
     /// 準心對準的物件名稱
     /// </summary>
@@ -51,8 +51,7 @@ public class MovingController : MonoBehaviour {
     /// </summary>
     private Find find;
 
-
-    public Vector3 v;
+    private bool DebugLogPrint = true;
 
     #region 計算購物車與人物角色的距離(暫時用不到)
     /*
@@ -66,10 +65,9 @@ public class MovingController : MonoBehaviour {
     #endregion
 
     void Start() {
-        // 找到購物車物件
         Cart = GameObject.Find("Cart").transform;
-        // 找到購物車物件的鋼體
         //Cart_rbody = Cart.GetComponent<Rigidbody>();
+        Basket_Collider = GameObject.Find("Basket").GetComponent<Collider>();
 
         // 找到 Cart/InCartProduct 子物件 (拿來放丟入購物車內的所有商品)
         InCartProductObj = GameObject.Find("InCartProduct").transform;
@@ -158,7 +156,12 @@ public class MovingController : MonoBehaviour {
 
         // 準心是否對準購物車手把
         if (GazeObjIsHandle) {
-            //Debug.Log("Moving");
+
+            if (DebugLogPrint) {
+                Debug.Log("Moving");
+                DebugLogPrint = false;
+            }
+
             // 將 向前移動 狀態改成 true，玩家和購物車同時向前移動
             IsMovingForward = true;
 
@@ -179,6 +182,8 @@ public class MovingController : MonoBehaviour {
     private void CardboardUp(object sender) {
         if (IsMovingForward) {
             Debug.Log("MoveStop");
+            DebugLogPrint = true;
+
             // 將 向前移動 狀態改成 false，玩家和購物車同時停止向前移動
             IsMovingForward = false;
             // 將 Range 物件關閉
@@ -227,7 +232,7 @@ public class MovingController : MonoBehaviour {
         #endregion
 
         // 攝影機 Y 軸旋轉角度 (最高只能 90 度，用於theta)
-        float Camera_AngleY = Head.transform.eulerAngles.y;
+        float Camera_AngleY = Camera.main.transform.eulerAngles.y;
         // Mathf.Deg2Rad 度轉弧度 = (PI * 2) / 360
         float theta = Camera_AngleY * Mathf.Deg2Rad;
         // 紀錄購物車 X 座標：x = r * sin(thita)
@@ -236,8 +241,8 @@ public class MovingController : MonoBehaviour {
         float Cart_Z = Cart_Player * Mathf.Cos(theta);
         
         // 購物車會跟著玩家的視角移動位置
-        Cart.position = new Vector3(Cart_X + GvrMain.transform.position.x, 0f,
-                                    Cart_Z + GvrMain.transform.position.z);
+        Cart.position = new Vector3(Cart_X + GvrViewerMain.transform.position.x, 0f,
+                                    Cart_Z + GvrViewerMain.transform.position.z);
         // 購物車會跟著玩家的視角旋轉角度
         Cart.rotation = Quaternion.Euler(0, Camera_AngleY, 0);
         

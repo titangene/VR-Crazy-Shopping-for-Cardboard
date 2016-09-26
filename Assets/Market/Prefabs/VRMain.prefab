@@ -307,19 +307,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccde27ccd78d3554d87629b552560712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GvrMain: {fileID: 114000010505936744}
-  Head: {fileID: 4000012179600400}
-  Cart: {fileID: 0}
+  GvrViewerMain: {fileID: 114000010505936744}
   Range: {fileID: 0}
-  Basket_Collider: {fileID: 0}
-  InCartProductObj: {fileID: 0}
   LayerName_InCartProduct: InCartProduct
   Cart_Player: 1
   speed: 6
   IsHoldTrigger: 0
   GazeObjIsHandle: 0
   IsMovingForward: 0
-  v: {x: 0, y: 0, z: 0}
 --- !u!114 &114000011863259502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -343,8 +338,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cart_Collider: {fileID: 0}
-  Basket_Collider: {fileID: 0}
-  PickupPosition: {fileID: 4000010024914412}
   ProductTagName: Product
   PickPower: 15
   ThrowPower: 3
