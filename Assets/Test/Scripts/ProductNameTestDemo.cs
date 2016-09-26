@@ -102,8 +102,4 @@ public class ProductNameTestDemo : MonoBehaviour {
             sw.WriteLine(WriteJsonAndPrettyPrint());
         }
     }
-
-    void Update () {
-	
-	}
 }
