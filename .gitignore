@@ -30,4 +30,5 @@ Thumbs.db
 /Assets/DebugLog
 *.txt
 /Assets/Market/Sounds
-/.vs/config/applicationhost.config
+/Assets/Test/JSON
+/.vs

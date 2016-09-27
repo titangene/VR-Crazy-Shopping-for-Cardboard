@@ -13,12 +13,10 @@ public class DebugLogOutputJSON : MonoBehaviour {
     /// Log 訊息 的完整目錄
     /// </summary>
     private string FullPath;
-
     /// <summary>
     /// 開始執行時間
     /// </summary>
     private string StartNowTime;
-
     /// <summary>
     /// 上一次執行時間
     /// </summary>
@@ -186,12 +184,6 @@ public class DebugLogOutputJSON : MonoBehaviour {
         // 將資料寫入 Json 檔
         OutputJsonFile();
     }
-    
-    /*
-    void OnApplicationQuit() {
-        Debug.Log("OnApplicationQuit");
-    }
-    */
 
     /// <summary>
     /// 寫入 Log 訊息：執行開始時間、訊息出現的時間、訊息、詳細追蹤內容
