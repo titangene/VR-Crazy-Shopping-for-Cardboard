@@ -145,6 +145,22 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000012120917072, guid: a66bc221fdca3aa489bcb48ccc1949e6,
     type: 2}
   m_PrefabInternal: {fileID: 1595086952}
+--- !u!1 &265153846 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000011891969362, guid: f36b1307da31a384bb8113eedfa3ff51,
+    type: 2}
+  m_PrefabInternal: {fileID: 1584222710}
+--- !u!114 &265153849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 265153846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0d62ed5d08c68469bf986942bf3b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &362410293
 Prefab:
   m_ObjectHideFlags: 0
@@ -269,7 +285,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011859284952, guid: 40fd7e9f31753d441821b2c50381aff9, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114000011948223622, guid: 40fd7e9f31753d441821b2c50381aff9,
         type: 2}
@@ -321,7 +337,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011256245870, guid: 955902c5707cb9343878f6a168157849, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 955902c5707cb9343878f6a168157849, type: 2}
@@ -473,7 +489,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013510895420, guid: cebf3bf4bcdb91d449c63c8eee7e754c, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cebf3bf4bcdb91d449c63c8eee7e754c, type: 2}
@@ -864,7 +880,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010545684690, guid: a66bc221fdca3aa489bcb48ccc1949e6, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000012120917072, guid: a66bc221fdca3aa489bcb48ccc1949e6, type: 2}
       propertyPath: m_IsActive
@@ -951,7 +967,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!1001 &2001294781
 Prefab:
   m_ObjectHideFlags: 0
@@ -989,7 +1005,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013895791560, guid: 58c5e09cd70b31a4da9eaf0106a12103, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 58c5e09cd70b31a4da9eaf0106a12103, type: 2}

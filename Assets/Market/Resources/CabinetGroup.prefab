@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000011022123808}
   - 23: {fileID: 23000011452048620}
   m_Layer: 0
-  m_Name: Product Information6
+  m_Name: ProInfo0006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ GameObject:
   - 33: {fileID: 33000012782929014}
   - 23: {fileID: 23000014012126390}
   m_Layer: 0
-  m_Name: Product Information5
+  m_Name: ProInfo0005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +114,7 @@ GameObject:
   - 33: {fileID: 33000011068654934}
   - 23: {fileID: 23000013659975016}
   m_Layer: 0
-  m_Name: Product Information3
+  m_Name: ProInfo0003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ GameObject:
   - 33: {fileID: 33000012113599090}
   - 23: {fileID: 23000010343415918}
   m_Layer: 0
-  m_Name: Product Information4
+  m_Name: ProInfo0004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ GameObject:
   - 33: {fileID: 33000014052092562}
   - 23: {fileID: 23000014025816724}
   m_Layer: 0
-  m_Name: Product Information1
+  m_Name: ProInfo0001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -290,7 +290,7 @@ GameObject:
   - 33: {fileID: 33000012614905146}
   - 23: {fileID: 23000013676009856}
   m_Layer: 0
-  m_Name: Product Information2
+  m_Name: ProInfo0002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
