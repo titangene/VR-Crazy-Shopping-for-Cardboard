@@ -3,6 +3,24 @@ using UnityEngine;
 
 public class ProductRandomPosition : MonoBehaviour {
     /// <summary>
+    /// 每排有幾列
+    /// </summary>
+    public int column = 5;
+    /// <summary>
+    /// 第一列 Z 軸開始的位置
+    /// </summary>
+    public float FirstPosition_Z = 5.23f;
+    /// <summary>
+    /// 第二列 Z 軸開始的位置
+    /// </summary>
+    public float SecondPosition_Z = 7;
+    /// <summary>
+    /// 最後一列 Z 軸開始的位置
+    /// </summary>
+    public float FinalPosition_Z = 18.9f;
+
+
+    /// <summary>
     /// 載入 CabinetGroup.prefab
     /// </summary>
     private GameObject CabinetPrefab;
@@ -11,13 +29,9 @@ public class ProductRandomPosition : MonoBehaviour {
     /// </summary>
     private GameObject CabinetGroup;
     /// <summary>
-    /// 商品資料 ID
+    /// 商品 ID
     /// </summary>
-    private int ProInfoId = 1;
-    /// <summary>
-    /// 商品物件 ID
-    /// </summary>
-    private int ProObjId = 1;
+    private int ProductId = 1;
     /// <summary>
     /// 商品貨架放置位置
     /// </summary>
@@ -28,17 +42,38 @@ public class ProductRandomPosition : MonoBehaviour {
     private Quaternion V_Rotation;
 
     void Start () {
-        V_Position = new Vector3(2, 0, 0.6f);
-        V_Rotation = Quaternion.Euler(0, -90, 0);
-
-        InstantiateProduct();
-
-        V_Position = new Vector3(2, 0, 3.13f);
-        V_Rotation = Quaternion.Euler(0, -90, 0);
-
-        InstantiateProduct();
+        Create_a_row_of_cabinet(column, -7.514f, SecondPosition_Z, -90);
+        Create_a_row_of_cabinet(     1, -6.757f,  FirstPosition_Z, 180);
+        Create_a_row_of_cabinet(     1, -6.757f,  FinalPosition_Z,   0);
+        Create_a_row_of_cabinet(column,     -6f, SecondPosition_Z,  90);
+        Create_a_row_of_cabinet(column, -0.757f, SecondPosition_Z, -90);
+        Create_a_row_of_cabinet(     1,      0f,  FirstPosition_Z, 180);
+        Create_a_row_of_cabinet(     1,      0f,  FinalPosition_Z,   0);
+        Create_a_row_of_cabinet(column,  0.757f, SecondPosition_Z,  90);
+        Create_a_row_of_cabinet(column,      6f, SecondPosition_Z,  90);
+        Create_a_row_of_cabinet(     1,  6.757f,  FirstPosition_Z, 180);
+        Create_a_row_of_cabinet(     1,  6.757f,  FinalPosition_Z,   0);
+        Create_a_row_of_cabinet(column,  7.514f, SecondPosition_Z, -90);
     }
 
+    public void Create_a_row_of_cabinet(int count, float Position_X, float Position_Z, float Rotation_Y) {
+        for (int i = 0; i < count; i++) {
+            // 設定商品貨架的位置、角度 (X 軸位置、Z 軸位置、Y 軸角度)
+            V_Position = new Vector3(Position_X, 0, Position_Z);
+            V_Rotation = Quaternion.Euler(0, Rotation_Y, 0);
+
+            // Instantiate 化商品貨架物件
+            InstantiateProduct();
+
+            Position_Z += 2.53f;
+        }
+
+        Position_Z = 7;
+    }
+
+    /// <summary>
+    /// Instantiate 化商品貨架物件
+    /// </summary>
     public void InstantiateProduct() {
         // 載入 CabinetGroup.prefab
         CabinetPrefab = Resources.Load("CabinetGroup", typeof(GameObject)) as GameObject;
@@ -48,9 +83,10 @@ public class ProductRandomPosition : MonoBehaviour {
         // CabinetGroup 內所有的子物件
         Array Cabinet = CabinetGroup.GetComponentsInChildren(typeof(Transform));
         // 在 CabinetGroup 內找出物件名稱內有 ProObj 的物件，並將其改為 ProObjxxxx
-        ChildObjectRename(Cabinet, "ProObj", ProObjId);
+        ChildObjectRename(Cabinet, "ProObj");
         // 在 CabinetGroup 內找出物件名稱內有 ProInfo 的物件，並將其改為 ProInfoxxxx
-        ChildObjectRename(Cabinet, "ProInfo", ProInfoId);
+        ChildObjectRename(Cabinet, "ProInfo");
+        ProductId += 6;
     }
 
     /// <summary>
@@ -59,16 +95,13 @@ public class ProductRandomPosition : MonoBehaviour {
     /// </summary>
     /// <param name="Obj">想要尋找某子物件的物件</param>
     /// <param name="ObjName">想要尋找的子物件名稱</param>
-    private void ChildObjectRename(Array Obj, string ObjName, int ProductID) {
+    private void ChildObjectRename(Array Obj, string ObjName) {
         foreach (Transform child in Obj) {
             if (child.name.Contains(ObjName)) {
-                child.name = ObjName + ProductID.ToString().PadLeft(4, '0');
-                ProductID++;
+                child.name = ObjName + ProductId.ToString().PadLeft(4, '0');
+                ProductId++;
             }
         }
+        ProductId -= 6;
     }
-
-    void Update () {
-	    
-	}
 }
