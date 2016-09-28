@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000012320679776}
   - 114: {fileID: 114000013107243078}
   - 114: {fileID: 114000013113061784}
+  - 114: {fileID: 114000010310481296}
   m_Layer: 0
   m_Name: ProductPriceRandom
   m_TagString: Untagged
@@ -41,6 +42,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000010310481296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011891969362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0d62ed5d08c68469bf986942bf3b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: 5
+  FirstPosition_Z: 5.23
+  SecondPosition_Z: 7
+  FinalPosition_Z: 18.9
 --- !u!114 &114000013107243078
 MonoBehaviour:
   m_ObjectHideFlags: 1

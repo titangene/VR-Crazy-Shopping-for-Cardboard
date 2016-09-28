@@ -42,21 +42,31 @@ public class ProductRandomPosition : MonoBehaviour {
     private Quaternion V_Rotation;
 
     void Start () {
-        Create_a_row_of_cabinet(col, -8.514f, SecondPosition_Z, -90);
-        Create_a_row_of_cabinet(  1, -7.757f,  FirstPosition_Z, 180);
-        Create_a_row_of_cabinet(  1, -7.757f,  FinalPosition_Z,   0);
-        Create_a_row_of_cabinet(col,     -7f, SecondPosition_Z,  90);
-        Create_a_row_of_cabinet(col, -0.757f, SecondPosition_Z, -90);
-        Create_a_row_of_cabinet(  1,      0f,  FirstPosition_Z, 180);
-        Create_a_row_of_cabinet(  1,      0f,  FinalPosition_Z,   0);
-        Create_a_row_of_cabinet(col,  0.757f, SecondPosition_Z,  90);
-        Create_a_row_of_cabinet(col,      7f, SecondPosition_Z, -90);
-        Create_a_row_of_cabinet(  1,  7.757f,  FirstPosition_Z, 180);
-        Create_a_row_of_cabinet(  1,  7.757f,  FinalPosition_Z,   0);
-        Create_a_row_of_cabinet(col,  8.514f, SecondPosition_Z,  90);
+        // 建立第 1 列商品貨價
+        SetCabinetPosition(  1, -7.757f,  FirstPosition_Z, 180);
+        SetCabinetPosition(  1,      0f,  FirstPosition_Z, 180);
+        SetCabinetPosition(  1,  7.757f,  FirstPosition_Z, 180);
+        // 建立第 2~6 列商品貨價
+        SetCabinetPosition(col, -8.514f, SecondPosition_Z, -90);
+        SetCabinetPosition(col,     -7f, SecondPosition_Z,  90);
+        SetCabinetPosition(col, -0.757f, SecondPosition_Z, -90);
+        SetCabinetPosition(col,  0.757f, SecondPosition_Z,  90);
+        SetCabinetPosition(col,      7f, SecondPosition_Z, -90);
+        SetCabinetPosition(col,  8.514f, SecondPosition_Z,  90);
+        // 建立第 7 列商品貨價
+        SetCabinetPosition(  1, -7.757f,  FinalPosition_Z,   0);
+        SetCabinetPosition(  1,      0f,  FinalPosition_Z,   0);
+        SetCabinetPosition(  1,  7.757f,  FinalPosition_Z,   0);
     }
 
-    public void Create_a_row_of_cabinet(int count, float position_X, float position_Z, float rotation_Y) {
+    /// <summary>
+    /// 設定商品貨價的數量、位置、角度
+    /// </summary>
+    /// <param name="count">數量</param>
+    /// <param name="position_X">X 軸位置</param>
+    /// <param name="position_Z">Z 軸位置</param>
+    /// <param name="rotation_Y">Y 軸角度</param>
+    public void SetCabinetPosition(int count, float position_X, float position_Z, float rotation_Y) {
         for (int i = 0; i < count; i++) {
             // 設定商品貨架的位置、角度 (X 軸位置、Z 軸位置、Y 軸角度)
             V_Position = new Vector3(position_X, 0, position_Z);
@@ -95,11 +105,11 @@ public class ProductRandomPosition : MonoBehaviour {
     /// EX：ProObj0001
     /// </summary>
     /// <param name="Obj">想要尋找某子物件的物件</param>
-    /// <param name="ObjName">想要尋找的子物件名稱</param>
-    private void ChildObjectRename(Array Obj, string ObjName) {
+    /// <param name="ObjChildName">想要尋找的子物件名稱</param>
+    private void ChildObjectRename(Array Obj, string ObjChildName) {
         foreach (Transform child in Obj) {
-            if (child.name.Contains(ObjName)) {
-                child.name = ObjName + ProductId.ToString().PadLeft(4, '0');
+            if (child.name.Contains(ObjChildName)) {
+                child.name = ObjChildName + ProductId.ToString().PadLeft(4, '0');
                 ProductId++;
             }
         }
