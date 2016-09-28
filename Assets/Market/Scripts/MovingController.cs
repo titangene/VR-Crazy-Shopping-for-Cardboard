@@ -169,6 +169,7 @@ public class MovingController : MonoBehaviour {
             // 將所有是 "InCartProduct" Layer 的商品物件放入 Cart/InCartProduct 子物件內
             find.PlacedObjectParent(LayerName_InCartProduct, InCartProductObj);
             // 將 Range 物件開啟
+
             Range.SetActive(true);
         }
     }

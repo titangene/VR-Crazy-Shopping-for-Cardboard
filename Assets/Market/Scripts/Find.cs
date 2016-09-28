@@ -22,6 +22,13 @@ public class Find : MonoBehaviour {
 
     void Start() {
         // 找出所有物件
+        FindAllGameObj();
+    }
+
+    /// <summary>
+    /// 找出所有物件
+    /// </summary>
+    public void FindAllGameObj() {
         AllGameObjArray = FindObjectsOfType(typeof(GameObject)) as GameObject[];
     }
 
@@ -31,6 +38,8 @@ public class Find : MonoBehaviour {
     /// <param name="FindLayerName">要找出的 Layer 名稱</param>
     /// <param name="ObjectParent">要放入某子物件內</param>
     public void PlacedObjectParent(string FindLayerName, Transform ObjectParent) {
+        // 找出所有物件
+        FindAllGameObj();
         foreach (GameObject GameObj in AllGameObjArray) {
             // 找出所有是某 Layer 的物件
             if (GameObj.layer == LayerMask.NameToLayer(FindLayerName)) {
@@ -46,6 +55,8 @@ public class Find : MonoBehaviour {
     /// <param name="FindTag">找出所有是某 Tag 的物件</param>
     /// <param name="EventTriggerSwitch">將物件的 EventTrigger 開啟 or 關閉</param>
     public void EventTriggerSwitch(string FindTag, bool EventTriggerSwitch) {
+        // 找出所有物件
+        FindAllGameObj();
         foreach (GameObject GameObj in AllGameObjArray) {
             // 找出所有是某 Tag 的物件
             if (GameObj.tag == FindTag) {

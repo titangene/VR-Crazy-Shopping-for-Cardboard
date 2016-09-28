@@ -5,7 +5,7 @@ public class ProductRandomPosition : MonoBehaviour {
     /// <summary>
     /// 每排有幾列
     /// </summary>
-    public int column = 5;
+    public int col = 5;
     /// <summary>
     /// 第一列 Z 軸開始的位置
     /// </summary>
@@ -42,33 +42,33 @@ public class ProductRandomPosition : MonoBehaviour {
     private Quaternion V_Rotation;
 
     void Start () {
-        Create_a_row_of_cabinet(column, -7.514f, SecondPosition_Z, -90);
-        Create_a_row_of_cabinet(     1, -6.757f,  FirstPosition_Z, 180);
-        Create_a_row_of_cabinet(     1, -6.757f,  FinalPosition_Z,   0);
-        Create_a_row_of_cabinet(column,     -6f, SecondPosition_Z,  90);
-        Create_a_row_of_cabinet(column, -0.757f, SecondPosition_Z, -90);
-        Create_a_row_of_cabinet(     1,      0f,  FirstPosition_Z, 180);
-        Create_a_row_of_cabinet(     1,      0f,  FinalPosition_Z,   0);
-        Create_a_row_of_cabinet(column,  0.757f, SecondPosition_Z,  90);
-        Create_a_row_of_cabinet(column,      6f, SecondPosition_Z,  90);
-        Create_a_row_of_cabinet(     1,  6.757f,  FirstPosition_Z, 180);
-        Create_a_row_of_cabinet(     1,  6.757f,  FinalPosition_Z,   0);
-        Create_a_row_of_cabinet(column,  7.514f, SecondPosition_Z, -90);
+        Create_a_row_of_cabinet(col, -8.514f, SecondPosition_Z, -90);
+        Create_a_row_of_cabinet(  1, -7.757f,  FirstPosition_Z, 180);
+        Create_a_row_of_cabinet(  1, -7.757f,  FinalPosition_Z,   0);
+        Create_a_row_of_cabinet(col,     -7f, SecondPosition_Z,  90);
+        Create_a_row_of_cabinet(col, -0.757f, SecondPosition_Z, -90);
+        Create_a_row_of_cabinet(  1,      0f,  FirstPosition_Z, 180);
+        Create_a_row_of_cabinet(  1,      0f,  FinalPosition_Z,   0);
+        Create_a_row_of_cabinet(col,  0.757f, SecondPosition_Z,  90);
+        Create_a_row_of_cabinet(col,      7f, SecondPosition_Z, -90);
+        Create_a_row_of_cabinet(  1,  7.757f,  FirstPosition_Z, 180);
+        Create_a_row_of_cabinet(  1,  7.757f,  FinalPosition_Z,   0);
+        Create_a_row_of_cabinet(col,  8.514f, SecondPosition_Z,  90);
     }
 
-    public void Create_a_row_of_cabinet(int count, float Position_X, float Position_Z, float Rotation_Y) {
+    public void Create_a_row_of_cabinet(int count, float position_X, float position_Z, float rotation_Y) {
         for (int i = 0; i < count; i++) {
             // 設定商品貨架的位置、角度 (X 軸位置、Z 軸位置、Y 軸角度)
-            V_Position = new Vector3(Position_X, 0, Position_Z);
-            V_Rotation = Quaternion.Euler(0, Rotation_Y, 0);
+            V_Position = new Vector3(position_X, 0, position_Z);
+            V_Rotation = Quaternion.Euler(0, rotation_Y, 0);
 
             // Instantiate 化商品貨架物件
             InstantiateProduct();
 
-            Position_Z += 2.53f;
+            position_Z += 2.53f;
         }
 
-        Position_Z = 7;
+        position_Z = 7;
     }
 
     /// <summary>
@@ -86,6 +86,7 @@ public class ProductRandomPosition : MonoBehaviour {
         ChildObjectRename(Cabinet, "ProObj");
         // 在 CabinetGroup 內找出物件名稱內有 ProInfo 的物件，並將其改為 ProInfoxxxx
         ChildObjectRename(Cabinet, "ProInfo");
+
         ProductId += 6;
     }
 
@@ -102,6 +103,7 @@ public class ProductRandomPosition : MonoBehaviour {
                 ProductId++;
             }
         }
+
         ProductId -= 6;
     }
 }
