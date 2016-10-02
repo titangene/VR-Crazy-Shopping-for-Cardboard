@@ -5,19 +5,35 @@ public class ProductRandomPosition : MonoBehaviour {
     /// <summary>
     /// 每排有幾列
     /// </summary>
-    public int col = 5;
+    public int col = 6;
     /// <summary>
-    /// 第一列 Z 軸開始的位置
+    /// 第一列 Z 軸的位置
     /// </summary>
-    public float FirstPosition_Z = 5.23f;
+    public float First_Z = 5.23f;
     /// <summary>
     /// 第二列 Z 軸開始的位置
     /// </summary>
-    public float SecondPosition_Z = 7;
+    public float Second_Z = 6.686f;
     /// <summary>
-    /// 最後一列 Z 軸開始的位置
+    /// 最後一列 Z 軸的位置
     /// </summary>
-    public float FinalPosition_Z = 18.9f;
+    private float Final_Z;
+    /// <summary>
+    /// 第一列與第二列之間的距離
+    /// </summary>
+    public float First_Second_D = 1.456f;
+    /// <summary>
+    /// 兩排之間的距離
+    /// </summary>
+    public float TwoCol_D = 2.104f;
+    /// <summary>
+    /// 相鄰兩列之間的距離
+    /// </summary>
+    public float TwoRow_D = 0.776f;
+    /// <summary>
+    /// 不同區域(不相鄰的列)之間的距離
+    /// </summary>
+    public float TwoArea_D = 6f;
 
 
     /// <summary>
@@ -43,20 +59,22 @@ public class ProductRandomPosition : MonoBehaviour {
 
     void Start () {
         // 建立第 1 列商品貨價
-        SetCabinetPosition(  1, -7.757f,  FirstPosition_Z, 180);
-        SetCabinetPosition(  1,      0f,  FirstPosition_Z, 180);
-        SetCabinetPosition(  1,  7.757f,  FirstPosition_Z, 180);
+        SetCabinetPosition( 1, -1 * TwoRow_D - TwoArea_D, First_Z, 180);
+        SetCabinetPosition( 1, 0f,  First_Z, 180);
+        SetCabinetPosition( 1, TwoRow_D + TwoArea_D, First_Z, 180);
         // 建立第 2~6 列商品貨價
-        SetCabinetPosition(col, -8.514f, SecondPosition_Z, -90);
-        SetCabinetPosition(col,     -7f, SecondPosition_Z,  90);
-        SetCabinetPosition(col, -0.757f, SecondPosition_Z, -90);
-        SetCabinetPosition(col,  0.757f, SecondPosition_Z,  90);
-        SetCabinetPosition(col,      7f, SecondPosition_Z, -90);
-        SetCabinetPosition(col,  8.514f, SecondPosition_Z,  90);
+        SetCabinetPosition(col, -2 * TwoRow_D - TwoArea_D, Second_Z, -90);
+        SetCabinetPosition(col, -1 * TwoArea_D, Second_Z, 90);
+        SetCabinetPosition(col, -1 * TwoRow_D, Second_Z, -90);
+        SetCabinetPosition(col, TwoRow_D, Second_Z, 90);
+        SetCabinetPosition(col, TwoArea_D, Second_Z, -90);
+        SetCabinetPosition(col, 2 * TwoRow_D + TwoArea_D, Second_Z, 90);
+        // 計算最後一列 Z 軸的位置
+        Final_Z = Second_Z + TwoCol_D * (col - 1) + First_Second_D;
         // 建立第 7 列商品貨價
-        SetCabinetPosition(  1, -7.757f,  FinalPosition_Z,   0);
-        SetCabinetPosition(  1,      0f,  FinalPosition_Z,   0);
-        SetCabinetPosition(  1,  7.757f,  FinalPosition_Z,   0);
+        SetCabinetPosition( 1, -1 * TwoRow_D - TwoArea_D, Final_Z, 0);
+        SetCabinetPosition( 1,      0f, Final_Z, 0);
+        SetCabinetPosition( 1, TwoRow_D + TwoArea_D, Final_Z, 0);
     }
 
     /// <summary>
@@ -75,10 +93,8 @@ public class ProductRandomPosition : MonoBehaviour {
             // Instantiate 化商品貨架物件
             InstantiateProduct();
 
-            position_Z += 2.53f;
+            position_Z += TwoCol_D;
         }
-
-        position_Z = 7;
     }
 
     /// <summary>
@@ -86,7 +102,7 @@ public class ProductRandomPosition : MonoBehaviour {
     /// </summary>
     public void InstantiateProduct() {
         // 載入 CabinetGroup.prefab
-        CabinetPrefab = Resources.Load("CabinetGroup", typeof(GameObject)) as GameObject;
+        CabinetPrefab = Resources.Load("Cabinet", typeof(GameObject)) as GameObject;
         // Instantiate 化商品貨架物件
         CabinetGroup = Instantiate(CabinetPrefab, V_Position, V_Rotation) as GameObject;
 
