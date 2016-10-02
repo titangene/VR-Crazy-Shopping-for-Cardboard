@@ -7,17 +7,13 @@ public class ProductRandomPosition : MonoBehaviour {
     /// </summary>
     public int col = 6;
     /// <summary>
-    /// 一個商品貨架有幾個商品
-    /// </summary>
-    public int ProductCount = 9;
-    /// <summary>
     /// 第一列 Z 軸的位置
     /// </summary>
     public float First_Z = 5.23f;
     /// <summary>
     /// 第二列 Z 軸開始的位置
     /// </summary>
-    private float Second_Z;
+    public float Second_Z = 6.686f;
     /// <summary>
     /// 最後一列 Z 軸的位置
     /// </summary>
@@ -66,8 +62,6 @@ public class ProductRandomPosition : MonoBehaviour {
         SetCabinetPosition( 1, -1 * TwoRow_D - TwoArea_D, First_Z, 180);
         SetCabinetPosition( 1, 0f,  First_Z, 180);
         SetCabinetPosition( 1, TwoRow_D + TwoArea_D, First_Z, 180);
-        // 計算第二列 Z 軸開始的位置
-        Second_Z = First_Z + First_Second_D;
         // 建立第 2~6 列商品貨價
         SetCabinetPosition(col, -2 * TwoRow_D - TwoArea_D, Second_Z, -90);
         SetCabinetPosition(col, -1 * TwoArea_D, Second_Z, 90);
@@ -114,17 +108,12 @@ public class ProductRandomPosition : MonoBehaviour {
 
         // CabinetGroup 內所有的子物件
         Array Cabinet = CabinetGroup.GetComponentsInChildren(typeof(Transform));
+        // 在 CabinetGroup 內找出物件名稱內有 ProObj 的物件，並將其改為 ProObjxxxx
+        ChildObjectRename(Cabinet, "ProObj");
+        // 在 CabinetGroup 內找出物件名稱內有 ProInfo 的物件，並將其改為 ProInfoxxxx
+        ChildObjectRename(Cabinet, "ProInfo");
 
-        // 在 CabinetGroup 內找出物件名稱內有 Pro_Price 的物件，並將其改為 Pro_Pricexxxx
-        ChildObjectRename(Cabinet, "Pro_Price");
-        // 在 CabinetGroup 內找出物件名稱內有 Pro_Name 的物件，並將其改為 Pro_Namexxxx
-        ChildObjectRename(Cabinet, "Pro_Name");
-        // 在 CabinetGroup 內找出物件名稱內有 Pro_Position 的物件，並將其改為 Pro_Positionxxxx
-        ChildObjectRename(Cabinet, "Pro_Position");
-        // 在 CabinetGroup 內找出物件名稱內有 Pro_Obj 的物件，並將其改為 Pro_Objxxxx
-        ChildObjectRename(Cabinet, "Pro_Obj");
-
-        ProductId += ProductCount;
+        ProductId += 6;
     }
 
     /// <summary>
@@ -141,6 +130,6 @@ public class ProductRandomPosition : MonoBehaviour {
             }
         }
 
-        ProductId -= ProductCount;
+        ProductId -= 6;
     }
 }

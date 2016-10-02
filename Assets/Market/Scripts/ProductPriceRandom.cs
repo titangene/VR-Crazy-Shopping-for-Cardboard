@@ -4,7 +4,7 @@ using System;
 
 public class ProductPriceRandom : MonoBehaviour {
     [Tooltip("商品數量")]
-    public int ProductNum = 360;
+    public int ProductNum = 200;
 
     [Tooltip("限制高價值商品數量")]
     public int HighScore = 8000;

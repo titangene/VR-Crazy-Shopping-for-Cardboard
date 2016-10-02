@@ -1325,11 +1325,6 @@ Prefab:
       propertyPath: col
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013107243078, guid: f36b1307da31a384bb8113eedfa3ff51,
-        type: 2}
-      propertyPath: ProductNum
-      value: 360
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f36b1307da31a384bb8113eedfa3ff51, type: 2}
   m_IsPrefabParent: 0
@@ -1371,6 +1366,14 @@ Prefab:
     - target: {fileID: 4000013182729248, guid: 9c3d0c70d746d544dad65705e21b67b1, type: 2}
       propertyPath: m_RootOrder
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011815777166, guid: 9c3d0c70d746d544dad65705e21b67b1, type: 2}
+      propertyPath: m_Name
+      value: Cabinet
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013182729248, guid: 9c3d0c70d746d544dad65705e21b67b1, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9c3d0c70d746d544dad65705e21b67b1, type: 2}

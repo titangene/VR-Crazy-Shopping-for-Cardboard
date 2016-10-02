@@ -191,11 +191,4 @@ public class PickUpAndThrow : MonoBehaviour {
             hit.rigidbody.velocity = MainCamera.forward * ThrowPower;
         }
     }
-
-    // 當掛載該 Script 的物件被銷毀時，可清理一切
-    void OnDestroy() {
-        cardboard.gaze.DistanceRange = RayDistance;
-        cardboard.gaze.OnUpdate += CardboardGazeUpdate;
-        cardboard.trigger.OnClick += CardboardClick;
-    }
 }
