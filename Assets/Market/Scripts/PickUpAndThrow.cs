@@ -76,7 +76,7 @@ public class PickUpAndThrow : MonoBehaviour {
     /// 準心是否對準商品 (有限範圍)
     /// </summary>
     private bool GazeObjIsProduct() {
-        return gaze.IsHeldRange() && gaze.ObjectRange().name.Contains("ProObj");
+        return gaze.IsHeldRange() && gaze.ObjectRange().name.Contains("Pro_Obj");
     }
 
     /// <summary>
@@ -85,14 +85,14 @@ public class PickUpAndThrow : MonoBehaviour {
     /// </summary>
     private void PickUpCheck() {
         // 準心是否對準物件 && 準心是否對準商品 (無限範圍)
-        if (gaze.IsHeld() && gaze.Object().name.Contains("ProObj")) {
+        if (gaze.IsHeld() && gaze.Object().name.Contains("Pro_Obj")) {
             // 找到商品物件
             Product = GameObject.Find(GazeObjectName).transform;
             // 找到商品物件的 EventTrigger
             ProductGazeSwitch = Product.GetComponent<EventTrigger>();
 
             // 準心是否對準物件 && 準心是否對準商品 (有限範圍)
-            if (gaze.IsHeldRange() && gaze.ObjectRange().name.Contains("ProObj")) {
+            if (gaze.IsHeldRange() && gaze.ObjectRange().name.Contains("Pro_Obj")) {
                 //Debug.Log("Can Pickup");
                 // 將 商品是否超過可拿取範圍 狀態改成 false
                 PickUpIsOverRange = false;
@@ -173,7 +173,7 @@ public class PickUpAndThrow : MonoBehaviour {
         // 射線是否對準物件
         if (hit.rigidbody) {
             // 射線是否對準商品
-            if (hit.transform.name.Contains("ProObj")) {
+            if (hit.transform.name.Contains("Pro_Obj")) {
                 // 商品會跟著玩家頭部方向移動
                 hit.rigidbody.velocity = (PickupPosition.position -
                         (hit.transform.position + hit.rigidbody.centerOfMass)) * PickPower;
