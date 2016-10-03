@@ -53,13 +53,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0d62ed5d08c68469bf986942bf3b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  col: 6
-  ProductCount: 9
-  First_Z: 5.23
-  First_Second_D: 1.456
-  TwoCol_D: 2.104
-  TwoRow_D: 0.776
-  TwoArea_D: 6
 --- !u!114 &114000013107243078
 MonoBehaviour:
   m_ObjectHideFlags: 1

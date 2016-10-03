@@ -5,15 +5,15 @@ public class ProductRandomPosition : MonoBehaviour {
     /// <summary>
     /// 每排有幾列
     /// </summary>
-    public int col = 6;
+    private int col = 6;
     /// <summary>
     /// 一個商品貨架有幾個商品
     /// </summary>
-    public int ProductCount = 9;
+    private int ProductCount = 9;
     /// <summary>
     /// 第一列 Z 軸的位置
     /// </summary>
-    public float First_Z = 5.23f;
+    private float First_Z = 5.23f;
     /// <summary>
     /// 第二列 Z 軸開始的位置
     /// </summary>
@@ -25,19 +25,19 @@ public class ProductRandomPosition : MonoBehaviour {
     /// <summary>
     /// 第一列與第二列之間的距離
     /// </summary>
-    public float First_Second_D = 1.456f;
+    private float First_Second_D = 1.456f;
     /// <summary>
     /// 兩排之間的距離
     /// </summary>
-    public float TwoCol_D = 2.104f;
+    private float TwoCol_D = 2.104f;
     /// <summary>
     /// 相鄰兩列之間的距離
     /// </summary>
-    public float TwoRow_D = 0.776f;
+    private float TwoRow_D = 0.876f;
     /// <summary>
     /// 不同區域(不相鄰的列)之間的距離
     /// </summary>
-    public float TwoArea_D = 6f;
+    private float TwoArea_D = 6f;
 
 
     /// <summary>
