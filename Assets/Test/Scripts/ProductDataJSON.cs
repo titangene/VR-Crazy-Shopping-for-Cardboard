@@ -7,7 +7,7 @@ using System.Collections;
 public class ProductDataJSON : MonoBehaviour {
 
     private ProductPriceRandom productPriceRandom;
-    public int ProductNum = 200;
+    public ushort ProductNum = 360;
 
     /// <summary>
     /// 完整目錄
@@ -16,7 +16,7 @@ public class ProductDataJSON : MonoBehaviour {
 
     private JsonData json;
 
-    int ProductId = 1;
+    ushort ProductId = 1;
     // 亂數 value
     private System.Random random;
 
@@ -84,14 +84,14 @@ public class ProductDataJSON : MonoBehaviour {
         // 產生新的亂數 value
         GeneratorRandom();
 
-        for (int i = 0; i < ProductNum; i++) {
+        for (ushort i = 0; i < ProductNum; i++) {
             json["product"].Add(new JsonData());
             json["product"][i]["id"] = ProductId;
             // PadLeft(補足的長度, '要補的內容')
             // EX：string str = "23"; PadLeft(4, '0');
             // 輸出結果： 0023
             json["product"][i]["name"] = "Product" + ProductId.ToString().PadLeft(4, '0');
-            json["product"][i]["price"] = (int)ProductPrice[i];
+            json["product"][i]["price"] = (ushort) ProductPrice[i];
 
             ProductId++;
         }

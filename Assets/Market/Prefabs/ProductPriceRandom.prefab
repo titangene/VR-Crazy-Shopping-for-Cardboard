@@ -53,10 +53,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0d62ed5d08c68469bf986942bf3b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  col: 5
-  FirstPosition_Z: 5.23
-  SecondPosition_Z: 7
-  FinalPosition_Z: 18.9
+  col: 6
+  ProductCount: 9
+  First_Z: 5.23
+  First_Second_D: 1.456
+  TwoCol_D: 2.104
+  TwoRow_D: 0.776
+  TwoArea_D: 6
 --- !u!114 &114000013107243078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a56fde00a7416c47a4d8cad8fd0b482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProductNum: 200
+  ProductNum: 360
   HighScore: 8000
   productPriceRange:
   - minPrice: 0
@@ -154,4 +157,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305776322ef6abc41af54fb7769392b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProductNum: 200
+  ProductNum: 360

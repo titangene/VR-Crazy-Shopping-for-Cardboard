@@ -26,7 +26,7 @@ namespace UnityTest {
         /// <summary>
         /// 隨機產生範圍區間的商品價格
         /// </summary>
-        public void 隨機產生商品價格(int min, int max, int count) {
+        public void 隨機產生商品價格(ushort min, ushort max, ushort count) {
             productPriceRandom.RandomCount(min, max, count);
             ArrayList randomArray = productPriceRandom.GetArray_Temp();
 
