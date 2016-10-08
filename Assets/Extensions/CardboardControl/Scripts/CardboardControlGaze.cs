@@ -49,7 +49,7 @@ public class CardboardControlGaze : MonoBehaviour {
         isHeld = Physics.Raycast(Ray(), out hit, maxDistance, layerMask);
 
         // 畫出射線，可以知道射線的位置與方向(有範圍限制)
-        Debug.DrawRay(head.transform.position, head.transform.forward * DistanceRange);
+        //Debug.DrawRay(head.transform.position, head.transform.forward * DistanceRange);
         // 準心是否對準物件(有範圍限制)
         isHeldRange = Physics.Raycast(Ray(), out hitRange, DistanceRange, layerMask);
 
