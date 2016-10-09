@@ -92,6 +92,8 @@ public class GCvrGaze : MonoBehaviour {
 
         // 如果準心沒有對準物件
         } else {
+            // 將 目前準心對準的物件 重設為 null
+            targetObj_Unlimited = null;
             // 將 目前準心對準物件的碰撞位置 重設為 Vector3(0, 0, 0)
             intersectPosition_Unlimited = Vector3.zero;
         }
@@ -119,6 +121,8 @@ public class GCvrGaze : MonoBehaviour {
 
         // 如果準心沒有對準物件
         } else {
+            // 將 目前準心對準的物件 重設為 null
+            targetObj_Range = null;
             // 將 目前準心對準物件的碰撞位置 重設為 Vector3(0, 0, 0)
             intersectPosition_Range = Vector3.zero;
         }
