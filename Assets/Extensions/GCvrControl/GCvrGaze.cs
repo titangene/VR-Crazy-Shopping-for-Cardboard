@@ -50,7 +50,7 @@ public class GCvrGaze : MonoBehaviour {
         // 開啟 / 關閉目標物件之 EventTrigger
         ChangeTargetEventTrigger("Pro_Obj");
 
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
             /*
             Debug.Log(GetCurrentGameObject());
             Debug.Log("目標物件名稱：" + GetCurrentObjName_Range());
