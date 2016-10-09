@@ -492,7 +492,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013460628324}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b23f7f29f03a165419a92e83e02dbc4b, type: 3}
   m_Name: 
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Head: {fileID: 4000012179600400}
   viewRadius: 2.8
-  viewAngle: 109
+  viewAngle: 101
   targetsMask:
   - serializedVersion: 2
     m_Bits: 256
