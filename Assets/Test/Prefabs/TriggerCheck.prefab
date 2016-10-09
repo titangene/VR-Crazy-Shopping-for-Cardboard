@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011732725748}
-  - 114: {fileID: 114000012204398618}
+  - 114: {fileID: 114000014115276122}
   m_Layer: 0
   m_Name: TriggerCheck
   m_TagString: Untagged
@@ -309,7 +309,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013977671382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 3, z: 0}
+  m_LocalPosition: {x: 1.8, y: 3, z: 0}
   m_LocalScale: {x: 0.7804134, y: 0.7804134, z: 0.7804134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -791,12 +791,12 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013977671382}
-  m_Text: 0.0
+  m_Text: 0.0000
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
-  m_Anchor: 4
-  m_Alignment: 0
+  m_Anchor: 5
+  m_Alignment: 2
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -812,12 +812,12 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011410591316}
-  m_Text: 0.0
+  m_Text: 0.0000
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 4
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -896,7 +896,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013891857266}
-  m_Text: "\u770B\u4E86\u591A\u4E45"
+  m_Text: "\u6E96\u5FC3\u76EE\u524D\u5C0D\u6E96\u7684\u7269\u4EF6"
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -973,7 +973,7 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4280295456
---- !u!114 &114000012204398618
+--- !u!114 &114000014115276122
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -981,9 +981,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010964230360}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8aef4e0a566b544c8ea64a8b79176fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 363938b8981f6c147bab4837d72a53db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SphereDown_Counter: {fileID: 102000010277349882}
+  SphereClick_Counter: {fileID: 102000011728557472}
+  SphereClick_TimeCounter: {fileID: 102000010518007528}
 --- !u!135 &135000011828885604
 SphereCollider:
   m_ObjectHideFlags: 1
