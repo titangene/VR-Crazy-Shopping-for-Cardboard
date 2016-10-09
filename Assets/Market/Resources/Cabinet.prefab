@@ -107,8 +107,9 @@ GameObject:
   - 136: {fileID: 136000010186234250}
   - 23: {fileID: 23000013227917112}
   - 54: {fileID: 54000013556009770}
+  - 114: {fileID: 114000013595775180}
   - 114: {fileID: 114000012905509104}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pro_Obj0009
   m_TagString: Product
   m_Icon: {fileID: 0}
@@ -127,8 +128,9 @@ GameObject:
   - 135: {fileID: 135000011774769586}
   - 23: {fileID: 23000011388751618}
   - 54: {fileID: 54000010820656108}
+  - 114: {fileID: 114000012455031992}
   - 114: {fileID: 114000012918704698}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pro_Obj0004
   m_TagString: Product
   m_Icon: {fileID: 0}
@@ -198,8 +200,9 @@ GameObject:
   - 65: {fileID: 65000010161171400}
   - 23: {fileID: 23000010579219774}
   - 54: {fileID: 54000011465765126}
+  - 114: {fileID: 114000011297429500}
   - 114: {fileID: 114000010785268740}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pro_Obj0002
   m_TagString: Product
   m_Icon: {fileID: 0}
@@ -235,8 +238,9 @@ GameObject:
   - 135: {fileID: 135000012374306006}
   - 23: {fileID: 23000013162864504}
   - 54: {fileID: 54000010314039052}
+  - 114: {fileID: 114000013691882988}
   - 114: {fileID: 114000011980826296}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pro_Obj0006
   m_TagString: Product
   m_Icon: {fileID: 0}
@@ -255,8 +259,9 @@ GameObject:
   - 65: {fileID: 65000014272369484}
   - 23: {fileID: 23000012903252094}
   - 54: {fileID: 54000014245932342}
+  - 114: {fileID: 114000012863306054}
   - 114: {fileID: 114000012800844554}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pro_Obj0003
   m_TagString: Product
   m_Icon: {fileID: 0}
@@ -322,8 +327,9 @@ GameObject:
   - 135: {fileID: 135000012848899240}
   - 23: {fileID: 23000012470144486}
   - 54: {fileID: 54000013527328462}
+  - 114: {fileID: 114000014060253726}
   - 114: {fileID: 114000011936085562}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pro_Obj0005
   m_TagString: Product
   m_Icon: {fileID: 0}
@@ -436,8 +442,9 @@ GameObject:
   - 136: {fileID: 136000011765652480}
   - 23: {fileID: 23000012485275442}
   - 54: {fileID: 54000010275317230}
+  - 114: {fileID: 114000011505538842}
   - 114: {fileID: 114000012488384674}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pro_Obj0008
   m_TagString: Product
   m_Icon: {fileID: 0}
@@ -848,8 +855,9 @@ GameObject:
   - 65: {fileID: 65000010358923746}
   - 23: {fileID: 23000011582947604}
   - 54: {fileID: 54000011891441788}
+  - 114: {fileID: 114000011963503644}
   - 114: {fileID: 114000011321735526}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pro_Obj0001
   m_TagString: Product
   m_Icon: {fileID: 0}
@@ -900,8 +908,9 @@ GameObject:
   - 136: {fileID: 136000012184078170}
   - 23: {fileID: 23000012245246730}
   - 54: {fileID: 54000013463946366}
+  - 114: {fileID: 114000012060758862}
   - 114: {fileID: 114000012587835044}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pro_Obj0007
   m_TagString: Product
   m_Icon: {fileID: 0}
@@ -2785,8 +2794,36 @@ MonoBehaviour:
   m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114000011297429500}
+          m_MethodName: PickupAndThrow_Product
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114000011297429500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010926798828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f3f6e0c43007e4e9881651629b5979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011321735526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2798,7 +2835,24 @@ MonoBehaviour:
   m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114000011963503644}
+          m_MethodName: PickupAndThrow_Product
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
 --- !u!114 &114000011379303936
 MonoBehaviour:
@@ -2833,6 +2887,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Product0004
+--- !u!114 &114000011505538842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011979951814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f3f6e0c43007e4e9881651629b5979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011543958982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2931,8 +2996,36 @@ MonoBehaviour:
   m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114000014060253726}
+          m_MethodName: PickupAndThrow_Product
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114000011963503644
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014019396012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f3f6e0c43007e4e9881651629b5979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011980826296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2944,8 +3037,36 @@ MonoBehaviour:
   m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114000013691882988}
+          m_MethodName: PickupAndThrow_Product
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114000012060758862
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014086894534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f3f6e0c43007e4e9881651629b5979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012380922260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2979,6 +3100,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Product0002
+--- !u!114 &114000012455031992
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010725834220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f3f6e0c43007e4e9881651629b5979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012488384674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2990,7 +3122,24 @@ MonoBehaviour:
   m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114000011505538842}
+          m_MethodName: PickupAndThrow_Product
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
 --- !u!114 &114000012587835044
 MonoBehaviour:
@@ -3003,7 +3152,24 @@ MonoBehaviour:
   m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114000012060758862}
+          m_MethodName: PickupAndThrow_Product
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
 --- !u!114 &114000012800844554
 MonoBehaviour:
@@ -3016,8 +3182,36 @@ MonoBehaviour:
   m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114000012863306054}
+          m_MethodName: PickupAndThrow_Product
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114000012863306054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011027061624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f3f6e0c43007e4e9881651629b5979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012905509104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3029,7 +3223,24 @@ MonoBehaviour:
   m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114000013595775180}
+          m_MethodName: PickupAndThrow_Product
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
 --- !u!114 &114000012918704698
 MonoBehaviour:
@@ -3042,7 +3253,24 @@ MonoBehaviour:
   m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114000012455031992}
+          m_MethodName: PickupAndThrow_Product
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
 --- !u!114 &114000012995764948
 MonoBehaviour:
@@ -3203,6 +3431,39 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Product0008
+--- !u!114 &114000013595775180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010617499316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f3f6e0c43007e4e9881651629b5979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000013691882988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010997092330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f3f6e0c43007e4e9881651629b5979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000014060253726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011664516962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f3f6e0c43007e4e9881651629b5979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000014138175556
 MonoBehaviour:
   m_ObjectHideFlags: 1
