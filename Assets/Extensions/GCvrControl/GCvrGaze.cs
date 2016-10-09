@@ -71,7 +71,7 @@ public class GCvrGaze : MonoBehaviour {
     /// <summary>
     /// 無範圍限制：建立射線 與 設定目前準心對準的物件(目標物件)
     /// </summary>
-    public void FindGazeTarget_Unlimited() {
+    private void FindGazeTarget_Unlimited() {
         // 射線 (射線原點 (Main Camera), 射線軸向 (Main Camera 向前))
         Ray ray = new Ray(transform.position, transform.forward);
         // 射線碰撞參數
@@ -100,7 +100,7 @@ public class GCvrGaze : MonoBehaviour {
     /// <summary>
     /// 有範圍限制：建立射線 與 設定目前準心對準的物件(目標物件)
     /// </summary>
-    public void FindGazeTarget_Range() {
+    private void FindGazeTarget_Range() {
         // 射線 (射線原點 (Main Camera), 射線軸向 (Main Camera 向前))
         Ray ray = new Ray(transform.position, transform.forward);
 
@@ -127,7 +127,7 @@ public class GCvrGaze : MonoBehaviour {
     /// <summary>
     /// 計算目標物件與玩家的距離
     /// </summary>
-    public void Calc_TargetObj_Player_Distance() {
+    private void Calc_TargetObj_Player_Distance() {
         if (targetObj_Unlimited != null) {
             // 畢氏定理 distance = sqrt(X^2 + Y^2 + Z^2)
             Vector3 TargetObjPosition = targetObj_Unlimited.transform.position;
@@ -145,7 +145,7 @@ public class GCvrGaze : MonoBehaviour {
     /// 開啟 / 關閉目標物件之 EventTrigger
     /// </summary>
     /// <param name="ObjName">目標物件名稱內需有某名稱才能開啟 / 關閉該物件之 EventTrigger</param>
-    public void ChangeTargetEventTrigger(string ObjName) {
+    private void ChangeTargetEventTrigger(string ObjName) {
         if (targetObj_Unlimited != null && targetObj_Unlimited.name.Contains(ObjName)) {
             // 目標物件之 EventTrigger
             EventTrigger targetGazeSwitch = targetObj_Unlimited.GetComponent<EventTrigger>();
