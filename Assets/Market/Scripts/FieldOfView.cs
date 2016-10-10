@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class FieldOfView : MonoBehaviour {
 
     public Transform Head;
-    public float viewRadius;
+    [SerializeField]
+    private float viewRadius;
     [Range(0, 360)]
     public float viewAngle;
 
@@ -14,6 +15,10 @@ public class FieldOfView : MonoBehaviour {
 
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
+
+    void Awake() {
+        viewRadius = gameObject.GetComponent<GCvrGaze>().DistanceRange;
+    }
 
     void Start() {
         StartCoroutine("FindTargetsWithDelay", .2f);
@@ -67,5 +72,9 @@ public class FieldOfView : MonoBehaviour {
             angleInDegrees += Head.eulerAngles.y;
         }
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+    }
+
+    public float ViewRadius() {
+        return viewRadius;
     }
 }
