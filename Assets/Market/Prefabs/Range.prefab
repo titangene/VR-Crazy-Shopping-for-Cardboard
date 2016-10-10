@@ -351,11 +351,11 @@ GameObject:
   - 4: {fileID: 4000010545684690}
   m_Layer: 0
   m_Name: Range
-  m_TagString: Untagged
+  m_TagString: Range
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000012173404444
 GameObject:
   m_ObjectHideFlags: 1

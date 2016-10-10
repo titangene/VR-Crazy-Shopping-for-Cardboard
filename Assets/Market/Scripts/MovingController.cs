@@ -259,7 +259,7 @@ public class MovingController : MonoBehaviour {
         */
         #endregion
     }
-
+    /*
     // 當掛載該 Script 的物件被銷毀時，可清理一切
     void OnDestroy() {
         cardboard.trigger.OnDown -= CardboardDown;
@@ -269,4 +269,5 @@ public class MovingController : MonoBehaviour {
         cardboard.gaze.OnChange -= CardboardGazeChange;
         cardboard.gaze.OnStare -= CardboardStare;
     }
+    */
 }

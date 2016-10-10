@@ -21,7 +21,6 @@ GameObject:
   - 4: {fileID: 4000010806561186}
   - 65: {fileID: 65000010548359002}
   - 114: {fileID: 114000011256173844}
-  - 114: {fileID: 114000014005241514}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -39,7 +38,7 @@ GameObject:
   - 4: {fileID: 4000012680296604}
   m_Layer: 0
   m_Name: OnGroundProduct
-  m_TagString: Untagged
+  m_TagString: OnGroundProduct
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,14 +96,3 @@ MonoBehaviour:
   ProductTag: Product
   LayerName_OnGroundProduct: OnGroundProduct
   OnGroundProductObj: {fileID: 4000012680296604}
---- !u!114 &114000014005241514
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011193261090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d65476f7502d8d4e9f9dac16fd6023f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
