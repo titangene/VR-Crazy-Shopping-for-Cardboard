@@ -165,7 +165,7 @@ public class TriggerClick : MonoBehaviour {
             // 顯示SphereDown 內的 Counter 的文字物件
             textMesh.GetComponent<Renderer>().enabled = true;
             // trigger.SecondsHeld() is the number of seconds we've held the trigger down
-            textMesh.text = cardboard.trigger.SecondsHeld().ToString("#.##");
+            textMesh.text = cardboard.trigger.SecondsHeld().ToString("0.0000");
         } else {
             // 閃爍SphereDown 內的 Counter 的文字物件
             textMesh.GetComponent<Renderer>().enabled = Time.time % 1 < 0.5;
@@ -183,7 +183,7 @@ public class TriggerClick : MonoBehaviour {
         // 目光盯了幾秒
         float count = cardboard.gaze.SecondsHeld();
         // 將 目光盯了幾秒 的數字設定至 TimeCounter 文字物件上
-        TimeCounter.text = name + "：" + count.ToString("#.###");
+        TimeCounter.text = name + "：" + count.ToString("0.0000");
     }
 
     /*
@@ -191,6 +191,7 @@ public class TriggerClick : MonoBehaviour {
     * so the garbage collector can clean everything up
     * 當掛載該 Script 的物件被銷毀時，使垃圾回收器可以清理一切 ??? 看不懂
     */
+    /*
     void OnDestroy() {
         cardboard.trigger.OnDown -= CardboardDown;
         cardboard.trigger.OnUp -= CardboardUp;
@@ -199,4 +200,5 @@ public class TriggerClick : MonoBehaviour {
         cardboard.gaze.OnStare -= CardboardStare;
         cardboard.box.OnTilt -= CardboardMagnetReset;
     }
+    */
 }
