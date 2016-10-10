@@ -131,22 +131,14 @@ public class CardboardControlGaze : MonoBehaviour {
     }
 
     public GameObject Object() {
-        if (IsHeld()) {
-            return hit.transform.gameObject;
-        } else {
-            return null;
-        }
+        return IsHeld() ? hit.transform.gameObject : null;
     }
 
     /// <summary>
     /// 準心對準的物件(有範圍限制)
     /// </summary>
     public GameObject ObjectRange() {
-        if (IsHeldRange()) {
-            return hitRange.transform.gameObject;
-        } else {
-            return null;
-        }
+        return IsHeldRange() ? hitRange.transform.gameObject : null;
     }
 
     public GameObject PreviousObject() {
