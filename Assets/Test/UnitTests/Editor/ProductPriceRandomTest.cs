@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace UnityTest {
     [TestFixture]
     public class ProductPriceRandomTest : MonoBehaviour {
+        /* --------------------------
         ProductPriceRandom productPriceRandom;
         bool IsPass = false;
 
@@ -92,6 +93,7 @@ namespace UnityTest {
 
             Assert.IsTrue(IsPass);
         }
+        */
 
         /*
         [Test]
@@ -199,6 +201,8 @@ namespace UnityTest {
         }
         */
 
+
+        /* ------------------------------------
         [Test]
         public void Test2_將隨機產生的商品價格從TempArray放入ProductPriceArray且數量相同() {
             GeneratorProductPrice();
@@ -262,5 +266,6 @@ namespace UnityTest {
             ArrayList ProductPrice = productPriceRandom.GetArray_ProductPrice();
 
         }
+        */
     }
 }
