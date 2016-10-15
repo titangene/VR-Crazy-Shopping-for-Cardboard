@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 public class Countdown : MonoBehaviour {
-
     // 倒數時間
     public float TimerStart = 99.0f;
     // 結束時間
@@ -21,7 +18,7 @@ public class Countdown : MonoBehaviour {
     // 遊戲時間文字
     public TextMesh Timer;
 
-    // 按鍵盤 F 鍵 重設時間
+    // 按鍵盤 F 鍵 開始時間
     private KeyCode TimeStartKey = KeyCode.F;
     // 按鍵盤 G 鍵 重設時間
     private KeyCode TimeResetKey = KeyCode.G;
@@ -39,6 +36,12 @@ public class Countdown : MonoBehaviour {
     }
 
     void Update() {
+        if (Input.GetKeyDown(TimeStartKey)) {
+            // 從遊戲第 1 秒開始，每 0.01 秒重覆執行 "Countdown1" method
+            InvokeRepeating("Countdown1", 1.0f, 0.01f);
+        }
+
+        /*
         // 按鍵盤 F 鍵 倒數時間開始
         if (Input.GetKeyUp(TimeStartKey)) {
             StartTimer();
@@ -62,6 +65,29 @@ public class Countdown : MonoBehaviour {
 
         // 時間倒數結束
         EndTimer();
+        */
+    }
+
+    private void Countdown1() {
+        TimerStart -= 0.01f;
+        // 毫秒
+        float msec = TimerStart - (int) TimerStart;
+        // Timer 文字
+        string timerStr = string.Format("{0}:{1}", (int) TimerStart, msec.ToString().Substring(2, 2));
+        // 套用文字至 Timer
+        Timer.text = timerStr;
+        // 提醒時間
+        string timeReminderStr = TimeReminder + ":00";
+
+        if (timerStr == timeReminderStr) {
+            Debug.Log("剩下 " + TimeReminder + " 秒！！！");
+        }
+
+        if (TimerStart <= 0) {
+            Timer.text = "0:00";
+            CancelInvoke("Countdown1");
+        }
+        
     }
 
     // 倒數時間開始，初始化時間變數或遊戲狀態
