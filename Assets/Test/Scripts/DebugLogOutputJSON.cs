@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
 using System.IO;
-using System.Text;
 using LitJson;
 
 /// <summary>
@@ -47,12 +46,15 @@ public class DebugLogOutputJSON : MonoBehaviour {
     /// </summary>
     private int DebugLogID = 0;
 
+    private JSONController jsonController;
+
     void Start() {
+        jsonController = new JSONController();
         // 目錄
         string Path = Application.dataPath + "/DebugLog/";
 
         // 建立目錄
-        CreateDirectory(Path);
+        jsonController.CreateDirectory(Path);
 
         // 現在時間
         DateTime now = DateTime.Now;
@@ -77,84 +79,19 @@ public class DebugLogOutputJSON : MonoBehaviour {
 
         } else {
             // 讀取 Json 檔
-            ReadJson(LoadJsonFile());
+            json = jsonController.ReadJson_LoadJsonFile(FullPath);
             // 設定 DebugID
             DebugID = json["debug"].Count;
             //Debug.Log("讀取 Json File");
         }
 
-        DeleteFile();
+        jsonController.DeleteFile(FullPath);
 
         // Log 的監聽，事件如果接收到 Log 訊息 會被觸發 (只會在 Main Thread 觸發)
         Application.logMessageReceived += HandleLog;
 
         // 將 開始 狀態 開啟
         IsStart = true;
-    }
-
-    /// <summary>
-    /// 建立目錄
-    /// </summary>
-    /// <param name="path">目錄</param>
-    private void CreateDirectory(string path) {
-        if (!Directory.Exists(path)) {
-            Directory.CreateDirectory(path);
-        }
-    }
-
-    /// <summary>
-    /// 讀取 Json 檔
-    /// </summary>
-    /// <param name="jsonStr">搭配 LoadJsonFile() 使用：ReadJson(LoadJsonFile())</param>
-    private void ReadJson(string jsonStr) {
-        json = JsonMapper.ToObject(jsonStr);
-    }
-
-    /// <summary>
-    /// 讀入 Json 檔的內容
-    /// </summary>
-    private string LoadJsonFile() {
-        //用來儲存讀入的Json內容
-        StringBuilder sbJson = new StringBuilder();
-        using (StreamReader sr = new StreamReader(FullPath)) {
-            //一次性將資料全部讀入
-            sbJson.Append(sr.ReadToEnd());
-        }
-
-        return sbJson.ToString();
-    }
-
-    /// <summary>
-    /// 刪除 Json 檔
-    /// </summary>
-    private void DeleteFile() {
-        if (File.Exists(FullPath)) {
-            File.Delete(FullPath);
-        }
-    }
-
-    /// <summary>
-    /// 寫入 Json 資料 && 美化 Json
-    /// </summary>
-    private string WriteJsonAndPrettyPrint() {
-        JsonWriter jsonwriter = new JsonWriter();
-        // 美化 Json
-        jsonwriter.PrettyPrint = true;
-        // 縮排大小
-        jsonwriter.IndentValue = 2;
-        JsonMapper.ToJson(json, jsonwriter);
-
-        string str = jsonwriter.ToString();
-        return str;
-    }
-
-    /// <summary>
-    /// 將資料寫入 Json 檔
-    /// </summary>
-    private void OutputJsonFile() {
-        using (StreamWriter sw = new StreamWriter(FullPath, true, Encoding.UTF8)) {
-            sw.WriteLine(WriteJsonAndPrettyPrint());
-        }
     }
 
     /// <summary>
@@ -182,7 +119,7 @@ public class DebugLogOutputJSON : MonoBehaviour {
         JsonDebug["endtime"] = NowTime;
 
         // 將資料寫入 Json 檔
-        OutputJsonFile();
+        jsonController.OutputJsonFile(json, FullPath);
     }
 
     /// <summary>
