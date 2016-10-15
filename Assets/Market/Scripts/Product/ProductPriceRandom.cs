@@ -1,47 +1,23 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System.Collections;
 
 /* ushort：0 至 65,535，不帶正負號的 16 位元整數 */
-public class ProductPriceRandom : MonoBehaviour {
-    [Tooltip("商品數量")]
-    public ushort ProductNum = 360;
-
-    [Tooltip("限制高價值商品數量")]
-    public ushort HighScore = 8000;
-
-    [Serializable]
-    public struct ProductPriceRange {
+public class ProductPriceRandom {
+    private struct ProductPriceRange {
         public ushort minPrice;
         public ushort maxPrice;
         public ushort minRange;
         public ushort maxRange;
     }
 
-    [SerializeField]
-    public ProductPriceRange[] productPriceRange = new ProductPriceRange[0];
-
+    private ProductPriceRange[] productPriceRange = new ProductPriceRange[18];
     // 商品價格 array
     private ArrayList ProductPrice;
     // 暫存 array
     private ArrayList Temp;
-    // 亂數 value
-    private System.Random random;
 
-    string str;
-
-    void Awake() {
-        // 建立 array (商品價格、暫存)
-        CreateArray();
-        // 建立所有商品價格資料
-        SetAllData();
-        // 隨機產生商品價格
-        GeneratorProductPrice();
-        // 將隨機產生的商品價格，從 Temp array 放入 ProductPrice array
-        PutRandomIntoArray();
-    }
-
+    /*
     void Start() {
+        string str = "";
         foreach (ushort i in ProductPrice) {
             str = i + ", " + str;
         }
@@ -51,6 +27,7 @@ public class ProductPriceRandom : MonoBehaviour {
         // 清空 array(商品價格、暫存)
         ClearArray();
     }
+    */
 
     /// <summary>
     /// 建立 array (商品價格、暫存)
@@ -118,26 +95,17 @@ public class ProductPriceRandom : MonoBehaviour {
     }
 
     /// <summary>
-    /// 產生新的亂數 value
-    /// </summary>
-    public void GeneratorRandom() {
-        // 使用 DateTime.Now.Ticks 可產生不重複的隨機亂數
-        // DateTime.Now.Ticks 是指從 DateTime.MinValue 之後過了多少時間，10000000 為一秒
-        random = new System.Random((int) DateTime.Now.Ticks);
-    }
-
-    /// <summary>
     /// 將隨機產生的商品價格，從 Temp array 放入 ProductPrice array
     /// </summary>
     public void PutRandomIntoArray() {
-        GeneratorRandom();
+        ProductManager.Instance.randomCtrl.GeneratorRandom();
         for (ushort i = 0; i < Temp.Count; i++) {
             // Temp array 中第幾個
-            ushort num = (ushort) random.Next(0, Temp.Count);
+            ushort num = (ushort) ProductManager.Instance.randomCtrl.random.Next(0, Temp.Count);
 
             // 如商品價格已放至 ProductPrice array，就重新找出還沒放入之其他商品價格
             while (ProductPrice.Contains(Temp[num])) {
-                num = (ushort) random.Next(0, Temp.Count);
+                num = (ushort) ProductManager.Instance.randomCtrl.random.Next(0, Temp.Count);
             }
 
             // 將商品價格放入 ProductPrice array
@@ -154,13 +122,12 @@ public class ProductPriceRandom : MonoBehaviour {
     /// <param name="max">該價格區間之最高價格</param>
     /// <param name="count">該價格區間隨機產生的數量</param>
     public void RandomCount(ushort min, ushort max, ushort count) {
-        GeneratorRandom();
+        ProductManager.Instance.randomCtrl.GeneratorRandom();
         for (ushort i = 0; i < count; i++) {
-            ushort price = (ushort) random.Next(min, max + 1);
+            ushort price = (ushort) ProductManager.Instance.randomCtrl.random.Next(min, max + 1);
 
-            if (!Temp.Contains(price)) {
+            if (!Temp.Contains(price))
                 Temp.Add(price);
-            }
         }
     }
 
@@ -173,23 +140,21 @@ public class ProductPriceRandom : MonoBehaviour {
     /// <param name="minCount">該價格區間隨機產生的最少數量</param>
     /// <param name="maxCount">該價格區間隨機產生的最大數量</param>
     public void RandomRange(ushort min, ushort max, ushort minCount, ushort maxCount) {
-        GeneratorRandom();
-        //int minRangePercent = Convert.ToInt32((float) minRange * ProductNum / 100);
-        //int maxRangePercent = Convert.ToInt32((float) (maxRange + 1) * ProductNum / 100 * 1.1);
-        ushort minRangePercent = (ushort) (minCount * ProductNum / 100 * 1.3);
-        ushort maxRangePercent = (ushort) ((maxCount + 1) * ProductNum / 100);
+        ProductManager.Instance.randomCtrl.GeneratorRandom();
+        ushort minRangePercent = (ushort) (minCount * ProductManager.Instance.ProductNum / 100 * 1.3);
+        ushort maxRangePercent = (ushort) ((maxCount + 1) * ProductManager.Instance.ProductNum / 100);
 
-        if (min > HighScore) {
+        if (min > ProductManager.Instance.HighScore) {
             minRangePercent = minCount;
             maxRangePercent = maxCount;
         }
 
-        ushort range = (ushort) random.Next(minRangePercent, maxRangePercent);
+        ushort range = (ushort) ProductManager.Instance.randomCtrl.random.Next(minRangePercent, maxRangePercent);
 
         // 將隨機產生的某價格區間商品價格 放入 Temp array
         RandomCount(min, max, range);
 
-        if (max > HighScore) {
+        if (max > ProductManager.Instance.HighScore) {
             //Debug.Log(min + " ~ " + max + ":" + range);
         }
         //Debug.Log(min + " ~ " + max + ":" + range);
