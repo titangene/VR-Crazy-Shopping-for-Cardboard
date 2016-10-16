@@ -4,6 +4,36 @@ using System.Text;
 
 public class JSONController {
     /// <summary>
+    /// JSON 目錄
+    /// </summary>
+    private string path;
+    /// <summary>
+    /// JSON 完整目錄
+    /// </summary>
+    private string fullPath;
+
+
+    public string SetPath() {
+#if UNITY_EDITOR
+        path = UnityEngine.Application.dataPath;
+#endif
+
+#if UNITY_ANDROID
+        path = UnityEngine.Application.persistentDataPath;
+#endif
+
+#if UNITY_IOS
+        path = UnityEngine.Application.persistentDataPath;
+#endif
+        return path;
+    }
+
+    public string SetAllPath(string path, string filePath) {
+        fullPath = path + filePath;
+        return fullPath;
+    }
+
+    /// <summary>
     /// 建立目錄
     /// </summary>
     public void CreateDirectory(string path) {
