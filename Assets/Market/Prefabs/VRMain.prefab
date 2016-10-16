@@ -23,7 +23,6 @@ GameObject:
   - 81: {fileID: 81000011242779520}
   - 114: {fileID: 114000011605310986}
   - 114: {fileID: 114000011863259502}
-  - 114: {fileID: 114000011053107428}
   - 114: {fileID: 114000012559493498}
   m_Layer: 0
   m_Name: VRMain
@@ -527,25 +526,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reticleSegments: 20
   reticleGrowthSpeed: 8
---- !u!114 &114000011053107428
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010661163614}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccde27ccd78d3554d87629b552560712, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GvrViewerMain: {fileID: 114000010505936744}
-  Range: {fileID: 0}
-  LayerName_InCartProduct: InCartProduct
-  Cart_Player: 0.87
-  speed: 6
-  IsHoldTrigger: 0
-  GazeObjIsHandle: 0
-  IsMovingForward: 0
 --- !u!114 &114000011230127228
 MonoBehaviour:
   m_ObjectHideFlags: 1

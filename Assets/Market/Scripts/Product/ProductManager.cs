@@ -17,9 +17,19 @@ public class ProductManager : MonoBehaviour {
 
     public RandomController randomCtrl;
     public JSONController jsonCtrl;
-    public ProductPriceRandom productPriceRandom;
-    private ProductDataJSON productDataJSON;
-    private ProductRandomPosition productRandomPosition;
+    public ProductPriceRandom priceRandom;
+    private ProductDataJSON dataJSON;
+    private ProductRandomPosition randomPosition;
+
+    /// <summary>
+    /// JSON 目錄
+    /// </summary>
+    private string path;
+    /// <summary>
+    /// JSON 完整目錄
+    /// </summary>
+    private string fullPath;
+    public LitJson.JsonData json;
 
     private static ProductManager instance = null;
 
@@ -64,59 +74,76 @@ public class ProductManager : MonoBehaviour {
 
         randomCtrl = new RandomController();
         jsonCtrl = new JSONController();
-        productPriceRandom = new ProductPriceRandom();
-        productDataJSON = new ProductDataJSON();
-        productRandomPosition = new ProductRandomPosition();
+        priceRandom = new ProductPriceRandom();
+        dataJSON = new ProductDataJSON();
+        randomPosition = new ProductRandomPosition();
 
-        /* ProductPriceRandom */
-        // 建立 array (商品價格、暫存)
-        productPriceRandom.CreateArray();
-        // 建立所有商品價格資料
-        productPriceRandom.SetAllData();
-        // 隨機產生商品價格
-        productPriceRandom.GeneratorProductPrice();
-        // 將隨機產生的商品價格，從 Temp array 放入 ProductPrice array
-        productPriceRandom.PutRandomIntoArray();
+        // JSON 目錄
+        path = jsonCtrl.SetPath();
+        // JSON 完整目錄
+        fullPath = jsonCtrl.SetAllPath(path, "/ProductDate.json");
     }
 
     void Start () {
+        /*
         string str = "";
         foreach (ushort i in productPriceRandom.GetArray_ProductPrice()) {
             str = str + ", " + i;
         }
         Debug.Log(productPriceRandom.GetArray_ProductPrice().Count);
         Debug.Log(str);
+        */
+    }
+
+    public void DoSomeThing() {
+        CabinetGroup = GameObject.FindWithTag("CabinetGroup").transform;
+        /* ProductPriceRandom */
+        // 建立 array (商品價格、暫存)
+        priceRandom.CreateArray();
+        // 建立所有商品價格資料
+        priceRandom.SetAllData();
+        // 隨機產生商品價格
+        priceRandom.GeneratorProductPrice();
+        // 將隨機產生的商品價格，從 Temp array 放入 ProductPrice array
+        priceRandom.PutRandomIntoArray();
 
         /* ProductDataJSON */
         // 設定並建立 JSON 路徑
-        productDataJSON.SetJSONPath();
+        //jsonCtrl.CreateDirectory(path);
         // 刪除 Json 檔
-        jsonCtrl.DeleteFile(productDataJSON.FullPath);
+        jsonCtrl.DeleteFile(fullPath);
         // 產生測試用的商品名稱、ID 資料
-        productDataJSON.GeneratorProductNameData();
+        json = dataJSON.GeneratorProductNameData();
         // 將資料寫入 Json 檔
-        jsonCtrl.OutputJsonFile(productDataJSON.json, productDataJSON.FullPath);
+        jsonCtrl.OutputJsonFile(json, fullPath);
 
         /* ProductPriceRandom */
         // 清空 array(商品價格、暫存)
-        productPriceRandom.ClearArray();
+        priceRandom.ClearArray();
 
         /* ProductRandomPosition */
-        productRandomPosition.SetProductJSON_Path();
+        randomPosition.SetProductJSON_Path(json);
         // 設定所有商品貨價的數量、位置、角度
-        productRandomPosition.SetAllCabinetPosition();
+        randomPosition.SetAllCabinetPosition();
+    }
 
-        /* Clear */
-        randomCtrl = null;
-        jsonCtrl = null;
-        productPriceRandom = null;
-        productDataJSON = null;
-        productRandomPosition = null;
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
+    public void Deleted() {
+        Destroy(CabinetGroup.gameObject);
+        GameObject obj = new GameObject();
+        obj.name = "CabinetGroup";
+        obj.tag = "CabinetGroup";
     }
 
     void OnDestroy() {
+        /* Clear */
+        randomCtrl = null;
+        jsonCtrl = null;
+        priceRandom = null;
+        dataJSON = null;
+        randomPosition = null;
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+
         if (instance == this)
             instance = null;
     }

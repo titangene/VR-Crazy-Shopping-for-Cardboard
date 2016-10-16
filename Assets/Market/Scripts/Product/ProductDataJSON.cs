@@ -1,34 +1,14 @@
-﻿using UnityEngine;
-using LitJson;
+﻿using LitJson;
 using System.Collections;
 
 public class ProductDataJSON {
-    /// <summary>
-    /// 完整目錄
-    /// </summary>
-    public string FullPath { private set; get; }
-    public JsonData json { private set; get; }
-
+    private JsonData json;
     ushort ProductId = 1;
-
-    /// <summary>
-    /// 設定並建立 JSON 路徑
-    /// </summary>
-    public void SetJSONPath() {
-        // 目錄
-        string path = Application.dataPath + "/Test/JSON/";
-        // 設定 Output 的檔案位置
-        // D:\YourProject\Assets\Test\JSON\ProductDate.json
-        FullPath = path + "ProductDate.json";
-
-        // 建立目錄
-        ProductManager.Instance.jsonCtrl.CreateDirectory(path);
-    }
 
     /// <summary>
     /// 產生測試用的商品名稱、ID 資料
     /// </summary>
-    public void GeneratorProductNameData() {
+    public JsonData GeneratorProductNameData() {
         // 新建 JsonData
         json = new JsonData();
         // 寫入商品資訊
@@ -36,9 +16,7 @@ public class ProductDataJSON {
         json["product"].SetJsonType(JsonType.Array);
 
         // 取得商品價格 array
-        ArrayList ProductPrice = ProductManager.Instance.productPriceRandom.GetArray_ProductPrice();
-        // 產生新的亂數 value
-        //RandomController.GeneratorRandom();
+        ArrayList ProductPrice = ProductManager.Instance.priceRandom.GetArray_ProductPrice();
 
         for (ushort i = 0; i < ProductManager.Instance.ProductNum; i++) {
             json["product"].Add(new JsonData());
@@ -51,5 +29,8 @@ public class ProductDataJSON {
 
             ProductId++;
         }
+
+        ProductId = 1;
+        return json;
     }
 }

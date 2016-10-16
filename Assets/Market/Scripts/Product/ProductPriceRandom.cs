@@ -15,20 +15,6 @@ public class ProductPriceRandom {
     // 暫存 array
     private ArrayList Temp;
 
-    /*
-    void Start() {
-        string str = "";
-        foreach (ushort i in ProductPrice) {
-            str = i + ", " + str;
-        }
-        Debug.Log(ProductPrice.Count);
-        Debug.Log(str);
-
-        // 清空 array(商品價格、暫存)
-        ClearArray();
-    }
-    */
-
     /// <summary>
     /// 建立 array (商品價格、暫存)
     /// </summary>

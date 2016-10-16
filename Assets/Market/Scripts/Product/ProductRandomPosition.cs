@@ -66,11 +66,7 @@ public class ProductRandomPosition {
     /// <summary>
     /// 暫存 array
     /// </summary>
-    private System.Collections.ArrayList Temp = new System.Collections.ArrayList();
-    /// <summary>
-    /// Log 訊息 的完整目錄
-    /// </summary>
-    private string FullPath;
+    private System.Collections.ArrayList Temp;
     /// <summary>
     /// 商品資訊 (JSON)
     /// </summary>
@@ -84,21 +80,17 @@ public class ProductRandomPosition {
     /// </summary>
     private ushort ProRandomID;
 
-    public void SetProductJSON_Path() {
-        // 目錄
-        string Path = Application.dataPath + "/Test/JSON/";
-        // 設定 DebugOutput 的檔案位置
-        // D:\YourProject\Assets\DebugLog\ProductDate.json
-        FullPath = Path + "ProductDate.json";
-
+    public void SetProductJSON_Path(LitJson.JsonData Json) {
         // 讀取 Json 檔
-        json = ProductManager.Instance.jsonCtrl.ReadJson_LoadJsonFile(FullPath);
+        json = Json;
     }
 
     /// <summary>
     /// 設定所有商品貨價的數量、位置、角度
     /// </summary>
     public void SetAllCabinetPosition() {
+        Temp = new System.Collections.ArrayList();
+
         // 建立第 1 列商品貨價
         SetCabinetPosition(1, -1 * TwoRow_D - TwoArea_D, First_Z, 180);
         SetCabinetPosition(1, 0f, First_Z, 180);
@@ -121,6 +113,8 @@ public class ProductRandomPosition {
 
         // 清空 array (暫存)
         Temp.Clear();
+        CabinetID = 0;
+        ProductID = 1;
     }
 
     /// <summary>
