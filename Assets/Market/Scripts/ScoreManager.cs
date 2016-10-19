@@ -2,13 +2,11 @@
 using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour {
-
-    public Text ScoreText;
     /// <summary>
     /// 商品 Tag
     /// </summary>
-    public string ProductTag = "Product";
-
+    private string ProductTag = "Product";
+    private Text ScoreText;
     private int score = 0;
 
     void Awake() {
@@ -37,7 +35,7 @@ public class ScoreManager : MonoBehaviour {
             int productID = int.Parse(other.name.Substring(7, 4));
             int json_ID = productID - 1;
             int Price = int.Parse(ProductManager.Instance.json["product"][json_ID]["price"].ToString());
-            Debug.Log("IN：" + productID + "：" + Price);
+            Debug.Log("OUT：" + productID + "：" + Price);
             score -= Price;
             ScoreText.text = "$" + score.ToString();
         }

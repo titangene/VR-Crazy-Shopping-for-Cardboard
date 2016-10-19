@@ -96,6 +96,8 @@ public class ProductManager : MonoBehaviour {
         Debug.Log(productPriceRandom.GetArray_ProductPrice().Count);
         Debug.Log(str);
         */
+
+        Create_Cabinet_Product();
     }
 
     public void CreateAllScript() {

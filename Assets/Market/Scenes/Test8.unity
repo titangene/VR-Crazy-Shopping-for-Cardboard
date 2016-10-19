@@ -134,11 +134,6 @@ Prefab:
       propertyPath: Cart_Collider
       value: 
       objectReference: {fileID: 712511118}
-    - target: {fileID: 224000011841154382, guid: 40fd7e9f31753d441821b2c50381aff9,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.17
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40fd7e9f31753d441821b2c50381aff9, type: 2}
   m_IsPrefabParent: 0
@@ -2060,11 +2055,6 @@ Prefab:
     - target: {fileID: 4000011256245870, guid: 955902c5707cb9343878f6a168157849, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013656617102, guid: 955902c5707cb9343878f6a168157849,
-        type: 2}
-      propertyPath: Range
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 955902c5707cb9343878f6a168157849, type: 2}
