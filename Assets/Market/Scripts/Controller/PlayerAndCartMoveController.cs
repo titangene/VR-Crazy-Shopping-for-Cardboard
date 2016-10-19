@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 
 public class PlayerAndCartMoveController : MonoBehaviour {
-    public GameObject Range;
     /// <summary>
     /// 購物車與人物角色的距離
     /// </summary>
-    public float Cart_Player = 0.87f;
+    public float Cart_Player = 1f;
     /// <summary>
     /// 向前移動速度
     /// </summary>
@@ -41,6 +40,7 @@ public class PlayerAndCartMoveController : MonoBehaviour {
     private Transform InCartProductObj;
     private GameObject OnGroundProduct;
     private Collider Basket_Collider;
+    private GameObject Range;
 
     private bool DebugLogPrint = true;
 
@@ -56,6 +56,7 @@ public class PlayerAndCartMoveController : MonoBehaviour {
         Basket_Collider = GameObject.FindWithTag("Basket").GetComponent<Collider>();
         InCartProductObj = GameObject.FindWithTag("InCartProduct").transform;
         OnGroundProduct = GameObject.FindWithTag("OnGroundProduct");
+        Range = GameObject.FindWithTag("Range");
 
         // Gvr 按鈕事件
         GCvrTrigger.OnLongClick += GCvrLongClick;
