@@ -18,7 +18,7 @@ public class ProductDataJSON {
         // 取得商品價格 array
         ArrayList ProductPrice = ProductManager.Instance.priceRandom.GetArray_ProductPrice();
 
-        for (ushort i = 0; i < ProductManager.Instance.ProductNum; i++) {
+        for (ushort i = 0; i < ProductManager.Instance.productNum; i++) {
             json["product"].Add(new JsonData());
             json["product"][i]["id"] = ProductId;
             // PadLeft(補足的長度, '要補的內容')

@@ -127,10 +127,10 @@ public class ProductPriceRandom {
     /// <param name="maxCount">該價格區間隨機產生的最大數量</param>
     public void RandomRange(ushort min, ushort max, ushort minCount, ushort maxCount) {
         ProductManager.Instance.randomCtrl.GeneratorRandom();
-        ushort minRangePercent = (ushort) (minCount * ProductManager.Instance.ProductNum / 100 * 1.3);
-        ushort maxRangePercent = (ushort) ((maxCount + 1) * ProductManager.Instance.ProductNum / 100);
+        ushort minRangePercent = (ushort) (minCount * ProductManager.Instance.productNum / 100 * 1.3);
+        ushort maxRangePercent = (ushort) ((maxCount + 1) * ProductManager.Instance.productNum / 100);
 
-        if (min > ProductManager.Instance.HighScore) {
+        if (min > ProductManager.Instance.highScore) {
             minRangePercent = minCount;
             maxRangePercent = maxCount;
         }
@@ -140,7 +140,7 @@ public class ProductPriceRandom {
         // 將隨機產生的某價格區間商品價格 放入 Temp array
         RandomCount(min, max, range);
 
-        if (max > ProductManager.Instance.HighScore) {
+        if (max > ProductManager.Instance.highScore) {
             //Debug.Log(min + " ~ " + max + ":" + range);
         }
         //Debug.Log(min + " ~ " + max + ":" + range);
