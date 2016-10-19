@@ -5,21 +5,22 @@ public class ProductManager : MonoBehaviour {
     /// <summary>
     /// 商品數量
     /// </summary>
-    public ushort ProductNum = 378;
+    public ushort productNum = 270;
     /// <summary>
     /// 限制高價值商品數量
     /// </summary>
-    public ushort HighScore = 8000;
+    public ushort highScore = 8000;
     /// <summary>
     /// 商品貨架群組物件
     /// </summary>
-    public Transform CabinetGroup;
+    public Transform cabinetGroup;
 
     public RandomController randomCtrl;
     public JSONController jsonCtrl;
     public ProductPriceRandom priceRandom;
     private ProductDataJSON dataJSON;
-    private ProductRandomPosition randomPosition;
+    public ProductRandomPosition randomPosition;
+    public RangePosition rangePosition;
 
     /// <summary>
     /// JSON 目錄
@@ -70,13 +71,15 @@ public class ProductManager : MonoBehaviour {
             UnityEngine.Object.DestroyImmediate(this);
             return;
         }
-        CabinetGroup = GameObject.FindWithTag("CabinetGroup").transform;
+        // 商品貨架群組物件
+        cabinetGroup = GameObject.FindWithTag("CabinetGroup").transform;
 
         randomCtrl = new RandomController();
         jsonCtrl = new JSONController();
         priceRandom = new ProductPriceRandom();
         dataJSON = new ProductDataJSON();
         randomPosition = new ProductRandomPosition();
+        rangePosition = new RangePosition();
 
         // JSON 目錄
         path = jsonCtrl.SetPath();
@@ -84,7 +87,7 @@ public class ProductManager : MonoBehaviour {
         fullPath = jsonCtrl.SetAllPath(path, "/ProductDate.json");
     }
 
-    void Start () {
+    void Start() {
         /*
         string str = "";
         foreach (ushort i in productPriceRandom.GetArray_ProductPrice()) {
@@ -95,8 +98,21 @@ public class ProductManager : MonoBehaviour {
         */
     }
 
-    public void DoSomeThing() {
-        CabinetGroup = GameObject.FindWithTag("CabinetGroup").transform;
+    public void CreateAllScript() {
+        randomCtrl = new RandomController();
+        jsonCtrl = new JSONController();
+        priceRandom = new ProductPriceRandom();
+        dataJSON = new ProductDataJSON();
+        randomPosition = new ProductRandomPosition();
+        rangePosition = new RangePosition();
+
+        Debug.Log("ProductManager：CreateAllScript");
+    }
+
+    public void Create_Cabinet_Product() {
+        // 商品貨架群組物件
+        cabinetGroup = GameObject.FindWithTag("CabinetGroup").transform;
+
         /* ProductPriceRandom */
         // 建立 array (商品價格、暫存)
         priceRandom.CreateArray();
@@ -125,13 +141,38 @@ public class ProductManager : MonoBehaviour {
         randomPosition.SetProductJSON_Path(json);
         // 設定所有商品貨價的數量、位置、角度
         randomPosition.SetAllCabinetPosition();
+
+        /* RangePosition */
+        // 自動產生 Cabinet Range
+        rangePosition.SetCreate();
+
+        Debug.Log("ProductManager：Create_Cabinet_Product");
     }
 
     public void Deleted() {
-        Destroy(CabinetGroup.gameObject);
+        Destroy(cabinetGroup.gameObject);
         GameObject obj = new GameObject();
         obj.name = "CabinetGroup";
         obj.tag = "CabinetGroup";
+
+        /* RangePosition */
+        // 摧毀所有 Range 物件
+        rangePosition.Destroy();
+
+        Debug.Log("ProductManager：Deleted All Cabinet and Range");
+    }
+
+    public void DestoryAll() {
+        /* Clear */
+        randomCtrl = null;
+        jsonCtrl = null;
+        priceRandom = null;
+        dataJSON = null;
+        randomPosition = null;
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+
+        Debug.Log("ProductManager：DestoryAll");
     }
 
     void OnDestroy() {
