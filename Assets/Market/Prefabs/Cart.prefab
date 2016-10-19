@@ -585,8 +585,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012253856166}
   - 64: {fileID: 64000012955666896}
+  - 114: {fileID: 114000010023740504}
   m_Layer: 0
-  m_Name: Basket_Mesh Collider
+  m_Name: Basket_Mesh Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -698,6 +699,22 @@ GameObject:
   - 4: {fileID: 4000013078046984}
   m_Layer: 0
   m_Name: Wheel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000014143124898
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000013389266374}
+  - 64: {fileID: 64000010592505572}
+  m_Layer: 0
+  m_Name: Basket_Mesh Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -955,7 +972,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013170063110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.87}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1053,12 +1070,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013486838564}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 4000013439293534}
+  m_Father: {fileID: 4000013389266374}
   m_RootOrder: 0
 --- !u!4 &4000012618612716
 Transform:
@@ -1194,6 +1211,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000014248329738}
   m_RootOrder: 3
+--- !u!4 &4000013389266374
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014143124898}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 4000012253856166}
+  m_Father: {fileID: 4000013439293534}
+  m_RootOrder: 0
 --- !u!4 &4000013439293534
 Transform:
   m_ObjectHideFlags: 1
@@ -1205,7 +1236,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 4000012253856166}
+  - {fileID: 4000013389266374}
   - {fileID: 4000014248329738}
   m_Father: {fileID: 4000011256245870}
   m_RootOrder: 0
@@ -1713,6 +1744,18 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300010, guid: c870af685458e9f4fbabad1e87dd2b82, type: 3}
+--- !u!64 &64000010592505572
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014143124898}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300004, guid: c870af685458e9f4fbabad1e87dd2b82, type: 3}
 --- !u!64 &64000011719397898
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -1732,10 +1775,10 @@ MeshCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013486838564}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300004, guid: c870af685458e9f4fbabad1e87dd2b82, type: 3}
 --- !u!65 &65000010522410268
 BoxCollider:
@@ -2061,6 +2104,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114000010023740504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013486838564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53ffaef0d12eb8b4581eb2904f59fb18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScoreText: {fileID: 0}
+  ProductTag: Product
 --- !u!114 &114000010424024216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2150,7 +2206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Range: {fileID: 0}
-  Cart_Player: 0.87
+  Cart_Player: 1
   speed: 5.5
   LayerName_InCartProduct: InCartProduct
   IsMovingForward: 0

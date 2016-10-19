@@ -36,8 +36,8 @@ public class TriggerClickDemo : MonoBehaviour {
         Debug.Log("玩家與目標物件的距離：" + GCvrGaze.GetTargetObj_Player_Distance());
         Debug.Log("是否超過範圍：" + GCvrGaze.IsOverRange());
         */
-        Debug.Log("目標物件名稱：" + GCvrGaze.GetObjName(GCvrGaze.CurrentObj_Range()));
-        Debug.Log("玩家與目標物件的距離：" + GCvrGaze.GetTargetObj_Player_Distance());
+        //Debug.Log("目標物件名稱：" + GCvrGaze.GetObjName(GCvrGaze.CurrentObj_Range()));
+        //Debug.Log("玩家與目標物件的距離：" + GCvrGaze.GetTargetObj_Player_Distance());
         // TODO 按下按鍵事件
     }
 
