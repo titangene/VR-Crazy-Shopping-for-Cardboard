@@ -73,6 +73,12 @@ public class JSONController {
         return sbJson.ToString();
     }
 
+    public JsonData ReadJson2(string fullPath) {
+        var loadedBytes = File.ReadAllBytes(fullPath);
+        string str = Encoding.UTF8.GetString(loadedBytes);
+        return JsonMapper.ToObject(str);
+    }
+
     /// <summary>
     /// 刪除 Json 檔
     /// </summary>
