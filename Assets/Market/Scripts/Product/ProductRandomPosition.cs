@@ -222,7 +222,8 @@ public class ProductRandomPosition {
         // JSON 編號
         int json_ID = proRandomID - 1;
         // 設定商品價格：$xxxx
-        string Price = proRandomID + "$" + json["product"][json_ID]["price"].ToString();
+        //string Price = proRandomID + "$" + json["product"][json_ID]["price"].ToString();
+        string Price = "$" + json["product"][json_ID]["price"].ToString();
         childPriceText.text = Price;
     }
 

@@ -619,8 +619,8 @@ GameObject:
   - 64: {fileID: 64000012955666896}
   - 114: {fileID: 114000010654052458}
   m_Layer: 0
-  m_Name: Basket_Mesh Trigger
-  m_TagString: Untagged
+  m_Name: Basket_Mesh_Trigger
+  m_TagString: Basket_Mesh_Trigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -746,7 +746,7 @@ GameObject:
   - 4: {fileID: 4000013389266374}
   - 64: {fileID: 64000010592505572}
   m_Layer: 0
-  m_Name: Basket_Mesh Collider
+  m_Name: Basket_Mesh_Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
