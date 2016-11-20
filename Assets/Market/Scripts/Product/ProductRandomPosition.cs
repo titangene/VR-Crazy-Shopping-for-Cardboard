@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ProductRandomPosition {
@@ -42,7 +43,7 @@ public class ProductRandomPosition {
     /// <summary>
     /// 載入 CabinetGroup.prefab
     /// </summary>
-    private GameObject cabinetPrefab;
+    private UnityEngine.Object cabinetPrefab;
     /// <summary>
     /// Instantiate 化商品貨架物件
     /// </summary>
@@ -80,6 +81,15 @@ public class ProductRandomPosition {
     /// </summary>
     private int proRandomID;
 
+    /// <summary>
+    /// 存放 預製商品 之 List
+    /// </summary>
+    private List<GameObject> ProPrefabList;
+    /// <summary>
+    /// 預製商品數量
+    /// </summary>
+    private int ProPrefabCount = 3;
+
     public void SetProductJSON_Path(LitJson.JsonData Json) {
         // 讀取 Json 檔
         json = Json;
@@ -90,6 +100,22 @@ public class ProductRandomPosition {
     /// </summary>
     public void SetAllCabinetPosition() {
         temp = new System.Collections.ArrayList();
+
+        // 載入 CabinetGroup.prefab
+        cabinetPrefab = Resources.Load("Cabinet");
+
+        ProPrefabList = new List<GameObject>();
+        string ProPrefabName;
+        GameObject ProPrefabTmp;
+        // 載入所有 PrefabNamexxxx.prefab 放入 List
+        for (int num = 1; num <= ProPrefabCount; num++) {
+            ProPrefabName = "Product/ProductObj" + num.ToString().PadLeft(4, '0');
+            ProPrefabTmp = Resources.Load(ProPrefabName, typeof(GameObject)) as GameObject;
+            ProPrefabList.Add(ProPrefabTmp);
+        }
+
+        ProPrefabName = null;
+        ProPrefabTmp = null;
 
         // 建立第 1 列商品貨價
         SetCabinetPosition(1, -1 * twoRow_D - twoArea_D, first_Z, 180);
@@ -113,6 +139,11 @@ public class ProductRandomPosition {
 
         // 清空 array (暫存)
         temp.Clear();
+
+        cabinetPrefab = null;
+        ProPrefabList.Clear();
+        Resources.UnloadAsset(cabinetPrefab);
+        Resources.UnloadUnusedAssets();
         cabinetID = 0;
         productID = 1;
     }
@@ -141,8 +172,6 @@ public class ProductRandomPosition {
     /// Instantiate 化商品貨架物件
     /// </summary>
     public void InstantiateProduct() {
-        // 載入 CabinetGroup.prefab
-        cabinetPrefab = Resources.Load("Cabinet", typeof(GameObject)) as GameObject;
         // Instantiate 化商品貨架物件
         cabinet = UnityEngine.Object.Instantiate(cabinetPrefab, v_position, v_rotation) as GameObject;
         // 將商品貨架放入商品貨架群組內內
@@ -174,30 +203,27 @@ public class ProductRandomPosition {
             if (child.CompareTag("Pro_Price") || child.CompareTag("Pro_Name") ||
                 child.CompareTag("Pro_Position")) {
                 productID = CabinetProID + (productCount * (cabinetID - 1));
-            }
 
-            if (child.CompareTag("Pro_Price")) {
-                // 隨機將 ProductDate.json 之商品價格放入
-                RandomProductPriceJson(child);
-                child.name = "Pro_Price" + proRandomID.ToString().PadLeft(4, '0');
-            }
+                if (child.CompareTag("Pro_Price")) {
+                    // 隨機將 ProductDate.json 之商品價格放入
+                    RandomProductPriceJson(child);
+                    child.name = "Pro_Price" + proRandomID.ToString().PadLeft(4, '0');
 
-            if (child.CompareTag("Pro_Name")) {
-                child.name = "Pro_Name" + temp[productID - 1].ToString().PadLeft(4, '0');
-                // 產生隨機商品名稱 (目前已商品編號亂數，不重複編號)
-                RandomProductName(child);
-            }
+                } else if (child.CompareTag("Pro_Name")) {
+                    child.name = "Pro_Name" + temp[productID - 1].ToString().PadLeft(4, '0');
+                    // 產生隨機商品名稱 (目前已商品編號亂數，不重複編號)
+                    RandomProductName(child);
 
-            if (child.name.Contains("Pro_Position")) {
-                child.name = "Pro_Position" + temp[productID - 1].ToString().PadLeft(4, '0');
-                // 隨機放入預製商品模型並套用隨機顏色
-                RandomProductModelAndColor(child);
-            }
+                } else if (child.CompareTag("Pro_Position")) {
+                    child.name = "Pro_Position" + temp[productID - 1].ToString().PadLeft(4, '0');
+                    // 隨機放入預製商品模型並套用隨機顏色
+                    RandomProductModelAndColor(child);
+                }
 
-            if (child.CompareTag("Pro_Price") || child.CompareTag("Pro_Name") ||
-                child.CompareTag("Pro_Position")) {
                 CabinetProID++;
-            }
+
+            } else
+                continue;
 
             if (CabinetProID > productCount)
                 CabinetProID = 1;
@@ -241,14 +267,12 @@ public class ProductRandomPosition {
     /// </summary>
     private void RandomProductModelAndColor(Transform child) {
         // 預製商品總數會隨機產生其編號
-        int num = ProductManager.Instance.randomCtrl.random.Next(1, 4);
-        // 利用隨機編號找出對應的預製商品名稱
-        string PrefabName = "Product/ProductObj" + num.ToString().PadLeft(4, '0');
-
+        int num = ProductManager.Instance.randomCtrl.random.Next(0, ProPrefabCount);
         // 載入 PrefabNamexxxx.prefab
-        GameObject ProPrefab = Resources.Load(PrefabName, typeof(GameObject)) as GameObject;
+        GameObject ProPrefab = ProPrefabList[num];
         // Instantiate 化商品物件
         GameObject Product = UnityEngine.Object.Instantiate(ProPrefab) as GameObject;
+
         // 產生隨機顏色
         Color newColor = RandomColor();
         // 套用隨機顏色至商品物件

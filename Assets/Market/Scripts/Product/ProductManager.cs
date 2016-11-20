@@ -100,6 +100,12 @@ public class ProductManager : MonoBehaviour {
         Create_Cabinet_Product();
     }
 
+    void Update() {
+        if (Time.frameCount % 50 == 0) {
+            GC.Collect();
+        }
+    }
+
     public void CreateAllScript() {
         randomCtrl = new RandomController();
         jsonCtrl = new JSONController();
