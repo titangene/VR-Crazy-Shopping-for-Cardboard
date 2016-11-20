@@ -87,14 +87,21 @@ public class GCvrGaze : MonoBehaviour {
         cam = GetComponent<Camera>();
     }
 
-    void LateUpdate() {
+    void Start() {
+        InvokeRepeating("CreateGaze", 0, 0.2f);
+    }
+
+    void FixedUpdate() {
+        // 畫出射線，可以知道射線的位置與方向
+        Debug.DrawRay(transform.position, transform.forward * DistanceRange);
+    }
+
+    private void CreateGaze() {
         // 物理射線 (射線參數, 射線碰撞參數, 射線距離)
         // 無範圍限制：準心是否對準物件
         hitResult_Infinity = Physics.Raycast(Ray(), out hit_Infinity, cam.farClipPlane, mask);
         // 有範圍限制：準心是否對準物件
         hitResult_Range = Physics.Raycast(Ray(), out hit_Range, DistanceRange, mask);
-        // 畫出射線，可以知道射線的位置與方向
-        Debug.DrawRay(transform.position, transform.forward * DistanceRange);
 
         CheckGaze();
 
@@ -162,12 +169,9 @@ public class GCvrGaze : MonoBehaviour {
             // 畢氏定理 distance = sqrt(X^2 + Y^2 + Z^2)
             Vector3 TargetObjPosition = currentObj_Infinity.transform.position;
             Vector3 PlayerPosition = transform.position;
+            Vector3 Dis = TargetObjPosition - PlayerPosition;
 
-            float disX = Mathf.Pow(TargetObjPosition.x - PlayerPosition.x, 2);
-            float disY = Mathf.Pow(TargetObjPosition.y - PlayerPosition.y, 2);
-            float disZ = Mathf.Pow(TargetObjPosition.z - PlayerPosition.z, 2);
-
-            TargetObj_Player_Distance = Mathf.Sqrt(disX + disY + disZ);
+            TargetObj_Player_Distance = Mathf.Sqrt(Dis.sqrMagnitude);
         }
     }
 
@@ -264,7 +268,7 @@ public class GCvrGaze : MonoBehaviour {
     /// 有範圍限制：取得目前準心對準物件的碰撞位置
     /// </summary>
     public Vector3 IntersectPosition_Range() {
-        return IsHitResult_Range() ? 
+        return IsHitResult_Range() ?
             transform.position + transform.forward * hit_Range.distance : Vector3.zero;
     }
 
@@ -324,5 +328,11 @@ public class GCvrGaze : MonoBehaviour {
     /// </summary>
     public bool IsOverRange() {
         return TargetObj_Player_Distance > DistanceRange ? true : false;
+    }
+
+    void OnDestroy() {
+        // 取消 CreateGaze method 重複執行
+        if (IsInvoking("CreateGaze"))
+            CancelInvoke("CreateGaze");
     }
 }
