@@ -39,9 +39,10 @@ public class FieldOfView : MonoBehaviour {
 
             foreach (Collider Targets in targetsInViewRadius) {
                 Transform target = Targets.transform;
-                Vector3 dirToTarget = (target.position - Head.position).normalized;
+                Vector3 Dis = target.position - Head.position;
+                Vector3 dirToTarget = Dis.normalized;
                 if (Vector3.Angle(Head.forward, dirToTarget) < viewAngle / 2) {
-                    float dstToTarget = Vector3.Distance(Head.position, target.position);
+                    float dstToTarget = Mathf.Sqrt(Dis.sqrMagnitude);
 
                     if (!Physics.Raycast(Head.position, dirToTarget, dstToTarget, obstacleMask)) {
                         visibleTargets.Add(target);
