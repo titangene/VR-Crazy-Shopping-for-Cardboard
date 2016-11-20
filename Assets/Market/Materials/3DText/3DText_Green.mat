@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: 3DText_Orange
+  m_Name: 3DText_Green
   m_Shader: {fileID: 4800000, guid: 965d72e2fb79a904e88d9dc3f9aad0a8, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
@@ -121,7 +121,7 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 1, g: 0.7241379, b: 0, a: 1}
+      second: {r: 0, g: 1, b: 0.6068964, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
