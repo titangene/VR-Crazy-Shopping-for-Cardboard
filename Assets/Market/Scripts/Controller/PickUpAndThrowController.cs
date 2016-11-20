@@ -73,7 +73,7 @@ public class PickUpAndThrowController : MonoBehaviour {
     }
 
     public static void Create() {
-        if (instance == null && UnityEngine.Object.FindObjectOfType<PickUpAndThrowController>() == null) {
+        if (instance == null && FindObjectOfType<PickUpAndThrowController>() == null) {
             Debug.Log("Creating PickUpAndThrowController object");
             var go = new GameObject("PickUpAndThrowController", typeof(PickUpAndThrowController));
             go.transform.localPosition = Vector3.zero;
@@ -86,7 +86,7 @@ public class PickUpAndThrowController : MonoBehaviour {
             instance = this;
         if (instance != this) {
             Debug.LogError("There must be only one PickUpAndThrowController object in a scene.");
-            UnityEngine.Object.DestroyImmediate(this);
+            DestroyImmediate(this);
             return;
         }
     }
@@ -112,18 +112,21 @@ public class PickUpAndThrowController : MonoBehaviour {
     private void GCvrClick(object sender) {
         // 商品與人物角色的距離超過設定範圍
         if (GCvrGaze.CurrentObj_Infinity() &&
-            GCvrGaze.GetObjName(GCvrGaze.CurrentObj_Infinity()).Contains("Pro_Obj"))
+            GCvrGaze.GetObjName(GCvrGaze.CurrentObj_Infinity()).Contains("Pro_Obj")) {
             if (GCvrGaze.IsOverRange()) {
                 Debug.Log("商品超過可拿取範圍");
 
                 // 重設 顯示 商品超過可拿取範圍 訊息次數
                 printOutRangeCount = 0;
                 // 取消 PrintOutRange method 重複執行
-                CancelInvoke("PrintOutRange");
+                if (IsInvoking("PrintOutRange"))
+                    CancelInvoke("PrintOutRange");
+
                 // 開始重複執行 PrintOutRange method
                 // InvokeRepeating(method name, start repeat time, repeat rate)
                 InvokeRepeating("PrintOutRange", 0, 0.9f);
             }
+        }
     }
 
     private void PrintOutRange() {
@@ -152,6 +155,9 @@ public class PickUpAndThrowController : MonoBehaviour {
             Canvas_OutRange.SetActive(false);
             // 重設 顯示 商品超過可拿取範圍 訊息次數 = 0
             printOutRangeCount = 0;
+            // 取消 PrintOutRange method 重複執行
+            if (IsInvoking("PrintOutRange"))
+                CancelInvoke("PrintOutRange");
 
             // 按第一次 Gvr 按鈕：拿取商品
             if (!CanSecondClick) {
@@ -178,7 +184,8 @@ public class PickUpAndThrowController : MonoBehaviour {
                 // 將 是否拿取商品 狀態改成 false
                 //PickingUp = false;
                 // 取消 PickUpProduct method 重複執行
-                CancelInvoke("PickUpProduct");
+                if (IsInvoking("PickUpProduct"))
+                    CancelInvoke("PickUpProduct");
 
                 // 將 是否能按第二次 Gvr 按鈕 狀態改成 false
                 CanSecondClick = false;
@@ -213,6 +220,13 @@ public class PickUpAndThrowController : MonoBehaviour {
     }
 
     void OnDestroy() {
+        // 取消 PickUpProduct method 重複執行
+        if (IsInvoking("PickUpProduct"))
+            CancelInvoke("PickUpProduct");
+        // 取消 PrintOutRange method 重複執行
+        if (IsInvoking("PrintOutRange"))
+            CancelInvoke("PrintOutRange");
+
         // Gvr 按鈕事件
         GCvrTrigger.OnClick -= GCvrClick;
 

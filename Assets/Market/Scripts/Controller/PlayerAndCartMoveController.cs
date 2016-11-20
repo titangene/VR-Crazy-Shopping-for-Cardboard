@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class PlayerAndCartMoveController : MonoBehaviour {
+    public GvrViewer GvrViewerMain;
     /// <summary>
     /// 購物車與人物角色的距離
     /// </summary>
@@ -44,7 +45,7 @@ public class PlayerAndCartMoveController : MonoBehaviour {
 
     private bool DebugLogPrint = true;
 
-    void Start () {
+    void Start() {
         cam = Camera.main;
         GCvrGaze = cam.GetComponent<GCvrGaze>();
         GCvrTrigger = cam.GetComponent<GCvrTrigger>();
@@ -62,13 +63,10 @@ public class PlayerAndCartMoveController : MonoBehaviour {
         GCvrTrigger.OnLongClick += GCvrLongClick;
     }
 
-	void Update () {
+    void Update() {
         // 向前移動 狀態 = true，玩家和購物車同時向前移動
         if (IsMovingForward) {
-            // 玩家向前移動
-            PlayerMove();
-            // 購物車跟著玩家移動
-            CartMove();
+            Player_Cart_Move();
         }
     }
 
@@ -119,6 +117,16 @@ public class PlayerAndCartMoveController : MonoBehaviour {
     }
 
     /// <summary>
+    /// 玩家 和 購物車 同時向前移動
+    /// </summary>
+    private void Player_Cart_Move() {
+        // 玩家向前移動
+        PlayerMove();
+        // 購物車跟著玩家移動
+        CartMove();
+    }
+
+    /// <summary>
     /// 玩家向前移動
     /// </summary>
     private void PlayerMove() {
@@ -141,7 +149,6 @@ public class PlayerAndCartMoveController : MonoBehaviour {
         // 紀錄購物車 Z 座標：z = r * cos(thita)
         float Cart_Z = Cart_Player * Mathf.Cos(theta);
 
-        GvrViewer GvrViewerMain = GvrViewer.Instance;
         // 購物車會跟著玩家的視角移動位置
         Cart.position = new Vector3(Cart_X + GvrViewerMain.transform.position.x, 0f,
                                     Cart_Z + GvrViewerMain.transform.position.z);
